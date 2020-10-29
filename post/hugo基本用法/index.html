@@ -32,7 +32,7 @@
 
 
 <meta property="og:title" content="Hugo基本用法" />
-<meta property="og:description" content="写博文 1、创建md文件并编辑。注意draft: trues时，处于草稿状态时不发布。处于false状态时才发布。 hugo new post/richard.md 3、生成html文件 hugo 4、使用deploy.sh脚本，将public静态页面站点同步" />
+<meta property="og:description" content="hugo本地创建、更新、删除文章后同步到gitpage的基本流程： 前提环境： public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到 注意 写文章后直接sh" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -43,7 +43,7 @@
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
 <meta name="twitter:title" content="Hugo基本用法"/>
-<meta name="twitter:description" content="写博文 1、创建md文件并编辑。注意draft: trues时，处于草稿状态时不发布。处于false状态时才发布。 hugo new post/richard.md 3、生成html文件 hugo 4、使用deploy.sh脚本，将public静态页面站点同步"/>
+<meta name="twitter:description" content="hugo本地创建、更新、删除文章后同步到gitpage的基本流程： 前提环境： public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到 注意 写文章后直接sh"/>
 
 
 
@@ -106,36 +106,37 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;319 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;765 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
     
     <div class="post-content markdown-body">
-        <h2 id="写博文">写博文</h2>
-<p>1、创建md文件并编辑。注意draft: trues时，处于草稿状态时不发布。处于false状态时才发布。</p>
-<pre><code>hugo new post/richard.md
-</code></pre>
-<p>3、生成html文件</p>
-<pre><code>hugo
-</code></pre>
-<p>4、使用deploy.sh脚本，将public静态页面站点同步到git page仓库</p>
-<pre><code>sh deploy_to_git_page.sh
-</code></pre>
-<h2 id="假如还改动了博客页面配置">假如还改动了博客页面配置</h2>
-<p>改动网站源码，如hugo的配置文件 config.toml：
-运行</p>
-<pre><code>sh update.sh
-sh deploy_to_git_page.sh
-</code></pre>
-<p>此脚本功能包括推送更改到hugo代码仓库，更新public下的html，推送至git page。</p>
-<h2 id="更新文章">更新文章</h2>
-<h2 id="删除文章">删除文章</h2>
-<h2 id="其他">其他</h2>
-<ol start="6">
-<li>启动实时预览（本地预览网站效果）
-写一篇文章生成一次会很繁琐，可以通过启动网站预览，实时监控页面的更改并刷新页面。</li>
-</ol>
+        <h2 id="hugo本地创建更新删除文章后同步到gitpage的基本流程">hugo本地创建、更新、删除文章后同步到gitpage的基本流程：</h2>
+<h2 id="前提环境">前提环境：</h2>
+<p>public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到
+注意 写文章后直接sh deploy.sh，不用单独运行hugo相关任何命令</p>
+<p>结论，改动blog仓库之前，确保public子仓库所有改动已提交 已push
+问题： 如果仓库有子模块，任何情况下都先确保子模块commit和push以后，才可以同步父仓库？否则子模块就失效？</p>
+<h2 id="1写文章">1、写文章</h2>
+<p>在blog项目根目录下执行 hugo new post/test.md 创建了一个md文件
+vim content/post/test.md 移除 draft: true这一行  否则草稿不会公开为文章</p>
+<h2 id="2发布文章到gitpage">2、发布文章到gitpage</h2>
+<p>blog根目录下执行deploy.sh脚本，成功以后等待约1分钟，gitpage上即可看到更新后的内容</p>
+<h2 id="3修改删除文章">3、修改、删除文章</h2>
+<p>只需要编辑或删除blog/content/post/test.mde文件，然后再次在根目录执行deploy.sh脚本，即可同步到gitpage</p>
+<h2 id="4同步本地blog仓库文件到github">4、同步本地blog仓库文件到github</h2>
+<p>任何本地blog根目录的文件，包括content/post下的md文件，或者config.toml配置文件，更新后都可以执行second-push.sh，远端仓库立即生效。second-push.sh内容为（git add &ndash;all . &amp;&amp; git commit -m &ldquo;update&rdquo; &amp;&amp; git push）</p>
+<h2 id="5其他">5、其他</h2>
+<p>对md文章或config.toml做任何改动以后，首先需要执行deploy.sh。然后如有需求再执行second-push.sh</p>
+<h2 id="其他克隆此仓库">其他：克隆此仓库</h2>
+<p>git clone <a href="mailto:git@github.com">git@github.com</a>:richard-chen93/blog.git</p>
+<h2 id="其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</h2>
+<p>git submodule sync
+git submodule init
+git submodule update</p>
+<h2 id="启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</h2>
+<p>写一篇文章生成一次会很繁琐，可以通过启动网站预览，实时监控页面的更改并刷新页面。</p>
 <p>hugo server -D
 参数： -D 输出包括标记为 draft: true 的草稿文章</p>
 <p>默认地址为 http://localhost:1313 如果 1313 端口被占用，会随机使用其他空端口。</p>
@@ -251,11 +252,16 @@ sh deploy_to_git_page.sh
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#写博文">写博文</a></li>
-    <li><a href="#假如还改动了博客页面配置">假如还改动了博客页面配置</a></li>
-    <li><a href="#更新文章">更新文章</a></li>
-    <li><a href="#删除文章">删除文章</a></li>
-    <li><a href="#其他">其他</a></li>
+    <li><a href="#hugo本地创建更新删除文章后同步到gitpage的基本流程">hugo本地创建、更新、删除文章后同步到gitpage的基本流程：</a></li>
+    <li><a href="#前提环境">前提环境：</a></li>
+    <li><a href="#1写文章">1、写文章</a></li>
+    <li><a href="#2发布文章到gitpage">2、发布文章到gitpage</a></li>
+    <li><a href="#3修改删除文章">3、修改、删除文章</a></li>
+    <li><a href="#4同步本地blog仓库文件到github">4、同步本地blog仓库文件到github</a></li>
+    <li><a href="#5其他">5、其他</a></li>
+    <li><a href="#其他克隆此仓库">其他：克隆此仓库</a></li>
+    <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
+    <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
   </ul>
 </nav>
     </div>
@@ -372,11 +378,16 @@ sh deploy_to_git_page.sh
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#写博文">写博文</a></li>
-    <li><a href="#假如还改动了博客页面配置">假如还改动了博客页面配置</a></li>
-    <li><a href="#更新文章">更新文章</a></li>
-    <li><a href="#删除文章">删除文章</a></li>
-    <li><a href="#其他">其他</a></li>
+    <li><a href="#hugo本地创建更新删除文章后同步到gitpage的基本流程">hugo本地创建、更新、删除文章后同步到gitpage的基本流程：</a></li>
+    <li><a href="#前提环境">前提环境：</a></li>
+    <li><a href="#1写文章">1、写文章</a></li>
+    <li><a href="#2发布文章到gitpage">2、发布文章到gitpage</a></li>
+    <li><a href="#3修改删除文章">3、修改、删除文章</a></li>
+    <li><a href="#4同步本地blog仓库文件到github">4、同步本地blog仓库文件到github</a></li>
+    <li><a href="#5其他">5、其他</a></li>
+    <li><a href="#其他克隆此仓库">其他：克隆此仓库</a></li>
+    <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
+    <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
   </ul>
 </nav>
     </div>
