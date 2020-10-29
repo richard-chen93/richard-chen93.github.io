@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://richard-chen93.github.io/sitemap.xml

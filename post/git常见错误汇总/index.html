@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.76.5" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Git常见错误汇总 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta property="og:title" content="Git常见错误汇总" />
+<meta property="og:description" content="1 无法push A git directory for &lsquo;public&rsquo; is found locally with remote(s): origin https://github.com/richard-chen93/.........git If you want to reuse this local git directory instead of cloning again from https://github.com/richard-chen93/......git use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option. 删除.git\modules 的 public 2 git push时总让输入密码 git push的时候每" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2020-10-27T18:15:05+08:00" />
+<meta property="article:modified_time" content="2020-10-27T18:15:05+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="Git常见错误汇总"/>
+<meta name="twitter:description" content="1 无法push A git directory for &lsquo;public&rsquo; is found locally with remote(s): origin https://github.com/richard-chen93/.........git If you want to reuse this local git directory instead of cloning again from https://github.com/richard-chen93/......git use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option. 删除.git\modules 的 public 2 git push时总让输入密码 git push的时候每"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A personal blog.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;636 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="1-无法push">1 无法push</h2>
+<p>A git directory for &lsquo;public&rsquo; is found locally with remote(s):
+origin        <a href="https://github.com/richard-chen93/.........git">https://github.com/richard-chen93/.........git</a>
+If you want to reuse this local git directory instead of cloning again from
+<a href="https://github.com/richard-chen93/......git">https://github.com/richard-chen93/......git</a>
+use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo
+or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option.</p>
+<p>删除.git\modules 的 public</p>
+<h2 id="2-git-push时总让输入密码">2 git push时总让输入密码</h2>
+<p>git push的时候每次都要输入用户名和密码的问题解决
+换了个ssh key,发现每次git push origin master的时候都要输入用户名和密码
+原因是在添加远程库的时候使用了https的方式。。所以每次都要用https的方式push到远程库
+查看使用的传输协议:
+git remote -v</p>
+<p>git remote rm origin
+git remote add origin <a href="mailto:git@github.com">git@github.com</a>:username/repository.git
+git push -u origin master</p>
+<p>git remote -v</p>
+<h2 id="无法push">无法push</h2>
+<p>git push -u origin master
+error: src refspec master does not match any
+error: failed to push some refs to &lsquo;github.com:richard-chen93/hugo.git&rsquo;</p>
+<p>reset &ndash;hard：重置stage区和工作目录:
+reset &ndash;hard 会在重置 HEAD 和branch的同时，重置stage区和工作目录里的内容。当你在 reset 后面加了 &ndash;hard 参数时，你的stage区和工作目录里的内容会被完全重置为和HEAD的新位置相同的内容。换句话说，就是你的没有commit的修改会被全部擦掉。</p>
+<p>例如你在上次 commit 之后又对文件做了一些改动：把修改后的ganmes.txt文件add到stage区，修改后的shopping list.txt保留在工作目录</p>
+<h2 id="04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</h2>
+<p>fatal: in unpopulated submodule</p>
+<p>删除.git\modules 所有内容  rm -rf
+git rm &ndash;cached public/ -f
+rm -rf public
+git submodule add -b main <a href="mailto:git@github.com">git@github.com</a>:richard-chen93/richard-chen93.github.io.git public</p>
+<h2 id="05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</h2>
+<p>1、新建的仓库，要至少提交一次更改（比如直接在github web页面随便添加一个任何文件，然后点提交。）
+2、删除public文件夹。</p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-无法push">1 无法push</a></li>
+    <li><a href="#2-git-push时总让输入密码">2 git push时总让输入密码</a></li>
+    <li><a href="#无法push">无法push</a></li>
+    <li><a href="#04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</a></li>
+    <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-无法push">1 无法push</a></li>
+    <li><a href="#2-git-push时总让输入密码">2 git push时总让输入密码</a></li>
+    <li><a href="#无法push">无法push</a></li>
+    <li><a href="#04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</a></li>
+    <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2020
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/hugo">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
