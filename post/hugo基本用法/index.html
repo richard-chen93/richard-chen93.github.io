@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;765 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;902 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -140,6 +140,27 @@ git submodule update</p>
 <p>hugo server -D
 参数： -D 输出包括标记为 draft: true 的草稿文章</p>
 <p>默认地址为 http://localhost:1313 如果 1313 端口被占用，会随机使用其他空端口。</p>
+<h2 id="若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</h2>
+<p>1、将blog克隆到本地  git clone <a href="mailto:git@github.com">git@github.com</a>:richard-chen93/blog.git
+2、进入blog根目录，删除public文件夹 rm -rf public
+3、用以下命令设置子模块
+612  git submodule init</p>
+<p>615  git submodule update
+616  git submodule status
+617  git submodule sync
+618  ls public/
+619  sh deploy.sh
+620  cd public/
+621  ls -al
+622  git add .
+623  git commit -m &ldquo;update&rdquo;
+624  git push -u origin main
+625  git add .
+626  git commit -m &ldquo;update&rdquo;
+627  git push
+628   git push origin HEAD:main
+629  git checkout main
+630  git push</p>
 
     </div>
 </article>
@@ -262,6 +283,7 @@ git submodule update</p>
     <li><a href="#其他克隆此仓库">其他：克隆此仓库</a></li>
     <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
+    <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
   </ul>
 </nav>
     </div>
@@ -388,6 +410,7 @@ git submodule update</p>
     <li><a href="#其他克隆此仓库">其他：克隆此仓库</a></li>
     <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
+    <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
   </ul>
 </nav>
     </div>
