@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Oct 2020 17:48:08 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Oct 2020 18:43:21 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ssh</title>
+      <link>https://richard-chen93.github.io/post/ssh/</link>
+      <pubDate>Thu, 29 Oct 2020 18:43:21 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/ssh/</guid>
+      <description>ssh 相关操作 [linux] 更改 ssh 私钥 Passphrase $ cd ~/.ssh $ ssh-keygen -f id_rsa -p</description>
+    </item>
+    
+    <item>
+      <title>Docker Compose使用方法</title>
+      <link>https://richard-chen93.github.io/post/docker-compose%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Thu, 29 Oct 2020 18:40:08 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/docker-compose%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <description>docker-compose使用方法 docker-compose 找不到命令怎么办？ 解决docker-compose 命令不存在、未找到命令错误 1.安装扩展源 sudo yum -y install epel-release 2.安装python-pip模块 sudo yum install python-pip 3.查看docker-</description>
+    </item>
+    
     <item>
       <title>Submodule使用方法</title>
       <link>https://richard-chen93.github.io/post/submodule%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
