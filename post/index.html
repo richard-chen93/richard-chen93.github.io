@@ -107,11 +107,11 @@
         <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;492 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;329 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub
+        yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker：
     </div>
 </div>
 
@@ -120,11 +120,11 @@
         <a href="https://richard-chen93.github.io/post/ssh/">Ssh</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-29</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;20 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-29</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;19 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        ssh 相关操作 [linux] 更改 ssh 私钥 Passphrase $ cd ~/.ssh $ ssh-keygen -f id_rsa -p
+        linux更改 ssh 私钥 Passphrase $ cd ~/.ssh $ ssh-keygen -f id_rsa -p
     </div>
 </div>
 

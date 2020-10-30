@@ -32,7 +32,7 @@
 
 
 <meta property="og:title" content="各种阿里云加速器" />
-<meta property="og:description" content="centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub" />
+<meta property="og:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -43,7 +43,7 @@
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
 <meta name="twitter:title" content="各种阿里云加速器"/>
-<meta name="twitter:description" content="centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub"/>
+<meta name="twitter:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker："/>
 
 
 
@@ -106,59 +106,61 @@
         <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;492 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;329 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
     
     <div class="post-content markdown-body">
-        <p>centos7:</p>
-<p>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="https://mirrors.aliyun.com/repo/Centos-7.repo">https://mirrors.aliyun.com/repo/Centos-7.repo</a></p>
-<p>sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo</p>
-<p>yum makecache</p>
-<p>pip:</p>
-<p>pip config set global.index-url <a href="https://mirrors.aliyun.com/pypi/simple/">https://mirrors.aliyun.com/pypi/simple/</a></p>
-<p>pip install django-bootstrap3==6.2.2 -i <a href="http://mirrors.aliyun.com/pypi/simple">http://mirrors.aliyun.com/pypi/simple</a> &ndash;trusted-host=mirrors.aliyun.com</p>
-<p>Mac:</p>
+        <h1 id="yum">yum</h1>
+<p>centos7:</p>
+<pre><code>wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+
+sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
+
+yum makecache
+</code></pre>
+<h1 id="pip">pip:</h1>
+<pre><code>pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+
+pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com
+</code></pre>
+<h2 id="mac">Mac:</h2>
 <p>修改 pip.conf 文件</p>
-<p>$HOME/Library/Application Support/pip/pip.conf</p>
+<pre><code>vim $HOME/Library/Application Support/pip/pip.conf
+</code></pre>
 <p>如果没有上面的目录,在如下目录创建 pip.conf</p>
 <p>$HOME/.config/pip/pip.conf</p>
 <p>修改内容如下：</p>
-<p>[global]</p>
-<p>index-url = <a href="https://pypi.tuna.tsinghua.edu.cn/simple12">https://pypi.tuna.tsinghua.edu.cn/simple12</a></p>
-<p>Windows:</p>
+<pre><code>[global]
+
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple12
+</code></pre>
+<h2 id="windows">Windows:</h2>
 <p>修改 pip.conf 文件 (没有就创建一个)</p>
 <p>%APPDATA%\pip\pip.ini</p>
 <p>修改内容如下：</p>
-<p>[global]</p>
-<p>index-url = <a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>docker：</p>
-<p>Docker Hub 镜像加速器
-2020-05-25阅读 5900</p>
-<p>一、概述
-国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。Docker 官方和国内很多云服务商都提供了国内加速器服务。</p>
-<p>二、配置加速地址</p>
+<pre><code>[global]
+
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+<h1 id="docker">docker：</h1>
 <p>Ubuntu 16.04+、Debian 8+、CentOS 7+
 创建或修改 /etc/docker/daemon.json：</p>
-<p>sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json &laquo;-&lsquo;EOF&rsquo;
+<pre><code>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
 {
-&ldquo;registry-mirrors&rdquo;: [
-&ldquo;https://1nj0zren.mirror.aliyuncs.com&rdquo;,
-&ldquo;https://docker.mirrors.ustc.edu.cn&rdquo;,
-&ldquo;http://f1361db2.m.daocloud.io&rdquo;,
-&ldquo;https://registry.docker-cn.com&rdquo;
-]
+    &quot;registry-mirrors&quot;: [
+        &quot;https://1nj0zren.mirror.aliyuncs.com&quot;,
+        &quot;https://docker.mirrors.ustc.edu.cn&quot;,
+        &quot;http://f1361db2.m.daocloud.io&quot;,
+        &quot;https://registry.docker-cn.com&quot;
+    ]
 }
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-Docker Hub 镜像加速器列表
-镜像加速器</p>
-<p>镜像加速器地址</p>
-<p>专属加速器？</p>
-<p>其它加速？</p>
+</code></pre>
 <p>Docker 中国官方镜像</p>
 <p><a href="https://registry.docker-cn.com">https://registry.docker-cn.com</a></p>
 <p>Docker Hub</p>
@@ -187,14 +189,10 @@ Docker Hub 镜像加速器列表
 <p>Docker Hub</p>
 <p>检查加速器是否生效
 命令行执行 docker info，如果从结果中看到了如下内容，说明配置成功。</p>
-<p>Registry Mirrors:
-[&hellip;]
-<a href="https://registry.docker-cn.com/">https://registry.docker-cn.com/</a>
-Docker Hub 镜像测速
-使用镜像前后，可使用 time 统计所花费的总时间。测速前先移除本地的镜像！</p>
-<p>Registry Mirrors:
-[&hellip;]
-<a href="https://registry.docker-cn.com/">https://registry.docker-cn.com/</a></p>
+<pre><code>Registry Mirrors:
+ [...]
+ https://registry.docker-cn.com/
+</code></pre>
 
     </div>
 </article>
@@ -305,7 +303,12 @@ Docker Hub 镜像测速
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mac">Mac:</a></li>
+    <li><a href="#windows">Windows:</a></li>
+  </ul>
+</nav>
     </div>
     
     
@@ -418,7 +421,12 @@ Docker Hub 镜像测速
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mac">Mac:</a></li>
+    <li><a href="#windows">Windows:</a></li>
+  </ul>
+</nav>
     </div>
     
     
