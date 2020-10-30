@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Oct 2020 18:43:21 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Oct 2020 09:00:58 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>各种阿里云加速器</title>
+      <link>https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/</link>
+      <pubDate>Fri, 30 Oct 2020 09:00:58 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/</guid>
+      <description>centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &amp;lsquo;/mirrors.cloud.aliyuncs.com/d&amp;rsquo; -e &amp;lsquo;/mirrors.aliyuncs.com/d&amp;rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &amp;ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub</description>
+    </item>
+    
     <item>
       <title>Ssh</title>
       <link>https://richard-chen93.github.io/post/ssh/</link>

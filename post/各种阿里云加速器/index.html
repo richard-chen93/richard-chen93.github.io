@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.76.5" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>各种阿里云加速器 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta property="og:title" content="各种阿里云加速器" />
+<meta property="og:description" content="centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2020-10-30T09:00:58+08:00" />
+<meta property="article:modified_time" content="2020-10-30T09:00:58+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="各种阿里云加速器"/>
+<meta name="twitter:description" content="centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple &ndash;trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker： Docker Hub"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A personal blog.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;492 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <p>centos7:</p>
+<p>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="https://mirrors.aliyun.com/repo/Centos-7.repo">https://mirrors.aliyun.com/repo/Centos-7.repo</a></p>
+<p>sed -i -e &lsquo;/mirrors.cloud.aliyuncs.com/d&rsquo; -e &lsquo;/mirrors.aliyuncs.com/d&rsquo; /etc/yum.repos.d/CentOS-Base.repo</p>
+<p>yum makecache</p>
+<p>pip:</p>
+<p>pip config set global.index-url <a href="https://mirrors.aliyun.com/pypi/simple/">https://mirrors.aliyun.com/pypi/simple/</a></p>
+<p>pip install django-bootstrap3==6.2.2 -i <a href="http://mirrors.aliyun.com/pypi/simple">http://mirrors.aliyun.com/pypi/simple</a> &ndash;trusted-host=mirrors.aliyun.com</p>
+<p>Mac:</p>
+<p>修改 pip.conf 文件</p>
+<p>$HOME/Library/Application Support/pip/pip.conf</p>
+<p>如果没有上面的目录,在如下目录创建 pip.conf</p>
+<p>$HOME/.config/pip/pip.conf</p>
+<p>修改内容如下：</p>
+<p>[global]</p>
+<p>index-url = <a href="https://pypi.tuna.tsinghua.edu.cn/simple12">https://pypi.tuna.tsinghua.edu.cn/simple12</a></p>
+<p>Windows:</p>
+<p>修改 pip.conf 文件 (没有就创建一个)</p>
+<p>%APPDATA%\pip\pip.ini</p>
+<p>修改内容如下：</p>
+<p>[global]</p>
+<p>index-url = <a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>docker：</p>
+<p>Docker Hub 镜像加速器
+2020-05-25阅读 5900</p>
+<p>一、概述
+国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。Docker 官方和国内很多云服务商都提供了国内加速器服务。</p>
+<p>二、配置加速地址</p>
+<p>Ubuntu 16.04+、Debian 8+、CentOS 7+
+创建或修改 /etc/docker/daemon.json：</p>
+<p>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &laquo;-&lsquo;EOF&rsquo;
+{
+&ldquo;registry-mirrors&rdquo;: [
+&ldquo;https://1nj0zren.mirror.aliyuncs.com&rdquo;,
+&ldquo;https://docker.mirrors.ustc.edu.cn&rdquo;,
+&ldquo;http://f1361db2.m.daocloud.io&rdquo;,
+&ldquo;https://registry.docker-cn.com&rdquo;
+]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+Docker Hub 镜像加速器列表
+镜像加速器</p>
+<p>镜像加速器地址</p>
+<p>专属加速器？</p>
+<p>其它加速？</p>
+<p>Docker 中国官方镜像</p>
+<p><a href="https://registry.docker-cn.com">https://registry.docker-cn.com</a></p>
+<p>Docker Hub</p>
+<p>DaoCloud 镜像站</p>
+<p><a href="http://f1361db2.m.daocloud.io">http://f1361db2.m.daocloud.io</a></p>
+<p>可登录，系统分配</p>
+<p>Docker Hub</p>
+<p>Azure 中国镜像</p>
+<p><a href="https://dockerhub.azk8s.cn">https://dockerhub.azk8s.cn</a></p>
+<p>Docker Hub、GCR、Quay</p>
+<p>科大镜像站</p>
+<p><a href="https://docker.mirrors.ustc.edu.cn">https://docker.mirrors.ustc.edu.cn</a></p>
+<p>Docker Hub、GCR、Quay</p>
+<p>阿里云</p>
+<p>https://&lt;your_code&gt;.mirror.aliyuncs.com</p>
+<p>需登录，系统分配</p>
+<p>Docker Hub</p>
+<p>七牛云</p>
+<p><a href="https://reg-mirror.qiniu.com">https://reg-mirror.qiniu.com</a></p>
+<p>Docker Hub、GCR、Quay</p>
+<p>网易云</p>
+<p><a href="https://hub-mirror.c.163.com">https://hub-mirror.c.163.com</a></p>
+<p>Docker Hub</p>
+<p>腾讯云</p>
+<p><a href="https://mirror.ccs.tencentyun.com">https://mirror.ccs.tencentyun.com</a></p>
+<p>Docker Hub</p>
+<p>检查加速器是否生效
+命令行执行 docker info，如果从结果中看到了如下内容，说明配置成功。</p>
+<p>Registry Mirrors:
+[&hellip;]
+<a href="https://registry.docker-cn.com/">https://registry.docker-cn.com/</a>
+Docker Hub 镜像测速
+使用镜像前后，可使用 time 统计所花费的总时间。测速前先移除本地的镜像！</p>
+<p>Registry Mirrors:
+[&hellip;]
+<a href="https://registry.docker-cn.com/">https://registry.docker-cn.com/</a></p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2020
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/hugo">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
