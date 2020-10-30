@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1078 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1114 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -141,17 +141,35 @@ hugo server -D
 参数： -D 输出包括标记为 draft: true 的草稿文章</p>
 <p>默认地址为 http://localhost:1313 如果 1313 端口被占用，会随机使用其他空端口。</p>
 <h2 id="若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</h2>
-<p>1、将blog克隆到本地  git clone <a href="mailto:git@github.com">git@github.com</a>:richard-chen93/blog.git
-2、进入blog根目录，删除public文件夹 rm -rf public
-3、用以下命令设置子模块
-612  git submodule init
-615  git submodule update
-616  git submodule status
-617  git submodule sync</p>
-<p>4、好了以后执行deploy.sh，若有问题可尝试下面的指令修复问题：
-628  git push origin HEAD:main
-629  git checkout main
-630  git push</p>
+<ul>
+<li>1、将blog克隆到本地</li>
+</ul>
+<pre><code>git clone git@github.com:richard-chen93/blog.git
+</code></pre>
+<ul>
+<li>2、进入blog根目录，删除public文件夹</li>
+</ul>
+<pre><code>rm -rf public
+</code></pre>
+<ul>
+<li>3、用以下命令设置子模块</li>
+</ul>
+<pre><code> git submodule init
+ git submodule update
+ git submodule status
+ git submodule sync
+</code></pre>
+<p>此时执行deploy可能会报错：
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use</p>
+<pre><code>git push origin HEAD:&lt;name-of-remote-branch&gt;
+</code></pre>
+<p>可尝试下面的指令修复问题：(在blog目录或public目录下都做尝试)</p>
+<pre><code>  git push origin HEAD:main
+  git checkout main
+  git push -f
+</code></pre>
 <h2 id="问题记录">问题记录</h2>
 <p>执行 hugo &ndash;cleanDestinationDir, 若blog仓库content/post下有删除的md文章，则public/post下对应的html文章也会同步删除。然后执行deploy.sh之后，git就会报错：</p>
 <pre><code> # On branch main
