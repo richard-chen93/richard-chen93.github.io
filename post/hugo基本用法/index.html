@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1114 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1158 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -165,10 +165,24 @@ To push the history leading to the current (detached HEAD)
 state now, use</p>
 <pre><code>git push origin HEAD:&lt;name-of-remote-branch&gt;
 </code></pre>
-<p>可尝试下面的指令修复问题：(在blog目录或public目录下都做尝试)</p>
-<pre><code>  git push origin HEAD:main
-  git checkout main
+<p>可尝试下面的指令修复问题：(在blog目录或public目录下都做)</p>
+<pre><code>  git checkout main
+  git push origin HEAD:main
   git push -f
+</code></pre>
+<p>如果再有如下报错：</p>
+<pre><code>Auto-merging search/index.json
+CONFLICT (content): Merge conflict in search/index.json
+Auto-merging post/index.html
+Auto-merging index.html
+Auto-merging archives/index.html
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>这样处理：</p>
+<pre><code>git add search/index.json
+git commit -s
+git push
+
 </code></pre>
 <h2 id="问题记录">问题记录</h2>
 <p>执行 hugo &ndash;cleanDestinationDir, 若blog仓库content/post下有删除的md文章，则public/post下对应的html文章也会同步删除。然后执行deploy.sh之后，git就会报错：</p>

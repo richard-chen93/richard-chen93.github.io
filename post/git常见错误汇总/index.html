@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;591 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;634 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -144,6 +144,21 @@ reset &ndash;hard 会在重置 HEAD 和branch的同时，重置stage区和工作
 <p>运行命令
 git checkout main
 即可解决</p>
+<h2 id="07">07</h2>
+<p>如下报错：</p>
+<pre><code>Auto-merging search/index.json
+CONFLICT (content): Merge conflict in search/index.json
+Auto-merging post/index.html
+Auto-merging index.html
+Auto-merging archives/index.html
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>这样处理：</p>
+<pre><code>git add search/index.json
+git commit -s
+git push
+
+</code></pre>
 
     </div>
 </article>
@@ -261,6 +276,7 @@ git checkout main
     <li><a href="#无法push">无法push</a></li>
     <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
     <li><a href="#06-fatal-you-are-not-currently-on-a-branch-to-push-the-history-leading-to-the-current-detached-head-state-now-use------git-push-origin-headname-of-remote-branch">06 fatal: You are not currently on a branch. To push the history leading to the current (detached HEAD) state now, use      git push origin HEAD:<name-of-remote-branch></a></li>
+    <li><a href="#07">07</a></li>
   </ul>
 </nav>
     </div>
@@ -382,6 +398,7 @@ git checkout main
     <li><a href="#无法push">无法push</a></li>
     <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
     <li><a href="#06-fatal-you-are-not-currently-on-a-branch-to-push-the-history-leading-to-the-current-detached-head-state-now-use------git-push-origin-headname-of-remote-branch">06 fatal: You are not currently on a branch. To push the history leading to the current (detached HEAD) state now, use      git push origin HEAD:<name-of-remote-branch></a></li>
+    <li><a href="#07">07</a></li>
   </ul>
 </nav>
     </div>
