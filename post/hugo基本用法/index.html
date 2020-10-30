@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;898 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1078 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -136,8 +136,8 @@ vim content/post/test.md 移除 draft: true这一行  否则草稿不会公开�
 git submodule init
 git submodule update</p>
 <h2 id="启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</h2>
-<p>写一篇文章生成一次会很繁琐，可以通过启动网站预览，实时监控页面的更改并刷新页面。</p>
-<p>hugo server -D
+<p>写一篇文章生成一次会很繁琐，可以通过启动网站预览，实时监控页面的更改并刷新页面。
+hugo server -D
 参数： -D 输出包括标记为 draft: true 的草稿文章</p>
 <p>默认地址为 http://localhost:1313 如果 1313 端口被占用，会随机使用其他空端口。</p>
 <h2 id="若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</h2>
@@ -147,11 +147,22 @@ git submodule update</p>
 612  git submodule init
 615  git submodule update
 616  git submodule status
-617  git submodule sync
-4、好了以后执行deploy.sh，若有问题可尝试下面的指令修复问题：
+617  git submodule sync</p>
+<p>4、好了以后执行deploy.sh，若有问题可尝试下面的指令修复问题：
 628  git push origin HEAD:main
 629  git checkout main
 630  git push</p>
+<h2 id="问题记录">问题记录</h2>
+<p>执行 hugo &ndash;cleanDestinationDir, 若blog仓库content/post下有删除的md文章，则public/post下对应的html文章也会同步删除。然后执行deploy.sh之后，git就会报错：</p>
+<pre><code> # On branch main
+ # Untracked files:
+ #   (use &quot;git add &lt;file&gt;...&quot; to 
+ # include in what will be 
+ # committed)
+ #      ../content/post/1.md
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)
+</code></pre>
+<p>所以目前不要动public目录下的任何东西，更新文章只在blog下进行，再deploy到gitpage即可。</p>
 
     </div>
 </article>
@@ -275,6 +286,7 @@ git submodule update</p>
     <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
     <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
+    <li><a href="#问题记录">问题记录</a></li>
   </ul>
 </nav>
     </div>
@@ -402,6 +414,7 @@ git submodule update</p>
     <li><a href="#其他--待删除可以尝试的命令">其他  待删除，可以尝试的命令：</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
     <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
+    <li><a href="#问题记录">问题记录</a></li>
   </ul>
 </nav>
     </div>

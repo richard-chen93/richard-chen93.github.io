@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;673 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;591 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -137,12 +137,6 @@ error: failed to push some refs to &lsquo;github.com:richard-chen93/hugo.git&rsq
 <p>reset &ndash;hard：重置stage区和工作目录:
 reset &ndash;hard 会在重置 HEAD 和branch的同时，重置stage区和工作目录里的内容。当你在 reset 后面加了 &ndash;hard 参数时，你的stage区和工作目录里的内容会被完全重置为和HEAD的新位置相同的内容。换句话说，就是你的没有commit的修改会被全部擦掉。</p>
 <p>例如你在上次 commit 之后又对文件做了一些改动：把修改后的ganmes.txt文件add到stage区，修改后的shopping list.txt保留在工作目录</p>
-<h2 id="04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</h2>
-<p>fatal: in unpopulated submodule</p>
-<p>删除.git\modules 所有内容  rm -rf
-git rm &ndash;cached public/ -f
-rm -rf public
-git submodule add -b main <a href="mailto:git@github.com">git@github.com</a>:richard-chen93/richard-chen93.github.io.git public</p>
 <h2 id="05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</h2>
 <p>1、新建的仓库，要至少提交一次更改（比如直接在github web页面随便添加一个任何文件，然后点提交。）
 2、删除public文件夹。</p>
@@ -265,7 +259,6 @@ git checkout main
     <li><a href="#1-无法push">1 无法push</a></li>
     <li><a href="#2-git-push时总让输入密码">2 git push时总让输入密码</a></li>
     <li><a href="#无法push">无法push</a></li>
-    <li><a href="#04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</a></li>
     <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
     <li><a href="#06-fatal-you-are-not-currently-on-a-branch-to-push-the-history-leading-to-the-current-detached-head-state-now-use------git-push-origin-headname-of-remote-branch">06 fatal: You are not currently on a branch. To push the history leading to the current (detached HEAD) state now, use      git push origin HEAD:<name-of-remote-branch></a></li>
   </ul>
@@ -387,7 +380,6 @@ git checkout main
     <li><a href="#1-无法push">1 无法push</a></li>
     <li><a href="#2-git-push时总让输入密码">2 git push时总让输入密码</a></li>
     <li><a href="#无法push">无法push</a></li>
-    <li><a href="#04-git无法执行deploysh--无法同步hugo的public文件夹到gitpage">04 git无法执行deploy.sh  无法同步hugo的public文件夹到gitpage</a></li>
     <li><a href="#05-git-submodule-add-error-does-not-have-a-commit-checked-out">05 git submodule add error: does not have a commit checked out</a></li>
     <li><a href="#06-fatal-you-are-not-currently-on-a-branch-to-push-the-history-leading-to-the-current-detached-head-state-now-use------git-push-origin-headname-of-remote-branch">06 fatal: You are not currently on a branch. To push the history leading to the current (detached HEAD) state now, use      git push origin HEAD:<name-of-remote-branch></a></li>
   </ul>
