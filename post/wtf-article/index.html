@@ -154,6 +154,29 @@
 </div>
 
 
+<div class="post-comment" data-comment="disqus">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <div id="disqus_thread" style="display: none;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/disqusjs@1.3/dist/disqus.js"></script>
+    <script>
+        function loadComment() {
+            document.querySelector('#disqus_thread').removeAttribute('style');
+            var dsqjs = new DisqusJS({
+                shortname: '',
+                siteName: 'Richard\u0027s blog',
+                identifier: 'wtf-article',
+                url: 'https:\/\/richard-chen93.github.io\/post\/wtf-article\/',
+                title: '纯简体中文测试文章',
+                api: 'https:\/\/disqus.com\/api\/oauth\/2.0\/authorize\/',
+                apikey: 'kZRWeb2YQb6NpyAkijZ8M3fiBZ8xqkVLsYlzZPd9l0G1eIfxn2MMAyyiFmPpn4SH'
+            });
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
