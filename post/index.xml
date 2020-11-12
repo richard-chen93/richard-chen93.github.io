@@ -26,21 +26,21 @@
     </item>
     
     <item>
-      <title>Docker Compose使用方法</title>
+      <title>Docker Compose</title>
       <link>https://richard-chen93.github.io/post/docker-compose%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
       <pubDate>Thu, 29 Oct 2020 18:40:08 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/docker-compose%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
-      <description>docker-compose使用方法 docker-compose 找不到命令怎么办？ 解决docker-compose 命令不存在、未找到命令错误 1.安装扩展源 sudo yum -y install epel-release 2.安装python-pip模块 sudo yum install python-pip 3.查看docker-</description>
+      <description>docker-compose 1.安装扩展源 sudo yum -y install epel-release 2.安装python-pip模块 sudo yum install python-pip 3.查看docker-compose版本 docker-compose version 提示未找到命令 4.通过命令进行安装 cd /usr/local/bin/ wget https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-Linux-x86_64 rename docker-compose-Linux-x86_64 docker-compose docker-compose-Linux-x86_64 chmod +x /usr/local/bin/docker-compose 5.再通过docker-compo</description>
     </item>
     
     <item>
-      <title>Submodule使用方法</title>
+      <title>git Submodule</title>
       <link>https://richard-chen93.github.io/post/submodule%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
       <pubDate>Thu, 29 Oct 2020 17:48:08 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/submodule%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
-      <description>Git中submodule的使用 孤单彼岸 孤单彼岸 收藏有趣的故事/总结实用的知识/欢迎关注~ (●—●) 66 人赞同了该文章 背景 面对比较复杂的项目，我们有可能会将代码根据功能拆解成不同的子模块。主项目对子模块</description>
+      <description>Git中submodule的使用 面对比较复杂的项目，我们有可能会将代码根据功能拆解成不同的子模块。主项目对子模块有依赖关系，却又并不关心子模块的内部开发流程细节。 这种情况下，通常不会把所有源码都放在同</description>
     </item>
     
     <item>
@@ -71,16 +71,12 @@
     </item>
     
     <item>
-      <title>Install Puppet</title>
+      <title>Puppet</title>
       <link>https://richard-chen93.github.io/post/install-puppet/</link>
       <pubDate>Tue, 27 Oct 2020 17:28:54 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/install-puppet/</guid>
-      <description>asdf a asdf as
- asdf ##
-adf adfafd
- asdfa sa
-adfasdf asdf a </description>
+      <description></description>
     </item>
     
     <item>

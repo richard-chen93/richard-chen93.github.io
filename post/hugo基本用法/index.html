@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1158 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1154 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -124,7 +124,7 @@ vim content/post/test.md 移除 draft: true这一行  否则草稿不会公开�
 <h2 id="2发布文章到gitpage">2、发布文章到gitpage</h2>
 <p>blog根目录下执行deploy.sh脚本，成功以后等待约1分钟，gitpage上即可看到更新后的内容</p>
 <h2 id="3修改删除文章">3、修改、删除文章</h2>
-<p>只需要编辑或删除blog/content/post/test.mde文件，然后再次在根目录执行deploy.sh脚本，即可同步到gitpage</p>
+<p>只需要编辑或删除blog/content/post/下的md文件，然后再次在根目录执行deploy.sh脚本，即可同步到gitpage</p>
 <h2 id="4同步本地blog仓库文件到github">4、同步本地blog仓库文件到github</h2>
 <p>任何本地blog根目录的文件，包括content/post下的md文件，或者config.toml配置文件，更新后都可以执行second-push.sh，远端仓库立即生效。second-push.sh内容为（git add &ndash;all . &amp;&amp; git commit -m &ldquo;update&rdquo; &amp;&amp; git push）</p>
 <h2 id="5其他">5、其他</h2>
