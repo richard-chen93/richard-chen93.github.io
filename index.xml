@@ -6,7 +6,16 @@
     <description>Recent content on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 21:27:02 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Nov 2020 22:48:36 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Harbor搭建与使用</title>
+      <link>https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Fri, 13 Nov 2020 22:48:36 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+      <description>安装 harbor支持k8s的helm安装和本地安装，这里使用本地安装。 1. 前置条件 1.1安装docker并运行 yum install docker systemcal start docker systemctl enable docker 2. 安装docker-compost 2.1安装依赖包 2.1 yum install -y py-pip python-dev libffi-dev openssl-dev gcc libc-dev make 2.2</description>
+    </item>
+    
     <item>
       <title>使用ansible批量管理windows服务器</title>
       <link>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86windows%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>

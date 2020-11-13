@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Posts - Richard&#39;s blog</title>
+<title>Harbor搭建与使用 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -31,18 +31,19 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/" />
+<meta property="og:title" content="Harbor搭建与使用" />
+<meta property="og:description" content="安装 harbor支持k8s的helm安装和本地安装，这里使用本地安装。 1. 前置条件 1.1安装docker并运行 yum install docker systemcal start docker systemctl enable docker 2. 安装docker-compost 2.1安装依赖包 2.1 yum install -y py-pip python-dev libffi-dev openssl-dev gcc libc-dev make 2.2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-11-13T22:48:36+08:00" />
+<meta property="article:published_time" content="2020-11-13T22:48:36+08:00" />
+<meta property="article:modified_time" content="2020-11-13T22:48:36+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Harbor搭建与使用"/>
+<meta name="twitter:description" content="安装 harbor支持k8s的helm安装和本地安装，这里使用本地安装。 1. 前置条件 1.1安装docker并运行 yum install docker systemcal start docker systemctl enable docker 2. 安装docker-compost 2.1安装依赖包 2.1 yum install -y py-pip python-dev libffi-dev openssl-dev gcc libc-dev make 2.2"/>
 
 
 
@@ -99,154 +100,126 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/markdown-syntax/">Markdown Syntax</a>
+        <a href="https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">Harbor搭建与使用</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-05-11</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;425 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/markdown">markdown</a>&nbsp;<a href="/tags/css">css</a>&nbsp;<a href="/tags/html">html</a>&nbsp;<a href="/tags/themes">themes</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;868 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.</p>
-<h2 id="headings">Headings</h2>
-<p>The following HTML <code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> elements represent six levels of section headings. <code>&lt;h1&gt;</code> is the highest section level while <code>&lt;h6&gt;</code> is the lowest.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/math-typesetting/">Math Typesetting</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-03-08</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;122 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.</p>
-<p>In this example we will be using <a href="https://katex.org/" target="_blank">KaTeX</a></p>
-<ul>
-<li>Create a partial under <code>/layouts/partials/math.html</code></li>
-<li>Within this partial reference the <a href="https://katex.org/docs/autorender.html" target="_blank">Auto-render Extension</a> or host these scripts locally.</li>
-<li>Include the partial in your templates like so:</li>
-</ul>
-<pre><code>{{ if or .Params.math .Site.Params.math }}
-{{ partial &quot;math.html&quot; . }}
-{{ end }}
-</code></pre>
-<ul>
-<li>To enable KaTex globally set the parameter <code>math</code> to <code>true</code> in a project&rsquo;s configuration</li>
-<li>To enable KaTex on a per page basis include the parameter <code>math: true</code> in content files.</li>
-</ul>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/placeholder-text/">Placeholder Text</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;269 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/markdown">markdown</a>&nbsp;<a href="/tags/text">text</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/emoji-support/">Emoji Support</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-05</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;138 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emoji">emoji</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a href="https://gohugo.io/functions/emojify/" target="_blank"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank">Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site’s <a href="https://gohugo.io/getting-started/configuration/" target="_blank">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><code>:s ee_no_evil:[Remove the space]</code> 🙈 <code>:h ear_no_evil:[Remove the space]</code> 🙉 <code>:s peak_no_evil:[Remove the space]</code> 🙊</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/cjk-unicode-test/">CJK Unicode Test</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2018-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1549 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;<a href="/tags/cjk">cjk</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>The following is part of the CJK text, this page is for test use only.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/wtf-article/">纯简体中文测试文章</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2017-04-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;11542 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;<a href="/tags/wtf">wtf</a>&nbsp;</span>
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="安装">安装</h2>
+<p>harbor支持k8s的helm安装和本地安装，这里使用本地安装。</p>
+<h3 id="1前置条件">1.	前置条件</h3>
+<p>1.1安装docker并运行
+yum install docker
+systemcal start docker
+systemctl enable docker</p>
+<h3 id="2安装docker-compost">2.	安装docker-compost</h3>
+<p>2.1安装依赖包
+2.1 yum install -y py-pip  python-dev libffi-dev openssl-dev gcc libc-dev make</p>
+<p>2.2  curl	-L &ldquo;<a href="https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname">https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname</a> -s)-$(uname -m)&rdquo; -o /usr/local/bin/docker-compose</p>
+<p>2.3  chmod +x /usr/local/bin/docker-compose</p>
+<h3 id="3下载安装包">3.	下载安装包</h3>
+<p><a href="https://github.com/goharbor/harbor/releases">https://github.com/goharbor/harbor/releases</a>
+tar xf harbor-offline-installer-v1.10.0.tgz
+进入解压的目录，并 ls
+[root@localhost harbor]# ll
+total 629904
+-rw-r&ndash;r&ndash; 1 root root      3398 Dec  6 12:02 common.sh
+-rw-r&ndash;r&ndash; 1 root root 644985680 Dec  6 12:02 harbor.v1.10.0.tar.gz
+-rw-r&ndash;r&ndash; 1 root root      5882 Dec  6 12:02 harbor.yml
+-rwxr-xr-x 1 root root      2284 Dec  6 12:02 install.sh
+-rw-r&ndash;r&ndash; 1 root root     11347 Dec  6 12:02 LICENSE
+-rwxr-xr-x 1 root root      1749 Dec  6 12:02 prepare</p>
+<h3 id="4修改配置文件">4.	修改配置文件</h3>
+<p>harbor.cfg
+4.1修改hostname选项
+hostname = A.B.C.D  # 写你自己的网址或IP，公网访问要写公网IP
+4.2支持Http 访问
+customize_crt = false  #新版中可能没有这项
+注释掉https
+4.3运行
+4.3.1修改完配置文件后，运行 ./prepare，它会哪所配置文件修改一文件
+如果是offline版的目录中有打包的image文件
+docker load -i harbor.v1.10.0.tar.gz
+4.3.2运行 ./install.sh
+运行成功，docker container ls 查看，可以看到服务已经起来了。
+docker container ls
+CONTAINER ID        IMAGE                                                     COMMAND                  CREATED             STATUS                    PORTS                       NAMES
+da7981437516        goharbor/harbor-jobservice:v1.10.0                        &ldquo;/harbor/harbor_jobs…&rdquo;   39 seconds ago      Up 35 seconds (healthy)                               harbor-jobservice
+534f615a8b49        goharbor/nginx-photon:v1.10.0                             &ldquo;nginx -g &lsquo;daemon of…&rdquo;   39 seconds ago      Up 34 seconds (healthy)   0.0.0.0:80-&gt;8080/tcp        nginx
+6115684ab10b        goharbor/harbor-core:v1.10.0                              &ldquo;/harbor/harbor_core&rdquo;    40 seconds ago      Up 38 seconds (healthy)                               harbor-core
+db6b18042976        goharbor/harbor-registryctl:v1.10.0                       &ldquo;/home/harbor/start.…&rdquo;   43 seconds ago      Up 40 seconds (healthy)                               registryctl
+63c70e50cd7f        goharbor/registry-photon:v2.7.1-patch-2819-2553-v1.10.0   &ldquo;/home/harbor/entryp…&rdquo;   43 seconds ago      Up 39 seconds (healthy)   5000/tcp                    registry
+46e4a59d052b        goharbor/harbor-db:v1.10.0                                &ldquo;/docker-entrypoint.…&rdquo;   43 seconds ago      Up 40 seconds (healthy)   5432/tcp                    harbor-db
+4ced2cd0ee8f        goharbor/harbor-portal:v1.10.0                            &ldquo;nginx -g &lsquo;daemon of…&rdquo;   43 seconds ago      Up 39 seconds (healthy)   8080/tcp                    harbor-portal
+691ab7bfb4bf        goharbor/redis-photon:v1.10.0                             &ldquo;redis-server /etc/r…&rdquo;   43 seconds ago      Up 40 seconds (healthy)   6379/tcp                    redis
+3431bbc1606e        goharbor/harbor-log:v1.10.0                               &ldquo;/bin/sh -c /usr/loc…&rdquo;   45 seconds ago      Up 42 seconds (healthy)   127.0.0.1:1514-&gt;10514/tcp   harbor-log</p>
+<h2 id="常用管理命令">常用管理命令</h2>
+<p>•	停止服务： docker-compose stop
+•	开始服务： docker-compose start
+Web登入
+http://192.168.3.200
+默认账号admin  密码Harbor12345
+通过安装包中的harbor.yml
+修改docker配置
+docker 默认是按 https 请求的，由于我搭的私有库是 http 的，所以需要修改 docker 配置，将信任的库的地址写上
+修改文件 /etc/docker/daemon.json
+{
+&ldquo;insecure-registries&rdquo;: [
+&ldquo;192.168.3.200&rdquo;
+]
+}
+systemctl restart docker
+制作镜像
+将 mongo 制作成一个私有镜像， mongo 为我之前从 docker hub 上拉取的镜像。
+docker tag mongo A.B.C.D/ainirobot/nebulae_mongo:0.0.1</p>
+<h2 id="上传镜像">上传镜像</h2>
+<ol>
+<li>先登陆私有库
+docker login A.B.C.D</li>
+<li>PUSH
+docker push A.B.C.D/ainirobot/nebulae_mongo:0.0.1</li>
+</ol>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。</p>
-<p>可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。</p>
-    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/post/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/post/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/post/page/2/">2</a>
-    </div>
-    
-    
-    
-    
+<div class="post-comment" data-comment="disqus">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <div id="disqus_thread" style="display: none;"></div>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var disqus_config = function () {
+                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8\/';
+                this.page.identifier = 'Harbor搭建与使用';
+            };
+            var s = document.createElement('script');
+            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            document.querySelector('#disqus_thread').removeAttribute('style');
+            (document.body || document.head).appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
 
 
             </div>
@@ -342,6 +315,24 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#1前置条件">1.	前置条件</a></li>
+        <li><a href="#2安装docker-compost">2.	安装docker-compost</a></li>
+        <li><a href="#3下载安装包">3.	下载安装包</a></li>
+        <li><a href="#4修改配置文件">4.	修改配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用管理命令">常用管理命令</a></li>
+    <li><a href="#上传镜像">上传镜像</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
@@ -453,7 +444,20 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#1前置条件">1.	前置条件</a></li>
+        <li><a href="#2安装docker-compost">2.	安装docker-compost</a></li>
+        <li><a href="#3下载安装包">3.	下载安装包</a></li>
+        <li><a href="#4修改配置文件">4.	修改配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用管理命令">常用管理命令</a></li>
+    <li><a href="#上传镜像">上传镜像</a></li>
+  </ul>
+</nav>
     </div>
     
     
