@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">Harbor搭建与使用</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;868 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;787 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -126,16 +126,7 @@ systemctl enable docker</p>
 <p>2.3  chmod +x /usr/local/bin/docker-compose</p>
 <h3 id="3下载安装包">3.	下载安装包</h3>
 <p><a href="https://github.com/goharbor/harbor/releases">https://github.com/goharbor/harbor/releases</a>
-tar xf harbor-offline-installer-v1.10.0.tgz
-进入解压的目录，并 ls
-[root@localhost harbor]# ll
-total 629904
--rw-r&ndash;r&ndash; 1 root root      3398 Dec  6 12:02 common.sh
--rw-r&ndash;r&ndash; 1 root root 644985680 Dec  6 12:02 harbor.v1.10.0.tar.gz
--rw-r&ndash;r&ndash; 1 root root      5882 Dec  6 12:02 harbor.yml
--rwxr-xr-x 1 root root      2284 Dec  6 12:02 install.sh
--rw-r&ndash;r&ndash; 1 root root     11347 Dec  6 12:02 LICENSE
--rwxr-xr-x 1 root root      1749 Dec  6 12:02 prepare</p>
+tar xf harbor-offline-installer-v1.10.0.tgz</p>
 <h3 id="4修改配置文件">4.	修改配置文件</h3>
 <p>harbor.cfg
 4.1修改hostname选项
@@ -149,17 +140,18 @@ customize_crt = false  #新版中可能没有这项
 docker load -i harbor.v1.10.0.tar.gz
 4.3.2运行 ./install.sh
 运行成功，docker container ls 查看，可以看到服务已经起来了。
-docker container ls
-CONTAINER ID        IMAGE                                                     COMMAND                  CREATED             STATUS                    PORTS                       NAMES
-da7981437516        goharbor/harbor-jobservice:v1.10.0                        &ldquo;/harbor/harbor_jobs…&rdquo;   39 seconds ago      Up 35 seconds (healthy)                               harbor-jobservice
-534f615a8b49        goharbor/nginx-photon:v1.10.0                             &ldquo;nginx -g &lsquo;daemon of…&rdquo;   39 seconds ago      Up 34 seconds (healthy)   0.0.0.0:80-&gt;8080/tcp        nginx
-6115684ab10b        goharbor/harbor-core:v1.10.0                              &ldquo;/harbor/harbor_core&rdquo;    40 seconds ago      Up 38 seconds (healthy)                               harbor-core
-db6b18042976        goharbor/harbor-registryctl:v1.10.0                       &ldquo;/home/harbor/start.…&rdquo;   43 seconds ago      Up 40 seconds (healthy)                               registryctl
-63c70e50cd7f        goharbor/registry-photon:v2.7.1-patch-2819-2553-v1.10.0   &ldquo;/home/harbor/entryp…&rdquo;   43 seconds ago      Up 39 seconds (healthy)   5000/tcp                    registry
-46e4a59d052b        goharbor/harbor-db:v1.10.0                                &ldquo;/docker-entrypoint.…&rdquo;   43 seconds ago      Up 40 seconds (healthy)   5432/tcp                    harbor-db
-4ced2cd0ee8f        goharbor/harbor-portal:v1.10.0                            &ldquo;nginx -g &lsquo;daemon of…&rdquo;   43 seconds ago      Up 39 seconds (healthy)   8080/tcp                    harbor-portal
-691ab7bfb4bf        goharbor/redis-photon:v1.10.0                             &ldquo;redis-server /etc/r…&rdquo;   43 seconds ago      Up 40 seconds (healthy)   6379/tcp                    redis
-3431bbc1606e        goharbor/harbor-log:v1.10.0                               &ldquo;/bin/sh -c /usr/loc…&rdquo;   45 seconds ago      Up 42 seconds (healthy)   127.0.0.1:1514-&gt;10514/tcp   harbor-log</p>
+docker container ls</p>
+<pre><code>CONTAINER ID        IMAGE                                                     COMMAND                  CREATED             STATUS                    PORTS                       NAMES
+da7981437516        goharbor/harbor-jobservice:v1.10.0                        &quot;/harbor/harbor_jobs…&quot;   39 seconds ago      Up 35 seconds (healthy)                               harbor-jobservice
+534f615a8b49        goharbor/nginx-photon:v1.10.0                             &quot;nginx -g 'daemon of…&quot;   39 seconds ago      Up 34 seconds (healthy)   0.0.0.0:80-&gt;8080/tcp        nginx
+6115684ab10b        goharbor/harbor-core:v1.10.0                              &quot;/harbor/harbor_core&quot;    40 seconds ago      Up 38 seconds (healthy)                               harbor-core
+db6b18042976        goharbor/harbor-registryctl:v1.10.0                       &quot;/home/harbor/start.…&quot;   43 seconds ago      Up 40 seconds (healthy)                               registryctl
+63c70e50cd7f        goharbor/registry-photon:v2.7.1-patch-2819-2553-v1.10.0   &quot;/home/harbor/entryp…&quot;   43 seconds ago      Up 39 seconds (healthy)   5000/tcp                    registry
+46e4a59d052b        goharbor/harbor-db:v1.10.0                                &quot;/docker-entrypoint.…&quot;   43 seconds ago      Up 40 seconds (healthy)   5432/tcp                    harbor-db
+4ced2cd0ee8f        goharbor/harbor-portal:v1.10.0                            &quot;nginx -g 'daemon of…&quot;   43 seconds ago      Up 39 seconds (healthy)   8080/tcp                    harbor-portal
+691ab7bfb4bf        goharbor/redis-photon:v1.10.0                             &quot;redis-server /etc/r…&quot;   43 seconds ago      Up 40 seconds (healthy)   6379/tcp                    redis
+3431bbc1606e        goharbor/harbor-log:v1.10.0                               &quot;/bin/sh -c /usr/loc…&quot;   45 seconds ago      Up 42 seconds (healthy)   127.0.0.1:1514-&gt;10514/tcp   harbor-log
+</code></pre>
 <h2 id="常用管理命令">常用管理命令</h2>
 <p>•	停止服务： docker-compose stop
 •	开始服务： docker-compose start
