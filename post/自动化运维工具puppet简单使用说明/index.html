@@ -32,7 +32,7 @@
 
 
 <meta property="og:title" content="自动化运维工具puppet简单使用说明" />
-<meta property="og:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no" />
+<meta property="og:description" content="目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3. 分配证书，开启PUPPE" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -43,7 +43,7 @@
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
 <meta name="twitter:title" content="自动化运维工具puppet简单使用说明"/>
-<meta name="twitter:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no"/>
+<meta name="twitter:description" content="目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3. 分配证书，开启PUPPE"/>
 
 
 
@@ -106,14 +106,13 @@
         <a href="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">自动化运维工具puppet简单使用说明</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1285 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1325 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
     
     <div class="post-content markdown-body">
-        <h1 id="自动化运维工具puppet简单使用说明">自动化运维工具puppet简单使用说明</h1>
-<h2 id="目录">目录</h2>
+        <h2 id="目录">目录</h2>
 <hr>
 <h2 id="一此实验中puppet的运行环境">一、此实验中puppet的运行环境</h2>
 <h3 id="1-硬件清单">1. 硬件清单</h3>
@@ -252,6 +251,38 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
 [root@pnode1 ~]#
 </code></pre>
 <p>存在说明puppet工作正常。</p>
+<h2 id="附录-站点清单文件示例">附录 站点清单文件示例</h2>
+<p>文件名 site.pp
+内容：</p>
+<pre><code>node pnode1{
+file {'test':
+	path=&gt;'/root/test.txt',
+	owner=&gt;'root',
+	group=&gt;'root',
+	mode=&gt;'644',
+	content=&gt;'puppet system works!',
+}
+file {'test01':
+	path=&gt;'/root/test01.txt',
+	owner=&gt;'root',
+	group=&gt;'root',
+	mode=&gt;'644',
+	content=&gt;'puppet system works!',
+}
+exec {'test shell scripts':
+	path=&gt;'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin',
+	command=&gt;'sh /root/sh/test.sh',
+	user=&gt;root,
+	group=&gt;root,
+}
+exec {'test command':
+	path=&gt;'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin',
+	command=&gt;'touch /root/exec.txt',
+	user=&gt;root,
+	group=&gt;root,
+}
+}
+</code></pre>
 
     </div>
 </article>
@@ -427,6 +458,7 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
         <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
       </ul>
     </li>
+    <li><a href="#附录-站点清单文件示例">附录 站点清单文件示例</a></li>
   </ul>
 </nav>
     </div>
@@ -584,6 +616,7 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
         <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
       </ul>
     </li>
+    <li><a href="#附录-站点清单文件示例">附录 站点清单文件示例</a></li>
   </ul>
 </nav>
     </div>
