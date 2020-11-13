@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Richard&#39;s blog - A personal blog.</title>
+<title>Docker常用操作 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -31,18 +31,19 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta property="og:title" content="Richard&#39;s blog" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/" />
+<meta property="og:title" content="Docker常用操作" />
+<meta property="og:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-11-13T23:07:07+08:00" />
+<meta property="article:published_time" content="2020-11-13T23:07:07+08:00" />
+<meta property="article:modified_time" content="2020-11-13T23:07:07+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Richard&#39;s blog"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Docker常用操作"/>
+<meta name="twitter:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模"/>
 
 
 
@@ -99,167 +100,75 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
+        <a href="https://richard-chen93.github.io/post/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Docker常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;634 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;322 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        1 无法push A git directory for &lsquo;public&rsquo; is found locally with remote(s): origin https://github.com/richard-chen93/.........git If you want to reuse this local git directory instead of cloning again from https://github.com/richard-chen93/......git use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option. 删除.git\modules 的 public 2 git push时总让输入密码 git push的时候每
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/markdown-syntax/">Markdown Syntax</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-05-11</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;425 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/markdown">markdown</a>&nbsp;<a href="/tags/css">css</a>&nbsp;<a href="/tags/html">html</a>&nbsp;<a href="/tags/themes">themes</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.</p>
-<h2 id="headings">Headings</h2>
-<p>The following HTML <code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> elements represent six levels of section headings. <code>&lt;h1&gt;</code> is the highest section level while <code>&lt;h6&gt;</code> is the lowest.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/math-typesetting/">Math Typesetting</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-03-08</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;122 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.</p>
-<p>In this example we will be using <a href="https://katex.org/" target="_blank">KaTeX</a></p>
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="docker以host模式启动容器并指定名称和共享盘">docker以host模式启动容器，并指定名称和共享盘</h2>
+<p>docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id}</p>
+<h2 id="进入容器">进入容器</h2>
+<p>[root@localhost ~]# docker exec -it <CONTAINER ID> bash
+进入后发现没有ifconfig，直接yum安装
+ifconfig报错
+yum install -y net-tools</p>
+<h2 id="常用参数含义">常用参数含义</h2>
 <ul>
-<li>Create a partial under <code>/layouts/partials/math.html</code></li>
-<li>Within this partial reference the <a href="https://katex.org/docs/autorender.html" target="_blank">Auto-render Extension</a> or host these scripts locally.</li>
-<li>Include the partial in your templates like so:</li>
+<li>it ：互动模式登录容器，并分配一个终端</li>
+<li>name ：指定容器名称</li>
+<li>p ：小p指定容器的80端口映射为宿主机的7879端口。</li>
+<li>rm ：表示退出容器时，容器一起删除</li>
+<li>v ：指定volumes，格式为： 宿主机共享目录：容器目录  ，这样宿主机的/ken目录就被挂载到了容器的/data/目录下了
+&ndash; privileged=true: 使共享的目录可以访问</li>
 </ul>
-<pre><code>{{ if or .Params.math .Site.Params.math }}
-{{ partial &quot;math.html&quot; . }}
-{{ end }}
-</code></pre>
-<ul>
-<li>To enable KaTex globally set the parameter <code>math</code> to <code>true</code> in a project&rsquo;s configuration</li>
-<li>To enable KaTex on a per page basis include the parameter <code>math: true</code> in content files.</li>
-</ul>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/placeholder-text/">Placeholder Text</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;269 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/markdown">markdown</a>&nbsp;<a href="/tags/text">text</a>&nbsp;</span>
+<h2 id="将容器打包成镜像">将容器打包成镜像</h2>
+<p>docker commit &ndash;change=&lsquo;CMD [&quot;/auto_sshd.sh&quot;]&rsquo; -c &ldquo;EXPOSE 22&rdquo; test-centos1 centos_sshd:7.0
+命令注释： &ndash;change : 将后期使用此镜像运行容器时的命令参数、开放的容器端口提前设置好。</p>
+<h2 id="打包镜像到tar包">打包镜像到tar包</h2>
+<p>docker save -o centos7_django_mhost_v1.2.tar  centos7_django_mhost_v1.2</p>
+<h2 id="解压tar包到image">解压tar包到image</h2>
+<p>docker load -i {image_name}.tar</p>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-    </div>
-</div>
+</article>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/emoji-support/">Emoji Support</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-05</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;138 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emoji">emoji</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a href="https://gohugo.io/functions/emojify/" target="_blank"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank">Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site’s <a href="https://gohugo.io/getting-started/configuration/" target="_blank">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><code>:s ee_no_evil:[Remove the space]</code> 🙈 <code>:h ear_no_evil:[Remove the space]</code> 🙉 <code>:s peak_no_evil:[Remove the space]</code> 🙊</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/cjk-unicode-test/">CJK Unicode Test</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2018-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1549 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;<a href="/tags/cjk">cjk</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>The following is part of the CJK text, this page is for test use only.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/wtf-article/">纯简体中文测试文章</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2017-04-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;11542 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;<a href="/tags/wtf">wtf</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。</p>
-<p>可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。</p>
-    </div>
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/page/2/">2</a>
-    </div>
-    
-    
-    
-    
+<div class="post-comment" data-comment="disqus">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <div id="disqus_thread" style="display: none;"></div>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var disqus_config = function () {
+                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C\/';
+                this.page.identifier = 'docker常用操作';
+            };
+            var s = document.createElement('script');
+            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            document.querySelector('#disqus_thread').removeAttribute('style');
+            (document.body || document.head).appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
 
 
             </div>
@@ -355,6 +264,20 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker以host模式启动容器并指定名称和共享盘">docker以host模式启动容器，并指定名称和共享盘</a></li>
+    <li><a href="#进入容器">进入容器</a></li>
+    <li><a href="#常用参数含义">常用参数含义</a></li>
+    <li><a href="#将容器打包成镜像">将容器打包成镜像</a></li>
+    <li><a href="#打包镜像到tar包">打包镜像到tar包</a></li>
+    <li><a href="#解压tar包到image">解压tar包到image</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
@@ -460,6 +383,22 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker以host模式启动容器并指定名称和共享盘">docker以host模式启动容器，并指定名称和共享盘</a></li>
+    <li><a href="#进入容器">进入容器</a></li>
+    <li><a href="#常用参数含义">常用参数含义</a></li>
+    <li><a href="#将容器打包成镜像">将容器打包成镜像</a></li>
+    <li><a href="#打包镜像到tar包">打包镜像到tar包</a></li>
+    <li><a href="#解压tar包到image">解压tar包到image</a></li>
+  </ul>
+</nav>
     </div>
     
     
