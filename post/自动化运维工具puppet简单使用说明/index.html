@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>自动化运维工具puppet简单使用说明 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta property="og:title" content="自动化运维工具puppet简单使用说明" />
+<meta property="og:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2020-10-27T17:28:54+08:00" />
+<meta property="article:modified_time" content="2020-10-27T17:28:54+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="自动化运维工具puppet简单使用说明"/>
+<meta name="twitter:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A personal blog.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">自动化运维工具puppet简单使用说明</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1285 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="自动化运维工具puppet简单使用说明">自动化运维工具puppet简单使用说明</h1>
+<h2 id="目录">目录</h2>
+<hr>
+<h2 id="一此实验中puppet的运行环境">一、此实验中puppet的运行环境</h2>
+<h3 id="1-硬件清单">1. 硬件清单</h3>
+<h3 id="2-软件清单">2. 软件清单</h3>
+<h3 id="3-准备yum源">3. 准备yum源</h3>
+<h3 id="4-配置域名解析">4. 配置域名解析</h3>
+<h3 id="5-ntp时间同步">5. Ntp时间同步</h3>
+<h2 id="二puppet安装配置过程">二、puppet安装配置过程</h2>
+<h3 id="1-puppet-master安装配置">1. Puppet master安装配置</h3>
+<h3 id="2-puppet-node安装配置">2. Puppet node安装配置</h3>
+<h3 id="3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</h3>
+<h2 id="三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</h2>
+<hr>
+<h2 id="正文">正文</h2>
+<h2 id="一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</h2>
+<h3 id="1-硬件清单-1">1. 硬件清单</h3>
+<ul>
+<li>puppet master：4cpu，8G memory，1TB ssd</li>
+<li>puppet node1：4cpu，8G memory，500GB ssd</li>
+</ul>
+<h3 id="2-软件清单-1">2. 软件清单</h3>
+<p>master</p>
+<ul>
+<li>主机名: pmaster.cn04-corp.int</li>
+<li>OS: centos 7.6</li>
+<li>puppet-master版本：3.6.2</li>
+<li>ip：10.193.194.102</li>
+</ul>
+<p>node</p>
+<ul>
+<li>主机名: pnode1.cn04-corp.int</li>
+<li>OS: centos 7.6</li>
+<li>puppet-master版本：3.6.2</li>
+<li>ip：10.193.194.105</li>
+</ul>
+<h3 id="3-准备yum源-1">3. 准备yum源</h3>
+<p>Yum源服务器已配置好，可直接使用脚本配置到本地：</p>
+<pre><code>wget http://10.193.200.6/yum.sh
+sh yum.sh
+</code></pre>
+<h3 id="4-配置域名解析-1">4. 配置域名解析</h3>
+<p>Puppet系统需要主机名或ip来标识master和node，目前两台机器均使用hosts文件做域名解析。</p>
+<pre><code>cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.193.194.102  pmaster.cn04-corp.int
+10.193.194.105  pnode1.cn04-corp.int
+</code></pre>
+<h3 id="5-ntp时间同步-1">5. Ntp时间同步</h3>
+<p>puppet master和node之间需要时间同步，Ntp服务器位于10.193.202.1。
+puppet master和node都需要安装ntp服务并配置。</p>
+<pre><code>yum install ntp
+vim /etc/ntp.conf
+</code></pre>
+<p>ntp配置文件里注释掉原有ntp服务器并添加10.193.202.1</p>
+<pre><code># Use public servers from the pool.ntp.org project.
+# Please consider joining the pool (http://www.pool.ntp.org/join.html).
+#server 0.centos.pool.ntp.org iburst
+#server 1.centos.pool.ntp.org iburst
+#server 2.centos.pool.ntp.org iburst
+#server 3.centos.pool.ntp.org iburst
+server 10.193.202.1 iburst
+
+vim /etc/ntp/step-tickers
+#0.centos.pool.ntp.org	#注释掉
+
+systemctl enable ntpd	#开机自启ntp服务
+systemctl start ntpd	#启动ntp服务
+ntpq -p		#查看ntp服务器列表
+date			#查看时间是否一致
+</code></pre>
+<h2 id="二puppet安装配置过程-1">二、puppet安装配置过程</h2>
+<h3 id="1-puppet-master安装配置-1">1. Puppet master安装配置</h3>
+<pre><code>Yum install puppet-server	#安装
+Vim /etc/puppet/puppet.conf	#修改配置文件
+[agent]	#这里添加server和certname
+server = pmaster.cn04-corp.int
+certname = pmaster.cn04-corp.int
+  
+[master]	#这里新建【master】，添加certname
+certname = pmaster.cn04-corp.int
+</code></pre>
+<h3 id="2-puppet-node安装配置-1">2. Puppet node安装配置</h3>
+<pre><code>Yum install puppet 	#安装pupet agent
+Vim /etc/puppet/puppet.conf	#修改配置文件，添加以下master和certname
+[agent]
+server = pmaster.cn04-corp.int	#指定master，这里是主机名
+certname = pnode1.cn04-corp.int	#指定node的证书名
+runinterval = 60			#设定agent请求catalog的间隔，这里是60秒。
+</code></pre>
+<h3 id="3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</h3>
+<p>在Node1上，输入以下命令向Master申请证书：</p>
+<pre><code>Puppet agent -t
+</code></pre>
+<p>Master上查看待签发的证书,然后签发：</p>
+<pre><code>Puppet cert list
+Puppet cert  --sign pnode1.cn04-corp.int
+</code></pre>
+<h2 id="三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</h2>
+<h3 id="1-开启puppet服务">1. 开启puppet服务</h3>
+<p>Master：</p>
+<pre><code>Systemctl enable puppetmaster
+Systemctl start puppetmaster
+</code></pre>
+<p>Node1：</p>
+<pre><code>Systemctl enable puppet
+Systemctl start puppet
+</code></pre>
+<h3 id="2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</h3>
+<p>Master上建立站点清单，位于/etc/puppet/manifest/site.pp
+编辑site.pp，进行资源申报：</p>
+<pre><code>vim /etc/puppet/manifest/site.pp
+
+node pnode1{				#节点的主机名pnode1，不需要带域名.cn04-corp.int
+file {'test':				#申报文件资源’test’，并定义各种状态
+        path=&gt;'/root/test.txt',
+        owner=&gt;'root',
+        group=&gt;'root',
+        mode=&gt;'644',
+        content=&gt;'puppet system works!',
+}
+exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并定义各种状态
+        path=&gt;'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin',
+        command=&gt;'sh /root/sh/test.sh',
+        user=&gt;root,
+        group=&gt;root,
+}
+}
+</code></pre>
+<p>Node1 上设定了agent请求catalog的间隔为1分钟，若需立即执行，可用命令：</p>
+<pre><code>Puppet agent -t
+</code></pre>
+<p>Node1执行完毕此命令后，查看Master的site.pp中定义的资源状态是否存在。</p>
+<pre><code>[root@pnode1 ~]# ls /root/*.txt
+/root/name.txt  /root/test.txt
+[root@pnode1 ~]#
+</code></pre>
+<p>存在说明puppet工作正常。</p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+<div class="post-comment" data-comment="disqus">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <div id="disqus_thread" style="display: none;"></div>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var disqus_config = function () {
+                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E\/';
+                this.page.identifier = '自动化运维工具puppet简单使用说明';
+            };
+            var s = document.createElement('script');
+            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            document.querySelector('#disqus_thread').removeAttribute('style');
+            (document.body || document.head).appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#目录">目录</a></li>
+    <li><a href="#一此实验中puppet的运行环境">一、此实验中puppet的运行环境</a>
+      <ul>
+        <li><a href="#1-硬件清单">1. 硬件清单</a></li>
+        <li><a href="#2-软件清单">2. 软件清单</a></li>
+        <li><a href="#3-准备yum源">3. 准备yum源</a></li>
+        <li><a href="#4-配置域名解析">4. 配置域名解析</a></li>
+        <li><a href="#5-ntp时间同步">5. Ntp时间同步</a></li>
+      </ul>
+    </li>
+    <li><a href="#二puppet安装配置过程">二、puppet安装配置过程</a>
+      <ul>
+        <li><a href="#1-puppet-master安装配置">1. Puppet master安装配置</a></li>
+        <li><a href="#2-puppet-node安装配置">2. Puppet node安装配置</a></li>
+        <li><a href="#3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</a></li>
+    <li><a href="#正文">正文</a></li>
+    <li><a href="#一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</a>
+      <ul>
+        <li><a href="#1-硬件清单-1">1. 硬件清单</a></li>
+        <li><a href="#2-软件清单-1">2. 软件清单</a></li>
+        <li><a href="#3-准备yum源-1">3. 准备yum源</a></li>
+        <li><a href="#4-配置域名解析-1">4. 配置域名解析</a></li>
+        <li><a href="#5-ntp时间同步-1">5. Ntp时间同步</a></li>
+      </ul>
+    </li>
+    <li><a href="#二puppet安装配置过程-1">二、puppet安装配置过程</a>
+      <ul>
+        <li><a href="#1-puppet-master安装配置-1">1. Puppet master安装配置</a></li>
+        <li><a href="#2-puppet-node安装配置-1">2. Puppet node安装配置</a></li>
+        <li><a href="#3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</a>
+      <ul>
+        <li><a href="#1-开启puppet服务">1. 开启puppet服务</a></li>
+        <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/cjk/">cjk</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emoji/">emoji</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+            <span>
+                <a href="/tags/text/">text</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+            <span>
+                <a href="/tags/wtf/">wtf</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#目录">目录</a></li>
+    <li><a href="#一此实验中puppet的运行环境">一、此实验中puppet的运行环境</a>
+      <ul>
+        <li><a href="#1-硬件清单">1. 硬件清单</a></li>
+        <li><a href="#2-软件清单">2. 软件清单</a></li>
+        <li><a href="#3-准备yum源">3. 准备yum源</a></li>
+        <li><a href="#4-配置域名解析">4. 配置域名解析</a></li>
+        <li><a href="#5-ntp时间同步">5. Ntp时间同步</a></li>
+      </ul>
+    </li>
+    <li><a href="#二puppet安装配置过程">二、puppet安装配置过程</a>
+      <ul>
+        <li><a href="#1-puppet-master安装配置">1. Puppet master安装配置</a></li>
+        <li><a href="#2-puppet-node安装配置">2. Puppet node安装配置</a></li>
+        <li><a href="#3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</a></li>
+    <li><a href="#正文">正文</a></li>
+    <li><a href="#一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</a>
+      <ul>
+        <li><a href="#1-硬件清单-1">1. 硬件清单</a></li>
+        <li><a href="#2-软件清单-1">2. 软件清单</a></li>
+        <li><a href="#3-准备yum源-1">3. 准备yum源</a></li>
+        <li><a href="#4-配置域名解析-1">4. 配置域名解析</a></li>
+        <li><a href="#5-ntp时间同步-1">5. Ntp时间同步</a></li>
+      </ul>
+    </li>
+    <li><a href="#二puppet安装配置过程-1">二、puppet安装配置过程</a>
+      <ul>
+        <li><a href="#1-puppet-master安装配置-1">1. Puppet master安装配置</a></li>
+        <li><a href="#2-puppet-node安装配置-1">2. Puppet node安装配置</a></li>
+        <li><a href="#3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</a>
+      <ul>
+        <li><a href="#1-开启puppet服务">1. 开启puppet服务</a></li>
+        <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2020
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/blog">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
