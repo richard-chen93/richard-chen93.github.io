@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>自动化运维工具puppet简单使用说明 - Richard&#39;s blog</title>
+<title> - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -31,19 +31,18 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta property="og:title" content="自动化运维工具puppet简单使用说明" />
-<meta property="og:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no" />
+<meta property="og:title" content="" />
+<meta property="og:description" content="puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="article:published_time" content="2020-10-27T17:28:54+08:00" />
-<meta property="article:modified_time" content="2020-10-27T17:28:54+08:00" />
+
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="自动化运维工具puppet简单使用说明"/>
-<meta name="twitter:description" content="自动化运维工具puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet no"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="puppet简单使用说明 目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3."/>
 
 
 
@@ -103,58 +102,73 @@
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">自动化运维工具puppet简单使用说明</a>
+        <a href="https://richard-chen93.github.io/post/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7puppet%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"></a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1285 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;0001-01-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1298 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
     
     <div class="post-content markdown-body">
-        <h1 id="自动化运维工具puppet简单使用说明">自动化运维工具puppet简单使用说明</h1>
+        <h2 id="puppet简单使用说明">puppet简单使用说明</h2>
 <h2 id="目录">目录</h2>
+<h4 id="一此实验中puppet的运行环境">一、此实验中puppet的运行环境</h4>
+<h6 id="1-硬件清单">1. 硬件清单</h6>
+<h6 id="2-软件清单">2. 软件清单</h6>
+<h6 id="3-准备yum源">3. 准备yum源</h6>
+<h6 id="4-配置域名解析">4. 配置域名解析</h6>
+<h6 id="5-ntp时间同步">5. Ntp时间同步</h6>
+<h4 id="二puppet安装配置过程">二、puppet安装配置过程</h4>
+<h6 id="1-puppet-master安装配置">1. Puppet master安装配置</h6>
+<h6 id="2-puppet-node安装配置">2. Puppet node安装配置</h6>
+<h6 id="3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</h6>
+<h4 id="三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</h4>
 <hr>
-<h2 id="一此实验中puppet的运行环境">一、此实验中puppet的运行环境</h2>
-<h3 id="1-硬件清单">1. 硬件清单</h3>
-<h3 id="2-软件清单">2. 软件清单</h3>
-<h3 id="3-准备yum源">3. 准备yum源</h3>
-<h3 id="4-配置域名解析">4. 配置域名解析</h3>
-<h3 id="5-ntp时间同步">5. Ntp时间同步</h3>
-<h2 id="二puppet安装配置过程">二、puppet安装配置过程</h2>
-<h3 id="1-puppet-master安装配置">1. Puppet master安装配置</h3>
-<h3 id="2-puppet-node安装配置">2. Puppet node安装配置</h3>
-<h3 id="3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</h3>
-<h2 id="三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</h2>
-<hr>
-<h2 id="正文">正文</h2>
-<h2 id="一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</h2>
-<h3 id="1-硬件清单-1">1. 硬件清单</h3>
+<h4 id="正文">正文</h4>
+<h4 id="一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</h4>
+<h6 id="1-硬件清单-1">1. 硬件清单</h6>
 <ul>
 <li>puppet master：4cpu，8G memory，1TB ssd</li>
 <li>puppet node1：4cpu，8G memory，500GB ssd</li>
 </ul>
-<h3 id="2-软件清单-1">2. 软件清单</h3>
-<p>master</p>
+<h6 id="2-软件清单-1">2. 软件清单</h6>
+<p>master：</p>
 <ul>
-<li>主机名: pmaster.cn04-corp.int</li>
-<li>OS: centos 7.6</li>
-<li>puppet-master版本：3.6.2</li>
-<li>ip：10.193.194.102</li>
+<li>
+<p>主机名: pmaster.cn04-corp.int</p>
+</li>
+<li>
+<p>OS: centos 7.6</p>
+</li>
+<li>
+<p>puppet-master版本：3.6.2</p>
+</li>
+<li>
+<p>ip：10.193.194.102</p>
+</li>
 </ul>
-<p>node</p>
+<p>node：</p>
 <ul>
-<li>主机名: pnode1.cn04-corp.int</li>
-<li>OS: centos 7.6</li>
-<li>puppet-master版本：3.6.2</li>
-<li>ip：10.193.194.105</li>
+<li>
+<p>主机名: pnode1.cn04-corp.int</p>
+</li>
+<li>
+<p>OS: centos 7.6</p>
+</li>
+<li>
+<p>puppet版本：3.6.2</p>
+</li>
+<li>
+<p>ip：10.193.194.105</p>
+</li>
 </ul>
-<h3 id="3-准备yum源-1">3. 准备yum源</h3>
+<h6 id="3-准备yum源-1">3. 准备yum源</h6>
 <p>Yum源服务器已配置好，可直接使用脚本配置到本地：</p>
 <pre><code>wget http://10.193.200.6/yum.sh
 sh yum.sh
 </code></pre>
-<h3 id="4-配置域名解析-1">4. 配置域名解析</h3>
+<h6 id="4-配置域名解析-1">4. 配置域名解析</h6>
 <p>Puppet系统需要主机名或ip来标识master和node，目前两台机器均使用hosts文件做域名解析。</p>
 <pre><code>cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
@@ -162,49 +176,49 @@ sh yum.sh
 10.193.194.102  pmaster.cn04-corp.int
 10.193.194.105  pnode1.cn04-corp.int
 </code></pre>
-<h3 id="5-ntp时间同步-1">5. Ntp时间同步</h3>
+<h6 id="5-ntp时间同步-1">5. Ntp时间同步</h6>
 <p>puppet master和node之间需要时间同步，Ntp服务器位于10.193.202.1。
 puppet master和node都需要安装ntp服务并配置。</p>
 <pre><code>yum install ntp
 vim /etc/ntp.conf
 </code></pre>
 <p>ntp配置文件里注释掉原有ntp服务器并添加10.193.202.1</p>
-<pre><code># Use public servers from the pool.ntp.org project.
-# Please consider joining the pool (http://www.pool.ntp.org/join.html).
-#server 0.centos.pool.ntp.org iburst
-#server 1.centos.pool.ntp.org iburst
-#server 2.centos.pool.ntp.org iburst
-#server 3.centos.pool.ntp.org iburst
+<pre><code>## Use public servers from the pool.ntp.org project.
+## Please consider joining the pool (http://www.pool.ntp.org/join.html).
+##server 0.centos.pool.ntp.org iburst
+##server 1.centos.pool.ntp.org iburst
+##server 2.centos.pool.ntp.org iburst
+##server 3.centos.pool.ntp.org iburst
 server 10.193.202.1 iburst
 
 vim /etc/ntp/step-tickers
-#0.centos.pool.ntp.org	#注释掉
+##0.centos.pool.ntp.org	##注释掉
 
-systemctl enable ntpd	#开机自启ntp服务
-systemctl start ntpd	#启动ntp服务
-ntpq -p		#查看ntp服务器列表
-date			#查看时间是否一致
+systemctl enable ntpd	##开机自启ntp服务
+systemctl start ntpd	##启动ntp服务
+ntpq -p		##查看ntp服务器列表
+date			##查看时间是否一致
 </code></pre>
-<h2 id="二puppet安装配置过程-1">二、puppet安装配置过程</h2>
-<h3 id="1-puppet-master安装配置-1">1. Puppet master安装配置</h3>
-<pre><code>Yum install puppet-server	#安装
-Vim /etc/puppet/puppet.conf	#修改配置文件
-[agent]	#这里添加server和certname
+<h4 id="二puppet安装配置过程-1">二、puppet安装配置过程</h4>
+<h6 id="1-puppet-master安装配置-1">1. Puppet master安装配置</h6>
+<pre><code>Yum install puppet-server	##安装
+Vim /etc/puppet/puppet.conf	##修改配置文件
+[agent]	##这里添加server和certname
 server = pmaster.cn04-corp.int
 certname = pmaster.cn04-corp.int
   
-[master]	#这里新建【master】，添加certname
+[master]	##这里新建【master】，添加certname
 certname = pmaster.cn04-corp.int
 </code></pre>
-<h3 id="2-puppet-node安装配置-1">2. Puppet node安装配置</h3>
-<pre><code>Yum install puppet 	#安装pupet agent
-Vim /etc/puppet/puppet.conf	#修改配置文件，添加以下master和certname
+<h6 id="2-puppet-node安装配置-1">2. Puppet node安装配置</h6>
+<pre><code>Yum install puppet 	##安装pupet agent
+Vim /etc/puppet/puppet.conf	##修改配置文件，添加以下master和certname
 [agent]
-server = pmaster.cn04-corp.int	#指定master，这里是主机名
-certname = pnode1.cn04-corp.int	#指定node的证书名
-runinterval = 60			#设定agent请求catalog的间隔，这里是60秒。
+server = pmaster.cn04-corp.int	##指定master，这里是主机名
+certname = pnode1.cn04-corp.int	##指定node的证书名
+runinterval = 60			##设定agent请求catalog的间隔，这里是60秒。
 </code></pre>
-<h3 id="3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</h3>
+<h6 id="3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</h6>
 <p>在Node1上，输入以下命令向Master申请证书：</p>
 <pre><code>Puppet agent -t
 </code></pre>
@@ -212,8 +226,8 @@ runinterval = 60			#设定agent请求catalog的间隔，这里是60秒。
 <pre><code>Puppet cert list
 Puppet cert  --sign pnode1.cn04-corp.int
 </code></pre>
-<h2 id="三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</h2>
-<h3 id="1-开启puppet服务">1. 开启puppet服务</h3>
+<h4 id="三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</h4>
+<h6 id="1-开启puppet服务">1. 开启puppet服务</h6>
 <p>Master：</p>
 <pre><code>Systemctl enable puppetmaster
 Systemctl start puppetmaster
@@ -222,20 +236,20 @@ Systemctl start puppetmaster
 <pre><code>Systemctl enable puppet
 Systemctl start puppet
 </code></pre>
-<h3 id="2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</h3>
+<h6 id="2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</h6>
 <p>Master上建立站点清单，位于/etc/puppet/manifest/site.pp
 编辑site.pp，进行资源申报：</p>
 <pre><code>vim /etc/puppet/manifest/site.pp
 
-node pnode1{				#节点的主机名pnode1，不需要带域名.cn04-corp.int
-file {'test':				#申报文件资源’test’，并定义各种状态
+node pnode1{				##节点的主机名pnode1，不需要带域名.cn04-corp.int
+file {'test':				##申报文件资源’test’，并定义各种状态
         path=&gt;'/root/test.txt',
         owner=&gt;'root',
         group=&gt;'root',
         mode=&gt;'644',
         content=&gt;'puppet system works!',
 }
-exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并定义各种状态
+exec {'test shell scripts':			##申报命令资源‘test shell scripts’，并定义各种状态
         path=&gt;'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin',
         command=&gt;'sh /root/sh/test.sh',
         user=&gt;root,
@@ -247,9 +261,9 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
 <pre><code>Puppet agent -t
 </code></pre>
 <p>Node1执行完毕此命令后，查看Master的site.pp中定义的资源状态是否存在。</p>
-<pre><code>[root@pnode1 ~]# ls /root/*.txt
+<pre><code>[root@pnode1 ~]## ls /root/*.txt
 /root/name.txt  /root/test.txt
-[root@pnode1 ~]#
+[root@pnode1 ~]##
 </code></pre>
 <p>存在说明puppet工作正常。</p>
 
@@ -386,45 +400,10 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#目录">目录</a></li>
-    <li><a href="#一此实验中puppet的运行环境">一、此实验中puppet的运行环境</a>
+    <li><a href="#puppet简单使用说明">puppet简单使用说明</a></li>
+    <li><a href="#目录">目录</a>
       <ul>
-        <li><a href="#1-硬件清单">1. 硬件清单</a></li>
-        <li><a href="#2-软件清单">2. 软件清单</a></li>
-        <li><a href="#3-准备yum源">3. 准备yum源</a></li>
-        <li><a href="#4-配置域名解析">4. 配置域名解析</a></li>
-        <li><a href="#5-ntp时间同步">5. Ntp时间同步</a></li>
-      </ul>
-    </li>
-    <li><a href="#二puppet安装配置过程">二、puppet安装配置过程</a>
-      <ul>
-        <li><a href="#1-puppet-master安装配置">1. Puppet master安装配置</a></li>
-        <li><a href="#2-puppet-node安装配置">2. Puppet node安装配置</a></li>
-        <li><a href="#3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</a></li>
-      </ul>
-    </li>
-    <li><a href="#三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</a></li>
-    <li><a href="#正文">正文</a></li>
-    <li><a href="#一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</a>
-      <ul>
-        <li><a href="#1-硬件清单-1">1. 硬件清单</a></li>
-        <li><a href="#2-软件清单-1">2. 软件清单</a></li>
-        <li><a href="#3-准备yum源-1">3. 准备yum源</a></li>
-        <li><a href="#4-配置域名解析-1">4. 配置域名解析</a></li>
-        <li><a href="#5-ntp时间同步-1">5. Ntp时间同步</a></li>
-      </ul>
-    </li>
-    <li><a href="#二puppet安装配置过程-1">二、puppet安装配置过程</a>
-      <ul>
-        <li><a href="#1-puppet-master安装配置-1">1. Puppet master安装配置</a></li>
-        <li><a href="#2-puppet-node安装配置-1">2. Puppet node安装配置</a></li>
-        <li><a href="#3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</a></li>
-      </ul>
-    </li>
-    <li><a href="#三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</a>
-      <ul>
-        <li><a href="#1-开启puppet服务">1. 开启puppet服务</a></li>
-        <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
+        <li></li>
       </ul>
     </li>
   </ul>
@@ -543,45 +522,10 @@ exec {'test shell scripts':			#申报命令资源‘test shell scripts’，并�
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#目录">目录</a></li>
-    <li><a href="#一此实验中puppet的运行环境">一、此实验中puppet的运行环境</a>
+    <li><a href="#puppet简单使用说明">puppet简单使用说明</a></li>
+    <li><a href="#目录">目录</a>
       <ul>
-        <li><a href="#1-硬件清单">1. 硬件清单</a></li>
-        <li><a href="#2-软件清单">2. 软件清单</a></li>
-        <li><a href="#3-准备yum源">3. 准备yum源</a></li>
-        <li><a href="#4-配置域名解析">4. 配置域名解析</a></li>
-        <li><a href="#5-ntp时间同步">5. Ntp时间同步</a></li>
-      </ul>
-    </li>
-    <li><a href="#二puppet安装配置过程">二、puppet安装配置过程</a>
-      <ul>
-        <li><a href="#1-puppet-master安装配置">1. Puppet master安装配置</a></li>
-        <li><a href="#2-puppet-node安装配置">2. Puppet node安装配置</a></li>
-        <li><a href="#3-分配证书开启puppet服务">3. 分配证书，开启PUPPET服务</a></li>
-      </ul>
-    </li>
-    <li><a href="#三-申报站点清单中的资源测试puppet能否工作">三、 申报站点清单中的资源，测试PUPPET能否工作。</a></li>
-    <li><a href="#正文">正文</a></li>
-    <li><a href="#一此实验中puppet的运行环境-1">一、此实验中puppet的运行环境</a>
-      <ul>
-        <li><a href="#1-硬件清单-1">1. 硬件清单</a></li>
-        <li><a href="#2-软件清单-1">2. 软件清单</a></li>
-        <li><a href="#3-准备yum源-1">3. 准备yum源</a></li>
-        <li><a href="#4-配置域名解析-1">4. 配置域名解析</a></li>
-        <li><a href="#5-ntp时间同步-1">5. Ntp时间同步</a></li>
-      </ul>
-    </li>
-    <li><a href="#二puppet安装配置过程-1">二、puppet安装配置过程</a>
-      <ul>
-        <li><a href="#1-puppet-master安装配置-1">1. Puppet master安装配置</a></li>
-        <li><a href="#2-puppet-node安装配置-1">2. Puppet node安装配置</a></li>
-        <li><a href="#3-分配证书开启puppet服务-1">3. 分配证书，开启PUPPET服务</a></li>
-      </ul>
-    </li>
-    <li><a href="#三-申报站点清单中的资源测试puppet能否工作-1">三、 申报站点清单中的资源，测试PUPPET能否工作。</a>
-      <ul>
-        <li><a href="#1-开启puppet服务">1. 开启puppet服务</a></li>
-        <li><a href="#2-申报站点清单中的资源测试puppet能否工作">2. 申报站点清单中的资源，测试puppet能否工作。</a></li>
+        <li></li>
       </ul>
     </li>
   </ul>
