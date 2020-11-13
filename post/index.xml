@@ -13,7 +13,7 @@
       <pubDate>Fri, 13 Nov 2020 21:27:02 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86windows%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <description>使用ansible批量管理windows服务器 前提 windows被控端防火墙信任规则，允许5985端口通过。 对于旧版本windows 服务器需要 安装Framework 3.0+ 更改powershell策略为re</description>
+      <description>前提 windows被控端防火墙信任规则，允许5985端口通过。 对于旧版本windows 服务器需要 安装Framework 3.0+ 更改powershell策略为remotesigned 升级PowerShell至</description>
     </item>
     
     <item>
