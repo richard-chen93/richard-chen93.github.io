@@ -32,7 +32,7 @@
 
 
 <meta property="og:title" content="各种阿里云加速器" />
-<meta property="og:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker：" />
+<meta property="og:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple doc" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -43,7 +43,7 @@
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
 <meta name="twitter:title" content="各种阿里云加速器"/>
-<meta name="twitter:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple docker："/>
+<meta name="twitter:description" content="yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple doc"/>
 
 
 
@@ -106,7 +106,7 @@
         <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;329 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;333 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
     </div>
     
@@ -119,6 +119,8 @@
 sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 
 yum makecache
+
+yum -y install epel-release
 </code></pre>
 <h1 id="pip">pip:</h1>
 <pre><code>pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
