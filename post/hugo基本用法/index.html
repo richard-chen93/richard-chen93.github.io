@@ -3,6 +3,9 @@
 
 <head>
     
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="HandheldFriendly" content="True" />
@@ -108,9 +111,11 @@
         <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1215 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1607 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
+        <h6 id="wc" style="font-size: 1rem;text-align: center;">阅读约 4 分钟</h6>
     </div>
+    
     
     
     <div class="post-content markdown-body">
@@ -188,6 +193,25 @@ git commit -s
 git push
 
 </code></pre>
+<h2 id="hugo-添加网站流量统计">Hugo 添加网站流量统计</h2>
+<p>不蒜子是一个通过仅仅两行代码实现的网页流量计数器</p>
+<p>1.在themes/layouts/partials/head.html文件中引入不蒜子js文件</p>
+<pre><code>&lt;!-- 不蒜子 --&gt;
+&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>2.在页面添加统计代码，在/themes/layouts/partials/footer.html中添加如下代码</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站访问量：&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+&amp;nbsp;
+&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+    您是本站第 &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt; 位访问者
+&lt;/span&gt;
+</code></pre>
+<p>3.在themes/layouts/_default/single.html中添加以下代码</p>
+<pre><code>&lt;h5 id=&quot;wc&quot; style=&quot;font-size: 1rem;text-align: center;&quot;&gt;{{ .FuzzyWordCount }} Words|Read in about {{ .ReadingTime }} Min|本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次&lt;/h5&gt;
+</code></pre>
+<p>可根据个人喜好选择放在文章头部或尾部</p>
 <h2 id="问题记录">问题记录</h2>
 <p>执行 hugo &ndash;cleanDestinationDir, 若blog仓库content/post下有删除的md文章，则public/post下对应的html文章也会同步删除。然后执行deploy.sh之后，git就会报错：</p>
 <pre><code> # On branch main
@@ -322,6 +346,7 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
     <li><a href="#添加tags">添加tags</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
     <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
+    <li><a href="#hugo-添加网站流量统计">Hugo 添加网站流量统计</a></li>
     <li><a href="#问题记录">问题记录</a></li>
   </ul>
 </nav>
@@ -423,6 +448,7 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
     <li><a href="#添加tags">添加tags</a></li>
     <li><a href="#启动实时预览本地预览网站效果">启动实时预览（本地预览网站效果）</a></li>
     <li><a href="#若换了新电脑要在新电脑上发布文章">若换了新电脑，要在新电脑上发布文章</a></li>
+    <li><a href="#hugo-添加网站流量统计">Hugo 添加网站流量统计</a></li>
     <li><a href="#问题记录">问题记录</a></li>
   </ul>
 </nav>
@@ -443,6 +469,9 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
                 | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
                    target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
                                                     target="_blank">Hugo</a> 
+            </span>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
             </span>
         </div>
     </div>
