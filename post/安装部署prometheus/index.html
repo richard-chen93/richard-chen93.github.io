@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>technology - Richard&#39;s blog</title>
+<title>安装部署prometheus - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -31,18 +31,21 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta property="og:title" content="technology" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/tags/technology/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="安装部署prometheus" />
+<meta property="og:description" content="环境准备 3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2 prometheus版本为prometheus-2.5.0.linux-amd6" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-11-21T22:18:50+08:00" />
+<meta property="article:published_time" content="2020-11-20T13:24:36+08:00" />
+<meta property="article:modified_time" content="2020-11-20T13:24:36+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="technology"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="安装部署prometheus"/>
+<meta name="twitter:description" content="环境准备 3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2 prometheus版本为prometheus-2.5.0.linux-amd6"/>
 
 
 
@@ -99,95 +102,110 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-<div class="page-info">
-    <span>Posts with the tag technology: </span>
-</div>
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
+        <a href="https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus/">安装部署prometheus</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1215 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-20</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;734 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        hugo本地创建、更新、删除文章后同步到gitpage的基本流程： 前提环境： public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到 注意 写文章后直接sh
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="环境准备">环境准备</h2>
+<ul>
+<li>3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2</li>
+<li>prometheus版本为prometheus-2.5.0.linux-amd64</li>
+<li>3台机器时间同步好</li>
+</ul>
+<pre><code>yum install ntpdate -y
+ntpdate cn.ntp.org.cn
+timedatectl set-timezone Asia/Shanghai
+date
+</code></pre>
+<h2 id="在s0上安装prometheus并运行">在S0上安装Prometheus并运行</h2>
+<pre><code>tar xf prometheus-2.5.0.linux-amd64.tar.gz
+mv prometheus-2.5.0.linux-amd64 /usr/local/prometheus
+cd /usr/local/prometheus
+./prometheus --config.file=&quot;/usr/local/prometheus/prometheus.yml&quot; &amp;
+ss -tunpl | grep 9090
+</code></pre>
+<p>若9090端口被Prometheus程序占用，说明启动成功，浏览器打开http://10.3.3.30:9090
+http://10.3.3.30:9090/metrics可看到所有监控到的数据</p>
+<h2 id="在被监控主机s2上安装node-exporter组件并运行">在被监控主机S2上安装node-exporter组件并运行</h2>
+<pre><code>tar xf node_exporter-0.16.0.linux-amd64.tar.gz
+mv node_exporter-0.16.0.linux-amd64 /usr/local/node_exporter
+cd /usr/local/node_exporter/
+nohup ./node_exporter &amp;
+ss -tunpl | grep 9090
+</code></pre>
+<p>使用nohup后即使终端关闭，node_exporter程序也会继续运行
+浏览器打开http://10.3.3.30:9100
+http://10.3.3.32:9100/metrics可看到所有收集到的数据</p>
+<h2 id="让prometheus服务器拉取node节点信息">让Prometheus服务器拉取node节点信息</h2>
+<pre><code>vim /usr/local/prometheus/prometheus.yml
+  - job_name: 'node01'
+    static_configs:
+    - targets: ['10.3.3.32:9100']
+</code></pre>
+<p>在文件末尾添加节点信息</p>
+<h2 id="重启prometheus服务并查看节点信息">重启Prometheus服务并查看节点信息</h2>
+<pre><code>pkill prometheus
+./prometheus --config.file=&quot;/usr/local/prometheus/prometheus.yml&quot; &amp;
+</code></pre>
+<h2 id="添加mysql监控">添加mysql监控</h2>
+<p>在s2上安装启动mariadb，为监控系统添加账户mysql_monitor,密码123,授予权限。
+安装使用mysqld_exporter组件,放到/usr/local/mysqld_exporter文件夹下面。</p>
+<pre><code>mysql
+grant select,replication client,process ON *.* to 'mysql_monitor'@'localhost' identified by '123';
+flush privileges;
+exit;
+</code></pre>
+<p>进入/usr/local/mysqld_exporter/, 修改mysql_exporter配置，添加mysql用户密码。然后启动mysql_exporter</p>
+<pre><code>vim ./.my.cnf
+[client]
+user=mysql_monitor
+password=123
+nohup ./mysqld_exporter --config.my-cnf=/usr/local/mysqld_exporter/.my.cnf &amp;
+lsof -i:9104
+</code></pre>
+<p>修改Prometheus服务器配置文件，添加mysql监控项。在主配置文件最后再添加下面三行：</p>
+
     </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/deploy-hugo-site_on-github-pages/">Deploy Hugo Site_on Github Pages</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;724 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        将hugo静态博客网页部署到github上 1、选择gitpage的类型 2种github page：个人、项目。这里选个人。 2、建立gitpage和hugo代码仓库 在github上以自己的用户名+gith
-    </div>
+<div class="post-comment" data-comment="disqus">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <div id="disqus_thread" style="display: none;"></div>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var disqus_config = function () {
+                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus\/';
+                this.page.identifier = '安装部署prometheus';
+            };
+            var s = document.createElement('script');
+            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            document.querySelector('#disqus_thread').removeAttribute('style');
+            (document.body || document.head).appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;634 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        1 无法push A git directory for &lsquo;public&rsquo; is found locally with remote(s): origin https://github.com/richard-chen93/.........git If you want to reuse this local git directory instead of cloning again from https://github.com/richard-chen93/......git use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option. 删除.git\modules 的 public 2 git push时总让输入密码 git push的时候每
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/tags/technology/"><i class="iconfont icon-caret-back-circle-sharp"></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/tags/technology/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/technology/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/tags/technology/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-</div>
-
 
 
             </div>
@@ -255,6 +273,20 @@
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境准备">环境准备</a></li>
+    <li><a href="#在s0上安装prometheus并运行">在S0上安装Prometheus并运行</a></li>
+    <li><a href="#在被监控主机s2上安装node-exporter组件并运行">在被监控主机S2上安装node-exporter组件并运行</a></li>
+    <li><a href="#让prometheus服务器拉取node节点信息">让Prometheus服务器拉取node节点信息</a></li>
+    <li><a href="#重启prometheus服务并查看节点信息">重启Prometheus服务并查看节点信息</a></li>
+    <li><a href="#添加mysql监控">添加mysql监控</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
@@ -332,6 +364,22 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境准备">环境准备</a></li>
+    <li><a href="#在s0上安装prometheus并运行">在S0上安装Prometheus并运行</a></li>
+    <li><a href="#在被监控主机s2上安装node-exporter组件并运行">在被监控主机S2上安装node-exporter组件并运行</a></li>
+    <li><a href="#让prometheus服务器拉取node节点信息">让Prometheus服务器拉取node节点信息</a></li>
+    <li><a href="#重启prometheus服务并查看节点信息">重启Prometheus服务并查看节点信息</a></li>
+    <li><a href="#添加mysql监控">添加mysql监控</a></li>
+  </ul>
+</nav>
     </div>
     
     
