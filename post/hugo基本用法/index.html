@@ -212,23 +212,28 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
 </div>
 
 
-<div class="post-comment" data-comment="disqus">
+<div class="post-comment" data-comment="utterances">
     <span class="post-comment-notloaded">
         <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
     </span>
-    <div id="disqus_thread" style="display: none;"></div>
     <script>
         function loadComment() {
             var commentArea = document.querySelector('.post-comment');
-            var disqus_config = function () {
-                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95\/';
-                this.page.identifier = 'hugo基本用法';
-            };
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
             var s = document.createElement('script');
-            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            document.querySelector('#disqus_thread').removeAttribute('style');
-            (document.body || document.head).appendChild(s);
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', '*\/*');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
             document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
         }
     </script>

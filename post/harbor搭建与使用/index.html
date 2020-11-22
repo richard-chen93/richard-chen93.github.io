@@ -193,23 +193,28 @@ docker push A.B.C.D/ainirobot/nebulae_mongo:0.0.1</li>
 </div>
 
 
-<div class="post-comment" data-comment="disqus">
+<div class="post-comment" data-comment="utterances">
     <span class="post-comment-notloaded">
         <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
     </span>
-    <div id="disqus_thread" style="display: none;"></div>
     <script>
         function loadComment() {
             var commentArea = document.querySelector('.post-comment');
-            var disqus_config = function () {
-                this.page.url = 'https:\/\/richard-chen93.github.io\/post\/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8\/';
-                this.page.identifier = 'Harbor搭建与使用';
-            };
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
             var s = document.createElement('script');
-            s.src = 'https://' + 'richard34' + '.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            document.querySelector('#disqus_thread').removeAttribute('style');
-            (document.body || document.head).appendChild(s);
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', '*\/*');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
             document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
         }
     </script>
