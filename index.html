@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-11-21T22:18:50+08:00" />
+<meta property="og:updated_time" content="2020-11-24T15:06:06+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/about_elasticsearch/">About_ElasticSearch</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;103 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        下载、校验 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.2.tar.gz sha1sum elasticsearch-5.0.2.tar.gz tar -xzf elasticsearch-5.0.2.tar.gz cd elasticsearch-5.0.2/ ./bin/elasticsearch 验证 curl localhost:9200 { &ldquo;name&rdquo; : &ldquo;Cp8oag6&rdquo;, &ldquo;cluster_name&rdquo; : &ldquo;elasticsearch&rdquo;, &ldquo;cluster_uuid&rdquo; : &ldquo;AT69_T_DTp-1qgIJlatQqA&rdquo;, &ldquo;version&rdquo; : { &ldquo;number&rdquo; : &ldquo;5.0.2&rdquo;, &ldquo;build_hash&rdquo; : &ldquo;f27399d&rdquo;, &ldquo;build_date&rdquo; : &ldquo;2016-03-30T09:51:41.449Z&rdquo;, &ldquo;build_snapshot&rdquo; : false, &ldquo;lucene_version&rdquo; : &ldquo;6.2.1&rdquo; }, &ldquo;tagline&rdquo; : &ldquo;You Know, for Search&rdquo; } Running as a daemon ./bin/elasticsearch -d -p pid shutdown ES kill cat pid kibana 相关 kinaba允许远程访问，这里改localhost为本机i
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         docker-compose 1.安装扩展源 sudo yum -y install epel-release 2.安装python-pip模块 sudo yum install python-pip 3.查看docker-compose版本 docker-compose version 提示未找到命令 4.通过命令进行安装 cd /usr/local/bin/ wget https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-Linux-x86_64 rename docker-compose-Linux-x86_64 docker-compose docker-compose-Linux-x86_64 chmod +x /usr/local/bin/docker-compose 5.再通过docker-compo
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/submodule%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">git Submodule</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-29</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2995 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        Git中submodule的使用 面对比较复杂的项目，我们有可能会将代码根据功能拆解成不同的子模块。主项目对子模块有依赖关系，却又并不关心子模块的内部开发流程细节。 这种情况下，通常不会把所有源码都放在同
     </div>
 </div>
 

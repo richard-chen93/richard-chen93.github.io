@@ -6,7 +6,16 @@
     <description>Recent content on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Nov 2020 22:18:50 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Nov 2020 15:06:06 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About_ElasticSearch</title>
+      <link>https://richard-chen93.github.io/post/about_elasticsearch/</link>
+      <pubDate>Tue, 24 Nov 2020 15:06:06 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/about_elasticsearch/</guid>
+      <description>下载、校验 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.2.tar.gz sha1sum elasticsearch-5.0.2.tar.gz tar -xzf elasticsearch-5.0.2.tar.gz cd elasticsearch-5.0.2/ ./bin/elasticsearch 验证 curl localhost:9200 { &amp;ldquo;name&amp;rdquo; : &amp;ldquo;Cp8oag6&amp;rdquo;, &amp;ldquo;cluster_name&amp;rdquo; : &amp;ldquo;elasticsearch&amp;rdquo;, &amp;ldquo;cluster_uuid&amp;rdquo; : &amp;ldquo;AT69_T_DTp-1qgIJlatQqA&amp;rdquo;, &amp;ldquo;version&amp;rdquo; : { &amp;ldquo;number&amp;rdquo; : &amp;ldquo;5.0.2&amp;rdquo;, &amp;ldquo;build_hash&amp;rdquo; : &amp;ldquo;f27399d&amp;rdquo;, &amp;ldquo;build_date&amp;rdquo; : &amp;ldquo;2016-03-30T09:51:41.449Z&amp;rdquo;, &amp;ldquo;build_snapshot&amp;rdquo; : false, &amp;ldquo;lucene_version&amp;rdquo; : &amp;ldquo;6.2.1&amp;rdquo; }, &amp;ldquo;tagline&amp;rdquo; : &amp;ldquo;You Know, for Search&amp;rdquo; } Running as a daemon ./bin/elasticsearch -d -p pid shutdown ES kill cat pid kibana 相关 kinaba允许远程访问，这里改localhost为本机i</description>
+    </item>
+    
     <item>
       <title>Vim常见用法和配置</title>
       <link>https://richard-chen93.github.io/post/vim%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
