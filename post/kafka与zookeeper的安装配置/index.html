@@ -25,27 +25,30 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Richard&#39;s blog - A personal blog.</title>
+<title>Kafka与zookeeper的安装配置 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
 
 
-<meta name="description" content="A minimal Hugo theme with nice theme color." />
+<meta name="description" content="this is discr" />
 
 
-<meta property="og:title" content="Richard&#39;s blog" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Kafka与zookeeper的安装配置" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-11-26T18:47:39+08:00" />
+<meta property="article:published_time" content="2020-11-26T18:47:39+08:00" />
+<meta property="article:modified_time" content="2020-11-26T18:47:39+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Richard&#39;s blog"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Kafka与zookeeper的安装配置"/>
+<meta name="twitter:description" content="this is discr"/>
 
 
 
@@ -102,76 +105,92 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/wtf-article/">纯简体中文测试文章</a>
+        <a href="https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">Kafka与zookeeper的安装配置</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2017-04-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;11542 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-26</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;571 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 2分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="kafka下载">kafka下载</h2>
+<p><a href="https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz">https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz</a></p>
+<h2 id="修改kafka配置文件">修改kafka配置文件</h2>
+<pre><code>vim ./config/server.properties
+broker.id=0 #每个broker的唯一标识，不可重复
+delete.topic.enable=true #允许删除topic
+log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kafka的数据都存储在logs文件夹下面。
+（logs文件夹在kafka根目录下创建）
+zookeeper.connect=s4:2181,s5:2181,s6:2181  #指定zookeeper集群
+</code></pre>
+<h2 id="xync-分发同步-kafka目录-会经常用到同步工具xsync">xync 分发同步 kafka目录 （会经常用到同步工具xsync）</h2>
+<h2 id="zookeeper的分布式安装">zookeeper的分布式安装</h2>
+<p>kafka依赖于zookeeper，先下载安装好zookeeper。（三台机器都要安装配置，可以使用同步脚本xsync，或者mobaxterm的的multi-execution功能）
+安装好后将zookeeper配置文件模板改为配置文件</p>
+<pre><code>mv zoo_sample.cfg zoo.cfg
+vim zoo.cfg
+dataDir=/tmp/zookeeper #修改默认路径，指定路径为/root/zookeeper/zkData
+
+</code></pre>
+<p>在zkData目录下创建myid文件，myid文件内容（整型数字：1，2，3）对应三个集群节点的编号。
+并在zoo.cfg文件末尾增加如下配置：</p>
+<pre><code>server.1=s4:2888:3888
+server.2=s5:2888:3888
+server.3=s6:2888:3888
+</code></pre>
+<p>数字123对应myid文件的内容，指定了节点的编号。
+s4,s5,s6是主机名或IP；2888是follower与leader服务器通讯传递副本（replicator）的端口；3888是leader挂掉后集群重新选举时通信的端口。
+配置完毕启动zookeeper。查看状态，显示Mode为leader或follower即表示集群启动成功。</p>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。</p>
-<p>可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。</p>
-    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/page/2/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/page/3/">3</a>
-    </div>
-    
-    
-    
-    
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
 
 
             </div>
@@ -239,6 +258,18 @@
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kafka下载">kafka下载</a></li>
+    <li><a href="#修改kafka配置文件">修改kafka配置文件</a></li>
+    <li><a href="#xync-分发同步-kafka目录-会经常用到同步工具xsync">xync 分发同步 kafka目录 （会经常用到同步工具xsync）</a></li>
+    <li><a href="#zookeeper的分布式安装">zookeeper的分布式安装</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
@@ -316,6 +347,20 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kafka下载">kafka下载</a></li>
+    <li><a href="#修改kafka配置文件">修改kafka配置文件</a></li>
+    <li><a href="#xync-分发同步-kafka目录-会经常用到同步工具xsync">xync 分发同步 kafka目录 （会经常用到同步工具xsync）</a></li>
+    <li><a href="#zookeeper的分布式安装">zookeeper的分布式安装</a></li>
+  </ul>
+</nav>
     </div>
     
     
