@@ -1,0 +1,41 @@
+---
+title: "About_kafka"
+date: 2020-11-26T14:23:13+08:00
+draft: true
+---
+
+## kafka下载
+https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz
+
+## 修改kafka配置文件
+```
+vim ./config/server.properties
+broker.id=0 #每个broker的唯一标识，不可重复
+delete.topic.enable=true #允许删除topic
+log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kafka的数据都存储在logs文件夹下面。
+（logs文件夹在kafka根目录下创建）
+zookeeper.connect=s4:2181,s5:2181,s6:2181  #指定zookeeper集群
+```
+
+## xync 分发同步 kafka目录 （会经常用到同步工具xsync）
+
+## zookeeper的分布式安装
+kafka依赖于zookeeper，先下载安装好zookeeper。（三台机器都要安装配置，可以使用同步脚本xsync，或者mobaxterm的的multi-execution功能）
+安装好后将zookeeper配置文件模板改为配置文件
+```
+mv zoo_sample.cfg zoo.cfg
+vim zoo.cfg
+dataDir=/tmp/zookeeper #修改默认路径，指定路径为/root/zookeeper/zkData
+
+```
+在zkData目录下创建myid文件，myid文件内容（整型数字：1，2，3）对应三个集群节点的编号。
+并在zoo.cfg文件末尾增加如下配置：
+```
+server.1=s4:2888:3888
+server.2=s5:2888:3888
+server.3=s6:2888:3888
+```
+数字123对应myid文件的内容，指定了节点的编号。
+s4,s5,s6是主机名或IP；2888是follower与leader服务器通讯传递副本（replicator）的端口；3888是leader挂掉后集群重新选举时通信的端口。
+配置完毕启动zookeeper。查看状态，显示Mode为leader或follower即表示集群启动成功。
+
