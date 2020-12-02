@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.78.2" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Centos7单机离线部署ceph及cephFS文件系统使用 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="this is discr" />
+
+
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Centos7单机离线部署ceph及cephFS文件系统使用" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/centos7%E5%8D%95%E6%9C%BA%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2ceph%E5%8F%8Acephfs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2020-12-01T12:56:16+08:00" />
+<meta property="article:modified_time" content="2020-12-01T12:56:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="Centos7单机离线部署ceph及cephFS文件系统使用"/>
+<meta name="twitter:description" content="this is discr"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A personal blog.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/centos7%E5%8D%95%E6%9C%BA%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2ceph%E5%8F%8Acephfs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8/">Centos7单机离线部署ceph及cephFS文件系统使用</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;795 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 2分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="一实验背景">一、实验背景</h1>
+<p><strong>1. 内网环境下，无法连接互联网，需要搭建ceph，为分布式集群提供ceph文件系统</strong></p>
+<p><strong>2. 要实现脚本的自动化安装，shell脚本或者ansible playbook，不使用ceph-deploy工具</strong></p>
+<p>我们需要在一台能联网的实验机机器上，将ceph集群安装所需的主包及其依赖一次性下载，编写安装脚本，然后在目标机器上搭建本地yum源，实现离线安装。</p>
+<p>我们先实现搭建本地仓库，在目标机器上手动安装。</p>
+<h1 id="二实验环境">二、实验环境</h1>
+<pre><code>操作系统：CentOS7.5 Minimal
+
+联网的实验机： 192.168.1.101
+
+cephServer(node01): 192.168.1.103 
+
+**cephServer(node01)数据盘：/dev/sdb 100G**
+
+cephClient： 192.168.1.106
+</code></pre>
+<pre><code>操作系统：CentOS7.6 desktop
+
+联网的实验机： 10.3.3.39
+
+cephServer(node01): 10.3.3.39
+
+**cephServer(node01)数据盘：/dev/sdb 100G**
+
+cephClient： 10.3.3.39
+</code></pre>
+<pre><code>关闭selinux
+
+# setenforce 0
+
+# sed  -i  's/^SELINUX=.*/SELINUX=permissive/g'  /etc/selinux/config
+
+ 
+
+设置防火墙，放行相关端口
+
+# systemctl  start  firewalld
+
+# systemctl enable firewalld 
+
+# firewall-cmd --zone=public --add-port=6789/tcp --permanent
+
+# firewall-cmd --zone=public --add-port=6800-7300/tcp --permanent
+
+# firewall-cmd --reload
+</code></pre>
+<h1 id="三在联网的实验机下载ceph主包及其依赖">三、在联网的实验机下载ceph主包及其依赖</h1>
+<p><strong>添加ceph官方yum镜像仓库</strong></p>
+<pre><code>vi   /etc/yum.repos.d/ceph.repo
+</code></pre>
+<pre><code>[Ceph]
+
+name=Ceph packages for $basearch
+
+baseurl=http://mirrors.163.com/ceph/rpm-luminous/el7/$basearch
+
+enabled=1
+
+gpgcheck=1
+
+type=rpm-md
+
+gpgkey=https://download.ceph.com/keys/release.asc
+
+priority=1
+
+[Ceph-noarch]
+
+name=Ceph noarch packages
+
+baseurl=http://mirrors.163.com/ceph/rpm-luminous/el7/noarch
+
+enabled=1
+
+gpgcheck=1
+
+type=rpm-md
+
+gpgkey=https://download.ceph.com/keys/release.asc
+
+priority=1
+
+[ceph-source]
+
+name=Ceph source packages
+
+baseurl=http://mirrors.163.com/ceph/rpm-luminous/el7/SRPMS
+
+enabled=1
+
+gpgcheck=1
+
+type=rpm-md
+
+gpgkey=https://download.ceph.com/keys/release.asc
+
+
+</code></pre>
+<p>将按照包下载到cephDeps 目录下，生成tar.gz包</p>
+<pre><code>yum clean all
+yum repolist 
+yum list all |grep ceph
+yum  -y install epel-release 
+yum -y install yum-utils 
+yum -y install createrepo 
+mkdir /root/cephDeps 
+repotrack  ceph ceph-mgr ceph-mon ceph-mds ceph-osd ceph-fuse ceph-radosgw  -p  /root/cephDeps
+createrepo  -v   /root/cephDeps
+tar  -zcf    cephDeps.tar.gz   /root/cephDeps
+</code></pre>
+<h1 id="四在cephservernode01上搭建-本地yum源">四、在cephServer(node01)上搭建 本地yum源</h1>
+<p>将cephDeps.tar.gz拷贝到cephServer(node01)服务器</p>
+<pre><code>tar -zxf cephDeps.tar.gz 
+</code></pre>
+<pre><code>vim build_localrepo.sh
+
+##################################################
+
+
+
+#!/bin/bash
+
+parent_path=$( cd &quot;$(dirname &quot;${BASH_SOURCE}&quot;)&quot; ; pwd -P )
+
+cd &quot;$parent_path&quot;
+
+mkdir /etc/yum.repos.d/backup
+
+mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/backup
+
+#create local repositry
+
+rm -rf /tmp/localrepo
+
+mkdir -p /tmp/localrepo
+
+cp -rf ./cephDeps/* /tmp/localrepo
+
+echo &quot;
+
+[localrepo]
+
+name=Local Repository
+
+baseurl=file:///tmp/localrepo
+
+gpgcheck=0
+
+enabled=1&quot; &gt; /etc/yum.repos.d/ceph.repo
+
+yum clean all
+
+##################################################
+
+
+sh -x build_localrepo.sh
+
+yum repolist
+</code></pre>
+<p>用本地yum源安装ceph组件</p>
+<pre><code>yum -y install ceph ceph-mds ceph-mgr ceph-osd ceph-mon
+
+yum list installed | grep ceph
+
+ll /etc/ceph/
+
+ll /var/lib/ceph/
+</code></pre>
+<p>配置ceph组件</p>
+<pre><code>这里未配置：
+创建集群id**
+
+ uidgen
+
+ 
+
+用uidgen 生成一个uuid 例如 ee741368-4233-4cbc-8607-5d36ab314dab
+</code></pre>
+<pre><code>grep -i uuid /etc/sysconfig/network-scripts/ifcfg-ens33
+UUID=99cf6cf1-1646-4dbd-bb74-71db9c1dc139
+</code></pre>
+<p><strong>创建ceph主配置文件</strong></p>
+<p># vim /etc/ceph/ceph.conf</p>
+<p>######################################</p>
+<pre><code>[global]
+
+fsid = 99cf6cf1-1646-4dbd-bb74-71db9c1dc139
+
+mon_initial_members = node01
+
+mon_host = 10.3.3.39
+
+mon_max_pg_per_osd = 300
+
+ 
+
+auth_cluster_required = cephx
+
+auth_service_required = cephx
+
+auth_client_required = cephx
+
+ 
+
+osd_pool_default_size = 1
+
+osd_pool_default_min_size = 1
+
+osd_journal_size = 1024
+
+osd_crush_chooseleaf_type = 0
+
+ 
+
+public_network = 10.3.3.0/24
+
+cluster_network = 10.3.3.0/24
+
+[mon]
+
+mon allow pool delete = true
+</code></pre>
+<p>###################################</p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2020
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/blog">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+            
+            <span id="busuanzi_container_site_pv">
+                | 本站访问量: <span id="busuanzi_value_site_pv"></span>次
+            </span>
+
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
