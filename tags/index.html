@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.79.0" />
 
 
 
@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/tags/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-12-01T12:56:16+08:00" />
+<meta property="og:updated_time" content="2020-12-07T11:12:10+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/">Mysql故障记录</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;101 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        mysql5.7 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&ndash;user=root参数 $bindir/mysqld_safe &ndash;user=root &ndash;datadir=&quot;$datadir&quot; &ndash;pid-file=&quot;$mysqld_pid_file_path&quot; $other_args &gt;/dev/null &amp; 确保/etc/下有my.cnf.d #修改密码mysql&gt; alter user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; identified by
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3. 分配证书，开启PUPPE
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;333 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple doc
     </div>
 </div>
 

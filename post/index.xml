@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Dec 2020 12:56:16 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Dec 2020 11:12:10 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql故障记录</title>
+      <link>https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Mon, 07 Dec 2020 11:12:10 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/</guid>
+      <description>mysql5.7 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&amp;ndash;user=root参数 $bindir/mysqld_safe &amp;ndash;user=root &amp;ndash;datadir=&amp;quot;$datadir&amp;quot; &amp;ndash;pid-file=&amp;quot;$mysqld_pid_file_path&amp;quot; $other_args &amp;gt;/dev/null &amp;amp; 确保/etc/下有my.cnf.d #修改密码mysql&amp;gt; alter user &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo; identified by</description>
+    </item>
+    
     <item>
       <title>Centos7单机离线部署ceph及cephFS文件系统使用</title>
       <link>https://richard-chen93.github.io/post/centos7%E5%8D%95%E6%9C%BA%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2ceph%E5%8F%8Acephfs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8/</link>
@@ -94,7 +103,7 @@
       <pubDate>Fri, 30 Oct 2020 09:00:58 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/</guid>
-      <description>yum centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ pip install django-bootstrap3==6.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host=mirrors.aliyun.com Mac: 修改 pip.conf 文件 vim $HOME/Library/Application Support/pip/pip.conf 如果没有上面的目录,在如下目录创建 pip.conf $HOME/.config/pip/pip.conf 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple12 Windows: 修改 pip.conf 文件 (没有就创建一个) %APPDATA%\pip\pip.ini 修改内容如下： [global] index-url = https://pypi.tuna.tsinghua.edu.cn/simple doc</description>
+      <description>yum 若最小化安装，可安装一些常用工具： yum -y install wget curl vim net-tools python-pip 常用的初始配置，加快dns，关闭selinux和防火墙 sed -i &#39;s/#UseDNS yes/UseDNS no/g&#39; /etc/ssh/sshd_config sed -i &#39;s/GSSAPIAuthentication yes/GSSAPIAuthentication no/g&#39; /etc/ssh/sshd_config sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/ssh/sshd_config setenforce 0 systemctl diable firewalld systemctl stop firewalld centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url</description>
     </item>
     
     <item>
