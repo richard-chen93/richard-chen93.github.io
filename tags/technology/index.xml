@@ -13,7 +13,7 @@
       <pubDate>Mon, 07 Dec 2020 11:12:10 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/</guid>
-      <description>mysql5.7 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&amp;ndash;user=root参数 $bindir/mysqld_safe &amp;ndash;user=root &amp;ndash;datadir=&amp;quot;$datadir&amp;quot; &amp;ndash;pid-file=&amp;quot;$mysqld_pid_file_path&amp;quot; $other_args &amp;gt;/dev/null &amp;amp; 确保/etc/下有my.cnf.d #修改密码mysql&amp;gt; alter user &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo; identified by</description>
+      <description>OS和mysql版本 mysql5.7、centos7 报错记录 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&amp;ndash;user=root参数 $bindir/mysqld_safe &amp;ndash;user=root &amp;ndash;datadir=&amp;quot;$datadir&amp;quot; &amp;ndash;pid-file=&amp;quot;$mysqld_pid_file_path&amp;quot; $other_args &amp;gt;/dev/null &amp;amp; 确保/etc/</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Thu, 26 Nov 2020 18:47:39 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
-      <description>kafka下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kafka的数据都存储在logs文件夹下面。 （logs文件</description>
+      <description>1、kafka下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 2、修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kafka的数据都存储在logs文件夹下面。 （lo</description>
     </item>
     
     <item>
