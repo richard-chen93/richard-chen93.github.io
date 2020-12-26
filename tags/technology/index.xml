@@ -6,7 +6,25 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Dec 2020 11:12:10 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Dec 2020 16:11:54 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>常见问题处置</title>
+      <link>https://richard-chen93.github.io/post/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%BD%AE/</link>
+      <pubDate>Fri, 25 Dec 2020 16:11:54 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%BD%AE/</guid>
+      <description>Chrome浏览器：Your Connection is not private 您的连接不是私密连接 在图片图片所示的任何地方输入: thisisunsafe 没错就是这么6，然后就可以访问了。输错了请刷新再来（微笑）</description>
+    </item>
+    
+    <item>
+      <title>Linux常用命令</title>
+      <link>https://richard-chen93.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Fri, 25 Dec 2020 10:25:09 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+      <description>查看cpu信息 [root@AAA ~]# cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c 24 Intel(R) Xeon(R) CPU E5-2630 0 @ 2.30GHz # 查看物理CPU个数 [root@AAA ~]# cat /proc/cpuinfo| grep &amp;quot;physical id&amp;quot;| sort| uniq| wc -l 2 # 查看每个物理CPU中core的个数(即核数) [root@AAA ~]# cat /proc/cpuinfo| grep &amp;quot;cpu cores&amp;quot;| uniq cpu cores : 6 # 查看逻辑CPU的个数 [root@AAA ~]# cat</description>
+    </item>
+    
     <item>
       <title>Mysql故障记录</title>
       <link>https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/</link>
