@@ -49,7 +49,7 @@
       <pubDate>Thu, 26 Nov 2020 18:47:39 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
-      <description>1、kafka下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 2、修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kafka的数据都存储在logs文件夹下面。 （lo</description>
+      <description>1、kafka架构图及下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 此外，java安装并配置好环境变量。 2、修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kaf</description>
     </item>
     
     <item>
