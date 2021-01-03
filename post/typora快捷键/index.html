@@ -25,7 +25,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Linux常用命令 - Richard&#39;s blog</title>
+<title>Typora快捷键 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -36,18 +36,18 @@
 
 <meta name="keywords" content="technology" />
 
-<meta property="og:title" content="Linux常用命令" />
+<meta property="og:title" content="Typora快捷键" />
 <meta property="og:description" content="this is discr" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/typora%E5%BF%AB%E6%8D%B7%E9%94%AE/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="article:published_time" content="2020-12-25T10:25:09+08:00" />
-<meta property="article:modified_time" content="2020-12-25T10:25:09+08:00" />
+<meta property="article:published_time" content="2020-12-31T12:02:49+08:00" />
+<meta property="article:modified_time" content="2020-12-31T12:02:49+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Linux常用命令"/>
+<meta name="twitter:title" content="Typora快捷键"/>
 <meta name="twitter:description" content="this is discr"/>
 
 
@@ -108,13 +108,13 @@
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Linux常用命令</a>
+        <a href="https://richard-chen93.github.io/post/typora%E5%BF%AB%E6%8D%B7%E9%94%AE/">Typora快捷键</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-25</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;106 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-31</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1633 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 1分钟 | 本文总阅读量
+            阅读大约需要 4分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -124,22 +124,106 @@
     
     
     <div class="post-content markdown-body">
-        <h1 id="查看cpu信息">查看cpu信息</h1>
-<pre><code>[root@AAA ~]# cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
-     24         Intel(R) Xeon(R) CPU E5-2630 0 @ 2.30GHz
-
-# 查看物理CPU个数
-[root@AAA ~]# cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l
-2
-
-# 查看每个物理CPU中core的个数(即核数)
-[root@AAA ~]# cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq
-cpu cores    : 6
-
-# 查看逻辑CPU的个数
-[root@AAA ~]# cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l
-24
-</code></pre>
+        <h1 id="windows快捷键">windows快捷键：#</h1>
+<p>无序列表：输入-之后输入空格
+有序列表：输入数字+“.”之后输入空格
+任务列表：-[空格]空格 文字
+标题：ctrl+数字
+表格：ctrl+t
+生成目录：[TOC]按回车
+选中一整行：ctrl+l
+选中单词：ctrl+d
+选中相同格式的文字：ctrl+e
+跳转到文章开头：ctrl+home
+跳转到文章结尾：ctrl+end
+搜索：ctrl+f
+替换：ctrl+h
+引用：输入&gt;之后输入空格
+代码块：ctrl+alt+f
+加粗：ctrl+b
+倾斜：ctrl+i
+下划线：ctrl+u
+删除线：alt+shift+5
+插入图片：直接拖动到指定位置即可或者ctrl+shift+i
+插入链接：ctrl + k
+给代码块设置快捷键:#
+偏好设置-&gt;打开高级设置-&gt;conf.user.json文件</p>
+<p>&ldquo;keyBinding&rdquo;: {
+// for example: 
+// &ldquo;Always on Top&rdquo;: &ldquo;Ctrl+Shift+P&rdquo;
+&ldquo;Always on Top&rdquo;: &ldquo;Ctrl+Shift+P&rdquo;,<br>
+&ldquo;Code Fences&rdquo;: &ldquo;Ctrl+Shift+F&rdquo;,<br>
+&ldquo;Ordered List&rdquo;:&ldquo;Ctrl+Alt+o&rdquo;,<br>
+&ldquo;Unordered List&rdquo;: &ldquo;Ctrl+Alt+u&rdquo;<br>
+},
+Code Fences 代码块</p>
+<p>Ordered List 数字有序列表</p>
+<p>Unordered List 无序列表</p>
+<h1 id="mac中的快捷键">Mac中的快捷键：#</h1>
+<p>最大标题：command + 1 或者：#
+大标题：command + 2 或者：##
+标准标题：command + 3 或者：###
+中标题：command + 4 或者：####
+小标题：command + 5 或者：#####
+插入表格：command + T
+插入代码：command + alt +c
+行间公式 command + Alt + b
+段落：command + 0
+竖线 ： command + Alt +q
+有序列表（1. 2.） ：输入数字+“.”之后输入空格 或者：command + Alt + o
+黑点标记：command + Alt + u
+隔离线shift + command + -
+超链接：command + Alt + l
+插入链接：command +k
+下划线：command +u
+加粗：command +b
+搜索：command +f
+图片：#</p>
+<p>表情#
+输出表情需要借助 ：符号。</p>
+<p>栗子：:smile 显示为 😄,记住是左右两边都要冒号。</p>
+<p>使用者可以通过使用ESC键触发表情建议补全功能，也可在功能面板启用后自动触发此功能。同时，直接从菜单栏Edit -&gt; Emoji &amp; Symbols插入UTF8表情符号也是可以的。</p>
+<p>或者使用下面的方法</p>
+<p>访问网站 <a href="https://emojikeyboard.org/">https://emojikeyboard.org/</a>，找到需要的符号，鼠标左键单击，然后粘贴到需要的地方就行了！🆗</p>
+<p>数学公式#
+你可以通过使用MathJax来实现LaTeX的数学符号的表达。</p>
+<p>输入$$，然后按下Enter键就会弹出一个支持TeX/LaTeX语法的输入框，下面是一个栗子：</p>
+<p>V1×V2=∣∣ijk ∂X∂u∂Y∂u0 ∂X∂v∂Y∂v0 ∣∣
+在Markdown源文件中，数学的公式块是通过利用$$标记借用LaTeX语言来实现的：</p>
+<p>$$
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \<br>
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \<br>
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \<br>
+\end{vmatrix}
+$$
+HTML#
+Typora不能使用HTML元素，但是Typora可以解析和编译非常有限的HTML元素，作为Markdown功能的补充，这些有限的功能包括：</p>
+<p>下划线： <u>underline</u>
+图片：<img src="http://www.w3.org/html/logo/img/mark-word-icon.png" width="200px" />（HTML标签中的width, height 以及属于样式的width, height, zoom样式可以被识别和应用。）
+评论：<!-- This is some comments -->
+超链接： <a href="http://typora.io" target="_blank">link</a> 。
+大多数这些属性、样式或分类会被忽略。对其他的标签，Typora会将它们以HTML片段的形式表达。</p>
+<p>行内嵌数学符号#
+想要使用这个功能，需要在设置面板的 Markdown栏启用它。然后使用$来启动TeX命令，栗如：$\lim_{x \to \infty} \exp(-x) = 0$ 会以LaTeX的命令形式表达出来。</p>
+<p>为了触发行内内嵌数学符号的实时编译你需要：输入$然后按下ESC键之后输入TeX命令，之后就会弹出一个如图所示的工具提示栏：</p>
+<p>img</p>
+<p>下标#
+想要使用这个功能，需要在设置面板的 Markdown 栏启动它，之后使用~来修饰下标文本。栗如：</p>
+<p>H~2~O 和X~long\ text~ 显示为 H2O 和Xlong text 。</p>
+<h4 id="13上标">13.上标</h4>
+<p>想要使用这个功能，需要在设置面板的 Markdown 栏启动它，之后使用^来修饰下标文本。栗如：</p>
+<p>X^2^ 显示为 X2 。</p>
+<p>高亮#
+想要使用这个功能，需要在设置面板的Markdown 栏启动它，之后使用==来修饰高亮文本，栗如：</p>
+<p>==highlight== 显示为 highlight 。</p>
+<p>参考：#
+<a href="https://baka943.coding.me/2018/02/08/2018-02-08-TyporaSimpleDoc/">https://baka943.coding.me/2018/02/08/2018-02-08-TyporaSimpleDoc/</a></p>
+<p>在markdown中使用HTML中的特殊符号：</p>
+<p>Markdown输入Latex公式的特殊符号</p>
+<p>Markdown For Typora 中文版使用指南</p>
+<p>Cmd Markdown 公式指导手册</p>
+<p>Markdown 简介</p>
 
     </div>
 </article>
@@ -249,7 +333,15 @@ cpu cores    : 6
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
     
@@ -334,7 +426,15 @@ cpu cores    : 6
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
     
