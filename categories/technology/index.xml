@@ -13,7 +13,7 @@
       <pubDate>Sun, 03 Jan 2021 20:57:51 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</guid>
-      <description>安装NPT（所有节点） 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 $ sudo yum install ntp ntpdate ntp-doc 1.node1节点配置 node1节点作为ntp服务器 $ sudo su #切换到root用户 $ vim /etc/ntp.conf restrict 192.168.6.0 mask 255.255.255.0 nomodify notrap #配置集群</description>
+      <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 $ sudo yum install ntp ntpdate ntp-doc</description>
     </item>
     
     <item>
