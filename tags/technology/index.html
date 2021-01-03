@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/tags/technology/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2020-12-31T12:02:49+08:00" />
+<meta property="og:updated_time" content="2021-01-03T20:57:51+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -108,6 +108,19 @@
 </div>
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;286 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        安装NPT（所有节点） 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 $ sudo yum install ntp ntpdate ntp-doc 1.node1节点配置 node1节点作为ntp服务器 $ sudo su #切换到root用户 $ vim /etc/ntp.conf restrict 192.168.6.0 mask 255.255.255.0 nomodify notrap #配置集群
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -226,19 +239,6 @@
     </div>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Docker常用操作</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;322 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模
-    </div>
-</div>
-
 
 
 
@@ -271,13 +271,23 @@
     
     
     
+    
+    
+    
+    
+    <div class="pag-item">
+        <a href="/tags/technology/page/3/">3</a>
+    </div>
+    
+    
+    
     <div class="pag-next">
         <a href="/tags/technology/page/2/"><i class="iconfont icon-chevron-forward-circle-sharp"></i></a>
     </div>
     
     
     <div class="pag-last">
-        <a href="/tags/technology/page/2/"><i class="iconfont icon-caret-forward-circle-sharp"></i></a>
+        <a href="/tags/technology/page/3/"><i class="iconfont icon-caret-forward-circle-sharp"></i></a>
     </div>
     
 </div>
