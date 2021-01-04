@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/tags/technology/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-03T20:57:51+08:00" />
+<meta property="og:updated_time" content="2021-01-04T17:05:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -108,6 +108,19 @@
 </div>
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Ceph集群搭建</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-04</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;112 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、准备工作 ntp时间同步、hosts文件域名可访问、ssh免密登录、yum源等先配置好。 yum源文件内容： cat &gt; /etc/yum.repos/ceph.repo &lt; EOF [ceph] name=ceph baseurl=https://download.ceph.com/rpm-luminous/el7/noarch enable=1 gpgcheck=1 type=rpm-md gpgkey=https://download.ceph.com/keys/release.asc EOF yum makecache yum -y install ceph-deploy 安装一个python包 wget https://files.pythonhosted.org/packages/5f/ad/1fde06877a8d7d5c9b60eff7de2d452f639916ae1d48f0b8f97bf97e570a/distribute-0.7.3.zip unzip distribute-0.7.3.zip sudo python setup.py install 2、使用ceph
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -223,19 +236,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         vim tab改为4个空格 vim /etc/vim/vimrc set ts=4 set expandtab set autoindent
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus/">安装部署prometheus</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-20</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1543 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        环境准备 3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2 prometheus版本为prometheus-2.5.0.linux-amd6
     </div>
 </div>
 

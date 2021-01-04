@@ -25,7 +25,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>内网ntp时间服务器搭建 - Richard&#39;s blog</title>
+<title>Ceph集群搭建 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -36,18 +36,18 @@
 
 <meta name="keywords" content="technology" />
 
-<meta property="og:title" content="内网ntp时间服务器搭建" />
+<meta property="og:title" content="Ceph集群搭建" />
 <meta property="og:description" content="this is discr" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="article:published_time" content="2021-01-03T20:57:51+08:00" />
-<meta property="article:modified_time" content="2021-01-03T20:57:51+08:00" />
+<meta property="article:published_time" content="2021-01-04T17:05:40+08:00" />
+<meta property="article:modified_time" content="2021-01-04T17:05:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="内网ntp时间服务器搭建"/>
+<meta name="twitter:title" content="Ceph集群搭建"/>
 <meta name="twitter:description" content="this is discr"/>
 
 
@@ -108,10 +108,10 @@
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
+        <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Ceph集群搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;339 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-04</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;112 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -124,39 +124,34 @@
     
     
     <div class="post-content markdown-body">
-        <h3 id="安装npt所有节点">安装NPT（所有节点）</h3>
-<p>配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd !</p>
-<p>我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。</p>
-<pre><code class="language-bash">$ sudo yum install ntp ntpdate ntp-doc
-</code></pre>
-<h4 id="1node1节点配置">1.node1节点配置</h4>
-<p>node1节点作为ntp服务器</p>
-<pre><code class="language-bash">$ sudo su #切换到root用户
-$ vim /etc/ntp.conf
-</code></pre>
-<pre><code class="language-js">restrict 192.168.6.0 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
+        <h1 id="1准备工作">1、准备工作</h1>
+<p>ntp时间同步、hosts文件域名可访问、ssh免密登录、yum源等先配置好。</p>
+<h2 id="yum源文件内容">yum源文件内容：</h2>
+<pre><code>cat &gt; /etc/yum.repos/ceph.repo &lt; EOF
 
-server  127.127.1.0     # local clock
-fudge   127.127.1.0 stratum 10
+[ceph]
+name=ceph
+baseurl=https://download.ceph.com/rpm-luminous/el7/noarch
+enable=1
+gpgcheck=1
+type=rpm-md
+gpgkey=https://download.ceph.com/keys/release.asc
+
+EOF
+
+yum makecache
+
 </code></pre>
-<pre><code class="language-bash">service ntpd restart  #重启ntpd时间服务器
+<h2 id="yum--y-install-ceph-deploy">yum -y install ceph-deploy</h2>
+<h2 id="安装一个python包">安装一个python包</h2>
+<pre><code>wget https://files.pythonhosted.org/packages/5f/ad/1fde06877a8d7d5c9b60eff7de2d452f639916ae1d48f0b8f97bf97e570a/distribute-0.7.3.zip
+
+unzip distribute-0.7.3.zip
+
+sudo python setup.py install
 </code></pre>
-<h4 id="2其他节点配置">2.其他节点配置</h4>
-<pre><code class="language-bash">$ sudo su #切换到root用户
-$ vim /etc/ntp.conf
-</code></pre>
-<pre><code class="language-js">restrict 10.0.3.3 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
-server  10.0.3.3     # #IP为node1的ip地址
-</code></pre>
-<pre><code class="language-bash">service ntpd restart  #重启ntpd时间服务器
-</code></pre>
-<h4 id="3查看时间同步状态">3.查看时间同步状态</h4>
-<pre><code class="language-bash">$ ntpstat  #这里显示的是与local本地同步的，代表还没有和外网服务器进行时间同步
-#synchronised to local net (127.127.1.0) at stratum 11
-#   time correct to within 11 ms
-#   polling server every 64 s
-#输出上述内容代表同步成功
-</code></pre>
+<h1 id="2使用ceph-deploy安装">2、使用ceph-deploy安装</h1>
+<p>ceph-deploy new s102</p>
 
     </div>
 </article>
@@ -268,11 +263,9 @@ server  10.0.3.3     # #IP为node1的ip地址
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
-      </ul>
-    </li>
+    <li><a href="#yum源文件内容">yum源文件内容：</a></li>
+    <li><a href="#yum--y-install-ceph-deploy">yum -y install ceph-deploy</a></li>
+    <li><a href="#安装一个python包">安装一个python包</a></li>
   </ul>
 </nav>
     </div>
@@ -361,11 +354,9 @@ server  10.0.3.3     # #IP为node1的ip地址
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
-      </ul>
-    </li>
+    <li><a href="#yum源文件内容">yum源文件内容：</a></li>
+    <li><a href="#yum--y-install-ceph-deploy">yum -y install ceph-deploy</a></li>
+    <li><a href="#安装一个python包">安装一个python包</a></li>
   </ul>
 </nav>
     </div>
