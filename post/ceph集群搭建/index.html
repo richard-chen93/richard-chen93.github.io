@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Ceph集群搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-04</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;112 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-04</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;233 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -125,6 +125,9 @@
     
     <div class="post-content markdown-body">
         <h1 id="1准备工作">1、准备工作</h1>
+<ul>
+<li>5台机器，s3	s4 	s102,103,104。	s3是部署机器，s4是ceph客户端。	102-104是ceph节点</li>
+</ul>
 <p>ntp时间同步、hosts文件域名可访问、ssh免密登录、yum源等先配置好。</p>
 <h2 id="yum源文件内容">yum源文件内容：</h2>
 <pre><code>cat &gt; /etc/yum.repos/ceph.repo &lt; EOF
@@ -151,7 +154,32 @@ unzip distribute-0.7.3.zip
 sudo python setup.py install
 </code></pre>
 <h1 id="2使用ceph-deploy安装">2、使用ceph-deploy安装</h1>
-<p>ceph-deploy new s102</p>
+<p>s3上使用ceph用户执行：ceph-deploy new s102</p>
+<p>3、vim ceph.repo</p>
+<pre><code>[Ceph-SRPMS]
+name=Ceph SRPMS packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-jewel/el7/SRPMS/
+enabled=1
+gpgcheck=0
+type=rpm-md
+
+[Ceph-noarch]
+name=Ceph noarch packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-jewel/el7/noarch/
+enabled=1
+gpgcheck=0
+type=rpm-md
+
+[Ceph-x86_64]
+name=Ceph x86_64 packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-jewel/el7/x86_64/
+enabled=1
+gpgcheck=0
+type=rpm-md
+</code></pre>
+<p>3、</p>
+<pre><code>sudo yum makecache ;yum -y install epel-release;yum -y install ceph ceph-radosgw
+</code></pre>
 
     </div>
 </article>
