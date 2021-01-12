@@ -6,14 +6,32 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jan 2021 17:05:40 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jan 2021 10:30:40 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ceph集群搭建</title>
-      <link>https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Mon, 04 Jan 2021 17:05:40 +0800</pubDate>
+      <title>Mysql常用操作</title>
+      <link>https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Tue, 12 Jan 2021 10:30:40 +0800</pubDate>
       
-      <guid>https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
-      <description>1、准备工作 5台机器，s3 s4 s102,103,104。 s3是部署机器，s4是ceph客户端。 102-104是ceph节点 ntp时间同步、hosts文件域名可访问、ssh免密登录、yum源等先配置好。 y</description>
+      <guid>https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
+      <description>安装完初始化： mysql_secure_installation 创建用户 CREATE USER &#39;panda&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;panda&#39;; 允许其他IP访问数据库 %代表任意IP GRANT ALL PRIVILEGES ON *.* TO &#39;panda&#39;@&#39;%&#39; IDENTIFIED BY &#39;panda&#39; WITH GRANT OPTION; flush privileges; 创建数据库表 CREATE TABLE IF NOT EXISTS `runoob_tbl`( `runoob_id` INT UNSIGNED AUTO_INCREMENT, `runoob_title` VARCHAR(100) NOT NULL, `runoob_author` VARCHAR(40) NOT NULL, `submission_date` DATE, PRIMARY KEY ( `runoob_id` ) )ENGINE=InnoDB DEFAULT CHARSET=utf8;</description>
+    </item>
+    
+    <item>
+      <title>Ceph集群部署</title>
+      <link>https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 12 Jan 2021 10:27:48 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid>
+      <description>1、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲磁盘sdb，10G 1、时间同步 s7作为ntp服务器，s8-10作为客户端 sudo yum -y install ntp ntpdate 1.s7 节点配</description>
+    </item>
+    
+    <item>
+      <title>Memcached</title>
+      <link>https://richard-chen93.github.io/post/memcached/</link>
+      <pubDate>Fri, 08 Jan 2021 16:15:17 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/memcached/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -22,7 +40,7 @@
       <pubDate>Sun, 03 Jan 2021 20:57:51 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</guid>
-      <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 $ sudo yum install ntp ntpdate ntp-doc</description>
+      <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.</description>
     </item>
     
     <item>

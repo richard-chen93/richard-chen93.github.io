@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;339 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;336 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -127,28 +127,30 @@
         <h3 id="安装npt所有节点">安装NPT（所有节点）</h3>
 <p>配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd !</p>
 <p>我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。</p>
-<pre><code class="language-bash">$ sudo yum install ntp ntpdate ntp-doc
+<pre><code class="language-bash">sudo yum install ntp ntpdate
 </code></pre>
 <h4 id="1node1节点配置">1.node1节点配置</h4>
 <p>node1节点作为ntp服务器</p>
-<pre><code class="language-bash">$ sudo su #切换到root用户
-$ vim /etc/ntp.conf
+<pre><code class="language-bash">sudo vim /etc/ntp.conf	#删除所有默认的restrict 和 server配置，添加以下内容：
 </code></pre>
-<pre><code class="language-js">restrict 192.168.6.0 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
+<pre><code class="language-js">restrict 10.0.3.3 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
 
 server  127.127.1.0     # local clock
 fudge   127.127.1.0 stratum 10
 </code></pre>
-<pre><code class="language-bash">service ntpd restart  #重启ntpd时间服务器
+<pre><code class="language-bash">sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+systemctl status ntpd
 </code></pre>
 <h4 id="2其他节点配置">2.其他节点配置</h4>
-<pre><code class="language-bash">$ sudo su #切换到root用户
-$ vim /etc/ntp.conf
+<pre><code class="language-bash">sudo vim /etc/ntp.conf
 </code></pre>
-<pre><code class="language-js">restrict 10.0.3.3 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
-server  10.0.3.3     # #IP为node1的ip地址
+<pre><code class="language-js">restrict 10.0.3.4 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
+server  10.0.3.4     # #IP为node1的ip地址
 </code></pre>
-<pre><code class="language-bash">service ntpd restart  #重启ntpd时间服务器
+<pre><code class="language-bash">sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+systemctl status ntpd
 </code></pre>
 <h4 id="3查看时间同步状态">3.查看时间同步状态</h4>
 <pre><code class="language-bash">$ ntpstat  #这里显示的是与local本地同步的，代表还没有和外网服务器进行时间同步

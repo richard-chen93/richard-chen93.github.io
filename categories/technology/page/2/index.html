@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/categories/technology/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-04T17:05:40+08:00" />
+<meta property="og:updated_time" content="2021-01-12T10:30:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,32 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/about_elasticsearch/">About_ElasticSearch</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;118 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        下载、校验 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.2.tar.gz sha1sum elasticsearch-5.0.2.tar.gz tar -xzf elasticsearch-5.0.2.tar.gz cd elasticsearch-5.0.2/ ./bin/elasticsearch 验证 curl localhost:9200 { &ldquo;name&rdquo; : &ldquo;Cp8oag6&rdquo;, &ldquo;cluster_name&rdquo; : &ldquo;elasticsearch&rdquo;, &ldquo;cluster_uuid&rdquo; : &ldquo;AT69_T_DTp-1qgIJlatQqA&rdquo;, &ldquo;version&rdquo; : { &ldquo;number&rdquo; : &ldquo;5.0.2&rdquo;, &ldquo;build_hash&rdquo; : &ldquo;f27399d&rdquo;, &ldquo;build_date&rdquo; : &ldquo;2016-03-30T09:51:41.449Z&rdquo;, &ldquo;build_snapshot&rdquo; : false, &ldquo;lucene_version&rdquo; : &ldquo;6.2.1&rdquo; }, &ldquo;tagline&rdquo; : &ldquo;You Know, for Search&rdquo; } Running as a daemon ./bin/elasticsearch -d -p pid shutdown ES kill cat pid kibana 相关 kinaba允许远程访问，配置文件中这里localhost
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/vim%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E5%92%8C%E9%85%8D%E7%BD%AE/">Vim常见用法和配置</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;18 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        vim tab改为4个空格 vim /etc/vim/vimrc set ts=4 set expandtab set autoindent
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -206,32 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         docker-compose 1.安装扩展源 sudo yum -y install epel-release 2.安装python-pip模块 sudo yum install python-pip 3.查看docker-compose版本 docker-compose version 提示未找到命令 4.通过命令进行安装 cd /usr/local/bin/ wget https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-Linux-x86_64 rename docker-compose-Linux-x86_64 docker-compose docker-compose-Linux-x86_64 chmod +x /usr/local/bin/docker-compose 5.再通过docker-compo
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/submodule%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">git Submodule</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-29</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2995 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        Git中submodule的使用 面对比较复杂的项目，我们有可能会将代码根据功能拆解成不同的子模块。主项目对子模块有依赖关系，却又并不关心子模块的内部开发流程细节。 这种情况下，通常不会把所有源码都放在同
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1581 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        hugo本地创建、更新、删除文章后同步到gitpage的基本流程： 前提环境： public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到 注意 写文章后直接sh
     </div>
 </div>
 

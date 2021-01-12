@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Linux常用命令</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-25</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;106 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-25</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;184 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -139,6 +139,20 @@ cpu cores    : 6
 # 查看逻辑CPU的个数
 [root@AAA ~]# cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l
 24
+</code></pre>
+<h1 id="文本编辑">文本编辑</h1>
+<pre><code>cat &gt;&gt; /etc/my.cnf &lt;&lt; EOF
+text 1
+text 2
+EOF
+</code></pre>
+<pre><code>sed -i 's/原字符串/新字符串/' /home/1.txt
+</code></pre>
+<p>sudo useradd cephuser ; echo cephuser | sudo passwd &ndash;stdin cephuser</p>
+<p>我的macbook15，windows下的虚拟机：</p>
+<pre><code>sed -i 's/920f1da23253/920f1da23011/' /etc/sysconfig/network-scripts/ifcfg-ens33
+sed -i 's/IPADDR=10.0.3.253/IPADDR=10.0.3.11/' /etc/sysconfig/network-scripts/ifcfg-ens33
+systemctl restart network
 </code></pre>
 
     </div>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.79.0" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Ceph集群部署 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="this is discr" />
+
+
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Ceph集群部署" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2021-01-12T10:27:48+08:00" />
+<meta property="article:modified_time" content="2021-01-12T10:27:48+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="Ceph集群部署"/>
+<meta name="twitter:description" content="this is discr"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A fullstack devops engineer.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Ceph集群部署</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1594 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 4分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="1环境准备">1、环境准备</h1>
+<p>环境准备好，避免踩坑！</p>
+<p>4台机器，s10为ceph-deploy。</p>
+<p>s7 s8 s9为3个node，拥有空闲磁盘sdb，10G</p>
+<h2 id="1时间同步">1、时间同步</h2>
+<p>s7作为ntp服务器，s8-10作为客户端</p>
+<pre><code class="language-bash">sudo yum -y install ntp ntpdate
+</code></pre>
+<h4 id="1s7-节点配置">1.s7 节点配置</h4>
+<pre><code class="language-bash">sudo vim /etc/ntp.conf
+
+
+restrict 10.3.3.7 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
+
+server  127.127.1.0     # local clock
+fudge   127.127.1.0 stratum 10
+
+sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+sudo systemctl status ntpd
+
+ntpstat
+ntpq -p
+date
+</code></pre>
+<h4 id="2其他节点配置">2.其他节点配置</h4>
+<pre><code class="language-bash">sudo vim /etc/ntp.conf
+
+
+restrict 10.3.3.7 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
+server  10.3.3.7     # #IP为node1的ip地址
+
+sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+sudo systemctl status ntpd
+
+ntpstat
+ntpq -p
+date
+</code></pre>
+<h2 id="2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</h2>
+<p>s10 需要使用cephuser用户ssh免密登录3个node。</p>
+<ul>
+<li>4台机器创建cephuser用户。用户名 “ceph” 保留给了 Ceph 守护进程。如果 Ceph 节点上已经有了 “ceph” 用户，升级前必须先删掉这个用户。</li>
+</ul>
+<pre><code> sudo useradd cephuser ; echo cephuser | sudo passwd --stdin cephuser
+</code></pre>
+<ul>
+<li>4台机器设定cephuser用户无密码sudo权限</li>
+</ul>
+<pre><code>echo &quot;cephuser ALL = (root) NOPASSWD:ALL&quot; | sudo tee /etc/sudoers.d/cephuser
+sudo chmod 0440 /etc/sudoers.d/cephuser
+</code></pre>
+<ul>
+<li>在S10上使用cephuser用户执行ssh免密登录配置脚本sshops-init.sh &ldquo;s7,s8,s9,s10&rdquo;</li>
+</ul>
+<h2 id="3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</h2>
+<ul>
+<li>
+<p>yum源</p>
+<pre><code class="language-bash">sudo vi /etc/yum.repos.d/ceph.repo
+</code></pre>
+<p>把如下内容粘帖进去，保存到 /etc/yum.repos.d/ceph.repo 文件中。</p>
+<pre><code class="language-js">[ceph]
+name=ceph
+baseurl=http://mirrors.aliyun.com/ceph/rpm-jewel/el7/x86_64/
+gpgcheck=0
+priority=1
+  
+[ceph-noarch]
+name=cephnoarch
+baseurl=http://mirrors.aliyun.com/ceph/rpm-jewel/el7/noarch/
+gpgcheck=0
+priority=1
+  
+[ceph-source]
+name=Ceph source packages
+baseurl=http://mirrors.aliyun.com/ceph/rpm-jewel/el7/SRPMS
+gpgcheck=0
+priority=1
+</code></pre>
+</li>
+<li>
+<p>安装pip包：</p>
+</li>
+</ul>
+<pre><code>wget https://files.pythonhosted.org/packages/5f/ad/1fde06877a8d7d5c9b60eff7de2d452f639916ae1d48f0b8f97bf97e570a/distribute-0.7.3.zip
+sudo yum -y install unzip
+unzip distribute-0.7.3.zip
+cd distribute-0.7.3
+sudo python setup.py install
+</code></pre>
+<ul>
+<li>安装rpm包：</li>
+</ul>
+<pre><code>sudo yum -y install deltarpm
+</code></pre>
+<p>排错参考：http://www.voidcn.com/article/p-rougfoll-ov.html</p>
+<p>集群搭建：http://docs.ceph.org.cn/start/quick-ceph-deploy/</p>
+<h2 id="4s10安装ceph-deploy">4、s10安装ceph-deploy</h2>
+<p>安装ceph-deploy</p>
+<pre><code class="language-bash">sudo yum -y install ceph-deploy
+</code></pre>
+<p>查看ceph-deploy是否安装成功</p>
+<pre><code>ceph-deploy --version
+</code></pre>
+<h1 id="2搭建集群">2、搭建集群</h1>
+<h2 id="1说明">1、说明</h2>
+<p>第一次练习时，我们创建一个 Ceph 存储集群，它有一个 Monitor 和两个 OSD 守护进程。一旦集群达到 <code>active + clean</code> 状态，再扩展它：增加第三个 OSD 、增加元数据服务器和两个 Ceph Monitors。为获得最佳体验，先在管理节点上创建一个目录，用于保存 <code>ceph-deploy</code> 生成的配置文件和密钥对。</p>
+<pre><code>mkdir my-cluster
+cd my-cluster
+</code></pre>
+<p>注意： <code>ceph-deploy</code> 会把文件输出到当前目录，所以请确保在此目录下执行 <code>ceph-deploy</code> 。</p>
+<p>Important:</p>
+<p>如果你是用另一普通用户登录的，不要用 <code>sudo</code> 或在 <code>root</code> 身份运行 <code>ceph-deploy</code> ，因为它不会在远程主机上调用所需的 <code>sudo</code> 命令。</p>
+<p>如果在某些地方碰到麻烦，想从头再来，可以用下列命令清除配置：</p>
+<pre><code>ceph-deploy purgedata {ceph-node} [{ceph-node}]
+ceph-deploy forgetkeys
+</code></pre>
+<p>用下列命令可以连 Ceph 安装包一起清除：</p>
+<pre><code>ceph-deploy purge {ceph-node} [{ceph-node}]
+</code></pre>
+<p>如果执行了 <code>purge</code> ，你必须重新安装 Ceph 。</p>
+<h2 id="2创建ceph集群">2、创建ceph集群</h2>
+<p>Note： 在管理节点上，进入刚创建的放置配置文件的目录，用 <code>ceph-deploy</code> 执行如下步骤。</p>
+<p>1、创建集群。</p>
+<pre><code>ceph-deploy new s7
+</code></pre>
+<p>例如：</p>
+<pre><code>ceph-deploy new node1
+</code></pre>
+<p>在当前目录下用 <code>ls</code> 和 <code>cat</code> 检查 <code>ceph-deploy</code> 的输出，应该有一个 Ceph 配置文件、一个 monitor 密钥环和一个日志文件。详情见 <a href="http://docs.ceph.org.cn/rados/deployment/ceph-deploy-new" target="_blank">ceph-deploy new -h</a> 。</p>
+<p>2、把 Ceph 配置文件里的默认副本数从 <code>3</code> 改成 <code>2</code> ，这样只有两个 OSD 也可以达到 <code>active + clean</code> 状态。把下面这行加入 <code>[global]</code> 段：</p>
+<pre><code> sed -i '$a\osd pool default size = 2' ceph.conf
+</code></pre>
+<p>3、如果你有多个网卡，可以把 <code>public network</code> 写入 Ceph 配置文件的 <code>[global]</code> 段下。详情见<a href="http://docs.ceph.org.cn/rados/configuration/network-config-ref" target="_blank">网络配置参考</a>。</p>
+<pre><code>public network = {ip-address}/{netmask}
+</code></pre>
+<p>4、安装 Ceph 。</p>
+<pre><code>ceph-deploy install s3 s4 s5 s6
+</code></pre>
+<p><code>ceph-deploy</code> 将在各节点安装 Ceph 。 **注：**如果你执行过 <code>ceph-deploy purge</code> ，你必须重新执行这一步来安装 Ceph 。</p>
+<p>5、配置初始 monitor(s)、并收集所有密钥：</p>
+<pre><code>ceph-deploy mon create-initial
+</code></pre>
+<p>完成上述操作后，当前目录里应该会出现这些密钥环：</p>
+<ul>
+<li><code>{cluster-name}.client.admin.keyring</code></li>
+<li><code>{cluster-name}.bootstrap-osd.keyring</code></li>
+<li><code>{cluster-name}.bootstrap-mds.keyring</code></li>
+<li><code>{cluster-name}.bootstrap-rgw.keyring</code></li>
+</ul>
+<h1 id="3增加删除osd">3、增加/删除osd</h1>
+<h2 id="创建-osd">创建 OSD</h2>
+<p>你可以用 <code>create</code> 命令一次完成准备 OSD 、部署到 OSD 节点、并激活它。 <code>create</code> 命令是依次执行 <code>prepare</code> 和 <code>activate</code> 命令的捷径。</p>
+<pre><code>ceph-deploy osd create s7:/dev/sdb s8:/dev/sdb  #在两个节点创建osd
+ceph-deploy osd create osdserver1:sdb:/dev/ssd1 #数据放sdb，日志放ssd盘
+</code></pre>
+<h2 id="把配置文件和-admin-密钥拷贝到管理节点和-ceph-节点">把配置文件和 admin 密钥拷贝到管理节点和 Ceph 节点</h2>
+<pre><code> ceph-deploy s7 s8 s9 s10
+</code></pre>
+<h2 id="确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</h2>
+<pre><code>sudo chmod +r /etc/ceph/ceph.client.admin.keyring
+</code></pre>
+<h2 id="安装-radosgw">安装 radosgw</h2>
+<pre><code>ceph-deploy rgw create s7
+</code></pre>
+<h2 id="检查集群的健康状况和osd节点状况">检查集群的健康状况和OSD节点状况</h2>
+<pre><code class="language-js"> ceph health
+ ceph -s
+cluster 3756d8ae-6f85-40f0-abd3-2a2863ec37dc
+     health HEALTH_OK
+     monmap e1: 1 mons at {node1=192.168.6.150:6789/0}
+            election epoch 3, quorum 0 node1
+     osdmap e20: 2 osds: 2 up, 2 in
+            flags sortbitwise,require_jewel_osds
+      pgmap v44: 112 pgs, 7 pools, 1588 bytes data, 171 objects
+            225 MB used, 3563 GB / 3563 GB avail
+                 112 active+clean
+  client io 50376 B/s rd, 0 B/s wr, 49 op/s rd, 32 op/s wr
+
+</code></pre>
+<h2 id="安装-radosgw-1">安装 radosgw</h2>
+<pre><code class="language-bash"> ceph-deploy rgw create node1
+</code></pre>
+<p>查看是否安装成功</p>
+<pre><code class="language-bash"> curl http://node1:7480
+
+&lt;ListAllMyBucketsResult xmlns=&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;&gt;
+&lt;Owner&gt;
+&lt;ID&gt;anonymous&lt;/ID&gt;
+&lt;DisplayName/&gt;
+&lt;/Owner&gt;
+&lt;Buckets/&gt;
+&lt;/ListAllMyBucketsResult&gt;
+</code></pre>
+<h1 id="其他">其他：</h1>
+<p>我的thinkpad，克隆虚拟机后的操作：</p>
+<pre><code>sudo sed -i &quot;s/1f76218ec253/1f76218ec222/g&quot; /etc/sysconfig/network-scripts/ifcfg-ens33
+sudo sed -i &quot;s/IPADDR=10.3.3.253/IPADDR=10.3.3.222/g&quot; /etc/sysconfig/network-scripts/ifcfg-ens33
+sudo systemctl restart network
+cd
+</code></pre>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1时间同步">1、时间同步</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
+    <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+    <li><a href="#4s10安装ceph-deploy">4、s10安装ceph-deploy</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1说明">1、说明</a></li>
+    <li><a href="#2创建ceph集群">2、创建ceph集群</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#创建-osd">创建 OSD</a></li>
+    <li><a href="#把配置文件和-admin-密钥拷贝到管理节点和-ceph-节点">把配置文件和 admin 密钥拷贝到管理节点和 Ceph 节点</a></li>
+    <li><a href="#确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</a></li>
+    <li><a href="#安装-radosgw">安装 radosgw</a></li>
+    <li><a href="#检查集群的健康状况和osd节点状况">检查集群的健康状况和OSD节点状况</a></li>
+    <li><a href="#安装-radosgw-1">安装 radosgw</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1时间同步">1、时间同步</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
+    <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+    <li><a href="#4s10安装ceph-deploy">4、s10安装ceph-deploy</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1说明">1、说明</a></li>
+    <li><a href="#2创建ceph集群">2、创建ceph集群</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#创建-osd">创建 OSD</a></li>
+    <li><a href="#把配置文件和-admin-密钥拷贝到管理节点和-ceph-节点">把配置文件和 admin 密钥拷贝到管理节点和 Ceph 节点</a></li>
+    <li><a href="#确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</a></li>
+    <li><a href="#安装-radosgw">安装 radosgw</a></li>
+    <li><a href="#检查集群的健康状况和osd节点状况">检查集群的健康状况和OSD节点状况</a></li>
+    <li><a href="#安装-radosgw-1">安装 radosgw</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/blog">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+            
+            <span id="busuanzi_container_site_pv">
+                | 本站访问量: <span id="busuanzi_value_site_pv"></span>次
+            </span>
+
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
