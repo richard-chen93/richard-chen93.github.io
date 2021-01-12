@@ -6,7 +6,16 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 12 Jan 2021 10:30:40 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jan 2021 10:34:35 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安装并监控memcached</title>
+      <link>https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E5%B9%B6%E7%9B%91%E6%8E%A7memcached/</link>
+      <pubDate>Tue, 12 Jan 2021 10:34:35 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E5%B9%B6%E7%9B%91%E6%8E%A7memcached/</guid>
+      <description>1、安装httpd memcached php php-memcache sudo yum -y install httpd memcached php php-memcache 2、配置php-memcache扩展 Note： 是memcache，而不是memcached vim /etc/php.ini #末尾添加如下配置 extension_dir = “/usr/lib64/php/module</description>
+    </item>
+    
     <item>
       <title>Mysql常用操作</title>
       <link>https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
@@ -23,15 +32,6 @@
       
       <guid>https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid>
       <description>1、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲磁盘sdb，10G 1、时间同步 s7作为ntp服务器，s8-10作为客户端 sudo yum -y install ntp ntpdate 1.s7 节点配</description>
-    </item>
-    
-    <item>
-      <title>Memcached</title>
-      <link>https://richard-chen93.github.io/post/memcached/</link>
-      <pubDate>Fri, 08 Jan 2021 16:15:17 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/memcached/</guid>
-      <description></description>
     </item>
     
     <item>
