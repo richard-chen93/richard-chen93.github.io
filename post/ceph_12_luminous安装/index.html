@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.79.0" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Ceph_12_luminous安装 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="this is discr" />
+
+
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Ceph_12_luminous安装" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2021-01-14T12:01:44+08:00" />
+<meta property="article:modified_time" content="2021-01-14T12:01:44+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="Ceph_12_luminous安装"/>
+<meta name="twitter:description" content="this is discr"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A fullstack devops engineer.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/">Ceph_12_luminous安装</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-14</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2482 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 5分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h2 id="一主机规划">一、主机规划</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">主机名称</th>
+<th style="text-align:center">系统</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">s7</td>
+<td style="text-align:center">CentOS7.6.1810</td>
+<td style="text-align:center">10.10.10.47</td>
+<td style="text-align:center">1C1G50G+5G</td>
+</tr>
+<tr>
+<td style="text-align:center">s8</td>
+<td style="text-align:center">CentOS7.6.1810</td>
+<td style="text-align:center">10.10.10.48</td>
+<td style="text-align:center">1C1G50G+5G</td>
+</tr>
+<tr>
+<td style="text-align:center">s9</td>
+<td style="text-align:center">CentOS7.6.1810</td>
+<td style="text-align:center">10.10.10.49</td>
+<td style="text-align:center">1C1G50G+5G</td>
+</tr>
+</tbody>
+</table>
+<p>磁盘规划</p>
+<p>50G系统盘，5G磁盘为OSD</p>
+<h2 id="二环境准备">二、环境准备</h2>
+<p>环境准备好，避免踩坑！</p>
+<p>4台机器，s10为ceph-deploy。</p>
+<p>s7 s8 s9为3个node，拥有空闲磁盘sdb，5G</p>
+<h3 id="1时间同步">1、时间同步</h3>
+<p>s7作为ntp服务器，s8-10作为客户端</p>
+<pre><code class="language-bash">sudo yum -y install ntp ntpdate
+timedatectl set-timezone Asia/Shanghai
+</code></pre>
+<h4 id="1s7-节点配置">1.s7 节点配置</h4>
+<pre><code class="language-bash">sudo vim /etc/ntp.conf
+
+
+restrict 10.3.3.7 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
+
+server  127.127.1.0     # local clock
+fudge   127.127.1.0 stratum 10
+
+sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+sudo systemctl status ntpd
+
+ntpstat
+ntpq -p
+date
+</code></pre>
+<h4 id="2其他节点配置">2.其他节点配置</h4>
+<pre><code class="language-bash">sudo vim /etc/ntp.conf
+
+
+restrict 10.3.3.7 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
+server  10.3.3.7     # #IP为node1的ip地址
+
+sudo systemctl enable ntpd
+sudo systemctl restart ntpd
+sudo systemctl status ntpd
+
+ntpstat
+ntpq -p
+date
+</code></pre>
+<h3 id="2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</h3>
+<p>s10 需要使用cephuser用户ssh免密登录3个node。</p>
+<ul>
+<li>4台机器创建cephuser用户。用户名 “ceph” 保留给了 Ceph 守护进程。如果 Ceph 节点上已经有了 “ceph” 用户，升级前必须先删掉这个用户。</li>
+</ul>
+<pre><code> sudo useradd cephuser ; echo cephuser | sudo passwd --stdin cephuser
+</code></pre>
+<ul>
+<li>4台机器设定cephuser用户无密码sudo权限</li>
+</ul>
+<pre><code>echo &quot;cephuser ALL = (root) NOPASSWD:ALL&quot; | sudo tee /etc/sudoers.d/cephuser
+sudo chmod 0440 /etc/sudoers.d/cephuser
+</code></pre>
+<ul>
+<li>在S10上使用cephuser用户执行ssh免密登录配置脚本sshops-init.sh &ldquo;s7,s8,s9,s10&rdquo;</li>
+</ul>
+<h3 id="3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</h3>
+<ul>
+<li>
+<p>yum源</p>
+<pre><code class="language-bash">sudo vi /etc/yum.repos.d/ceph.repo
+</code></pre>
+<p>把如下内容粘帖进去，保存到 /etc/yum.repos.d/ceph.repo 文件中。</p>
+<pre><code class="language-js">cat &gt; /etc/yum.repos.d/ceph.repo &lt;&lt;EOF
+[ceph-luminous-noarch]
+name = ceph-luminous-noarch
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7/noarch/
+enabled = 1
+gpgcheck = 0
+gkgkey = http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc
+[ceph-luminous-x64]
+name = ceph-luminous-x64
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7/x86_64/
+enabled = 1
+gpgcheck = 0
+gkgkey = http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc
+EOF
+sudo yum makecache
+</code></pre>
+</li>
+<li>
+<p>安装pip包：</p>
+</li>
+</ul>
+<pre><code>wget https://files.pythonhosted.org/packages/5f/ad/1fde06877a8d7d5c9b60eff7de2d452f639916ae1d48f0b8f97bf97e570a/distribute-0.7.3.zip
+sudo yum -y install unzip
+unzip distribute-0.7.3.zip
+cd distribute-0.7.3
+sudo python setup.py install
+</code></pre>
+<ul>
+<li>安装rpm包：</li>
+</ul>
+<pre><code>sudo yum -y install deltarpm
+</code></pre>
+<h2 id="三ceph部署">三、Ceph部署</h2>
+<p>使用<code>ceph-deploy</code>工具部署</p>
+<h3 id="31-使用国内源">3.1 使用国内源</h3>
+<pre><code class="language-shell">export CEPH_DEPLOY_REPO_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7
+export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc
+</code></pre>
+<h3 id="32-安装ceph-deploy">3.2 安装<code>ceph-deploy</code></h3>
+<p>ceph安装过程中依赖部分epel软件源</p>
+<pre><code class="language-shell">yum -y install epel-release
+# 使用国内epel源
+sed -e 's!^metalink=!#metalink=!g' \
+    -e 's!^#baseurl=!baseurl=!g' \
+    -e 's!//download\.fedoraproject\.org/pub!//mirrors.tuna.tsinghua.edu.cn!g' \
+    -e 's!http://mirrors\.tuna!https://mirrors.tuna!g' \
+    -i /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel-testing.repo
+yum -y install ceph-deploy
+</code></pre>
+<h3 id="33-创建工作目录">3.3 创建工作目录</h3>
+<pre><code class="language-bash">mkdir my-cluster
+cd my-cluster
+</code></pre>
+<h3 id="34-创建ceph集群部署新的monitor节点">3.4 创建<code>ceph</code>集群，部署新的<code>monitor</code>节点</h3>
+<pre><code class="language-bash">ceph-deploy new s7 s8 s9
+</code></pre>
+<h3 id="35-修改配置文件">3.5 修改配置文件</h3>
+<p>增加<code>public_network</code>和<code>cluster_network</code>配置</p>
+<pre><code class="language-bash">vim ceph.conf
+...
+public_network = 10.10.10.0/24
+cluster_network = 10.10.10.0/24
+</code></pre>
+<h3 id="36-安装ceph到各个节点">3.6 安装Ceph到各个节点</h3>
+<p>需要指定版本，不指定默认安装最新的版本</p>
+<pre><code class="language-bash">ceph-deploy install --release luminous s7 s8 s9
+</code></pre>
+<h3 id="37-查看ceph版本">3.7 查看ceph版本</h3>
+<pre><code class="language-bash">ceph --version
+ceph version 12.2.13 (584a20eb0237c657dc0567da126be145106aa47e) luminous (stable)
+</code></pre>
+<h3 id="38-获取密钥key会在my-cluster目录下生成几个key">3.8 获取密钥key，会在my-cluster目录下生成几个key</h3>
+<pre><code class="language-bash">ceph-deploy mon create-initial
+</code></pre>
+<h3 id="39-分发key">3.9 分发key</h3>
+<pre><code class="language-bash">ceph-deploy admin s7 s8 s9
+</code></pre>
+<h3 id="310-初始化磁盘">3.10 初始化磁盘</h3>
+<pre><code class="language-bash">ceph-deploy osd create s7 --data /dev/vdb
+ceph-deploy osd create s8 --data /dev/vdb
+ceph-deploy osd create s9 --data /dev/vdb
+</code></pre>
+<h3 id="311-查看osd设备列表">3.11 查看osd设备列表</h3>
+<pre><code class="language-bash">ceph osd tree
+ID CLASS WEIGHT  TYPE NAME           STATUS REWEIGHT PRI-AFF
+-1       0.58589 root default
+-3       0.19530     host s7
+ 0   hdd 0.19530         osd.0           up  1.00000 1.00000
+-5       0.19530     host s8
+ 1   hdd 0.19530         osd.1           up  1.00000 1.00000
+-7       0.19530     host s9
+ 2   hdd 0.19530         osd.2           up  1.00000 1.00000
+</code></pre>
+<h3 id="312-给admin-key赋权限">3.12 给admin key赋权限</h3>
+<pre><code class="language-bash">chmod +r /etc/ceph/ceph.client.admin.keyring
+</code></pre>
+<h3 id="313-创建ceph-管理进程服务">3.13 创建ceph 管理进程服务</h3>
+<pre><code class="language-bash">ceph-deploy mgr create s7 s8 s9
+</code></pre>
+<h3 id="314-检查健康状况">3.14 检查健康状况</h3>
+<pre><code class="language-bash">ceph health
+HEALTH_OK
+</code></pre>
+<h2 id="四ceph块存储">四、Ceph块存储</h2>
+<h3 id="41-创建存储池">4.1 创建存储池</h3>
+<pre><code class="language-bash">rados mkpool rbd
+successfully created pool rbd
+</code></pre>
+<h3 id="42-创建块设备">4.2 创建块设备</h3>
+<pre><code class="language-bash">rbd create rbd1 --size 1024
+</code></pre>
+<h3 id="43-查看创建的rbd">4.3 查看创建的rbd</h3>
+<pre><code class="language-bash">rbd list
+rbd1
+
+# 查看rbd细节
+rbd --image rbd1 info
+rbd image 'rbd1':
+	size 1GiB in 256 objects
+	order 22 (4MiB objects)
+	block_name_prefix: rbd_data.103d6b8b4567
+	format: 2
+	features: layering, exclusive-lock, object-map, fast-diff, deep-flatten
+	flags:
+	create_timestamp: Sat Jun 20 21:17:50 2020
+</code></pre>
+<h3 id="44-映射到磁盘">4.4 映射到磁盘</h3>
+<pre><code class="language-bash">rbd feature disable rbd1 object-map fast-diff deep-flatten
+sudo rbd map rbd/rbd1
+/dev/rbd0
+
+5# 格式化磁盘
+sudo mkfs.xfs /dev/rbd0
+# 挂载
+sudo mount /dev/rbd0 /opt
+</code></pre>
+<h3 id="45-删除块设备">4.5 删除块设备</h3>
+<pre><code class="language-bash">rbd rm rbd1
+Removing image: 100% complete...done.
+</code></pre>
+<h3 id="46-删除存储池">4.6 删除存储池</h3>
+<p>默认情况下mon节点不允许删除pool</p>
+<pre><code class="language-bash">rados rmpool rbd rbd --yes-i-really-really-mean-it
+Check your monitor configuration - `mon allow pool delete` is set to false by default, change it to true to allow deletion of pools
+# 修改ceph.conf
+vim /etc/ceph/ceph.conf
+...
+mon_allow_pool_delete = true
+
+# 重启ceph-mon.target
+systemctl restart ceph-mon.target
+</code></pre>
+<p>再次删除pool</p>
+<pre><code class="language-bash">rados rmpool rbd rbd --yes-i-really-really-mean-it
+successfully deleted pool rbd
+</code></pre>
+<h2 id="五ceph对象存储">五、Ceph对象存储</h2>
+<h3 id="51-创建对象存储网关">5.1 创建对象存储网关</h3>
+<pre><code class="language-bash">1ceph-deploy rgw create s7 s8 s9
+</code></pre>
+<p>创建完成之后默认监听7480端口。然后可以使用负载均衡的方式转发到后端服务。</p>
+<h3 id="52-创建s3用户">5.2 创建s3用户</h3>
+<pre><code class="language-bash">radosgw-admin user create --uid=admin --display-name=admin --email=admin@example.com
+{
+    &quot;user_id&quot;: &quot;admin&quot;,
+    &quot;display_name&quot;: &quot;admin&quot;,
+    &quot;email&quot;: &quot;admin@example.com&quot;,
+    &quot;suspended&quot;: 0,
+    &quot;max_buckets&quot;: 1000,
+    &quot;auid&quot;: 0,
+    &quot;subusers&quot;: [],
+    &quot;keys&quot;: [
+        {
+            &quot;user&quot;: &quot;admin&quot;,
+            &quot;access_key&quot;: &quot;837H72BJ7KJ4ZO7Q7PJL&quot;,
+            &quot;secret_key&quot;: &quot;GYgDMcqxFI68A5K10sWlA2GF9cknohFPqUb6499b&quot;
+        }
+    ],
+    &quot;swift_keys&quot;: [],
+    &quot;caps&quot;: [],
+    &quot;op_mask&quot;: &quot;read, write, delete&quot;,
+    &quot;default_placement&quot;: &quot;&quot;,
+    &quot;placement_tags&quot;: [],
+    &quot;bucket_quota&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;check_on_raw&quot;: false,
+        &quot;max_size&quot;: -1,
+        &quot;max_size_kb&quot;: 0,
+        &quot;max_objects&quot;: -1
+    },
+    &quot;user_quota&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;check_on_raw&quot;: false,
+        &quot;max_size&quot;: -1,
+        &quot;max_size_kb&quot;: 0,
+        &quot;max_objects&quot;: -1
+    },
+    &quot;temp_url_keys&quot;: [],
+    &quot;type&quot;: &quot;rgw&quot;
+}
+</code></pre>
+<p>记住用户的 <code>access_key</code>和<code>secret_key</code>，后面需要用到这些信息用于访问s3服务。</p>
+<h3 id="53-删除用户">5.3 删除用户</h3>
+<pre><code class="language-bash">1radosgw-admin user rm --uid=admin
+</code></pre>
+<h3 id="54-使用s3cmd客户端访问">5.4 使用s3cmd客户端访问</h3>
+<p>安装s3cmd</p>
+<pre><code class="language-bash">1yum -y install s3cmd
+</code></pre>
+<p>配置s3客户端</p>
+<pre><code class="language-bash">s3cmd --configure \
+        --access_key=837H72BJ7KJ4ZO7Q7PJL \
+        --secret_key=GYgDMcqxFI68A5K10sWlA2GF9cknohFPqUb6499b \
+        --host=10.10.10.47:7480 \
+        --host-bucket=test-bucket \
+        --no-ssl
+
+Enter new values or accept defaults in brackets with Enter.
+Refer to user manual for detailed description of all options.
+
+Access key and Secret key are your identifiers for Amazon S3. Leave them empty for using the env variables.
+Access Key [837H72BJ7KJ4ZO7Q7PJL]:
+Secret Key [GYgDMcqxFI68A5K10sWlA2GF9cknohFPqUb6499b]:
+Default Region [US]:
+
+Use &quot;s3.amazonaws.com&quot; for S3 Endpoint and not modify it to the target Amazon S3.
+S3 Endpoint [10.10.10.47:7480]:
+
+Use &quot;%(bucket)s.s3.amazonaws.com&quot; to the target Amazon S3. &quot;%(bucket)s&quot; and &quot;%(location)s&quot; vars can be used
+if the target S3 system supports dns based buckets.
+DNS-style bucket+hostname:port template for accessing a bucket [test-bucket]:
+
+Encryption password is used to protect your files from reading
+by unauthorized persons while in transfer to S3
+Encryption password:
+Path to GPG program [/usr/bin/gpg]:
+
+When using secure HTTPS protocol all communication with Amazon S3
+servers is protected from 3rd party eavesdropping. This method is
+slower than plain HTTP, and can only be proxied with Python 2.7 or newer
+Use HTTPS protocol [No]:
+
+On some networks all internet access must go through a HTTP proxy.
+Try setting it here if you can't connect to S3 directly
+HTTP Proxy server name:
+
+New settings:
+  Access Key: 837H72BJ7KJ4ZO7Q7PJL
+  Secret Key: GYgDMcqxFI68A5K10sWlA2GF9cknohFPqUb6499b
+  Default Region: US
+  S3 Endpoint: 10.10.10.47:7480
+  DNS-style bucket+hostname:port template for accessing a bucket: test-bucket
+  Encryption password:
+  Path to GPG program: /usr/bin/gpg
+  Use HTTPS protocol: False
+  HTTP Proxy server name:
+  HTTP Proxy server port: 0
+
+Test access with supplied credentials? [Y/n] y
+Please wait, attempting to list all buckets...
+Success. Your access key and secret key worked fine :-)
+
+Now verifying that encryption works...
+Not configured. Never mind.
+
+Save settings? [y/N] y
+Configuration saved to '/root/.s3cfg'
+</code></pre>
+<p>创建bucket</p>
+<pre><code class="language-bash">s3cmd mb s3://test-bucket
+Bucket 's3://test-bucket/' created
+</code></pre>
+<p>查看bucket</p>
+<pre><code class="language-bash">s3cmd ls
+2020-06-20 14:54  s3://test-bucket
+</code></pre>
+<p>上传文件到bucket</p>
+<pre><code class="language-bash">s3cmd put ceph.conf s3://test-bucket
+upload: 'ceph.conf' -&gt; 's3://test-bucket/ceph.conf'  [1 of 1]
+ 340 of 340   100% in    2s   163.23 B/s  done
+</code></pre>
+<p>查看bucket中的文件</p>
+<pre><code class="language-bash">s3cmd ls s3://test-bucket
+2020-06-20 14:55          340  s3://test-bucket/ceph.conf
+</code></pre>
+<p>更多s3cmd的操作可使用<code>s3cmd -h</code>查看或者通过访问<a href="http://s3tools.org/" target="_blank">s3cmd官网</a>查看。</p>
+<h2 id="六ceph-dashboard">六、Ceph-Dashboard</h2>
+<p>Ceph 的监控可视化界面方案很多—-grafana、Kraken。但是从Luminous开始，Ceph 提供了原生的Dashboard功能，通过Dashboard可以获取Ceph集群的各种基本状态信息。</p>
+<h3 id="61-配置dashboard">6.1 配置Dashboard</h3>
+<pre><code class="language-bash"># 开启mgr功能
+ceph mgr module enable dashboard
+
+# 生成并安装自签名的证书
+ceph dashboard create-self-signed-cert  
+
+# 创建一个dashboard登录用户名密码
+ceph dashboard ac-user-create guest 1q2w3e4r administrator 
+</code></pre>
+<h3 id="62-修改默认配置">6.2 修改默认配置</h3>
+<pre><code class="language-bash"># 指定集群dashboard的访问端口
+ceph config-key set mgr/dashboard/server_port 7000
+
+# 指定集群 dashboard的访问IP
+ceph config-key set mgr/dashboard/server_addr $IP 
+</code></pre>
+<h3 id="63-开启object-gateway管理功能">6.3 开启Object Gateway管理功能</h3>
+<pre><code class="language-bash"># 创建rgw用户
+radosgw-admin user info --uid=admin
+
+# 提供Dashboard证书
+ceph dashboard set-rgw-api-access-key $access_key
+ceph dashboard set-rgw-api-secret-key $secret_key
+
+# 配置rgw主机名和端口
+ceph dashboard set-rgw-api-host 192.168.0.251
+</code></pre>
+<p>了解更多<code>/usr/lib64/ceph/mgr/dashboard/README.rst</code></p>
+<ul>
+<li><strong>原文作者：</strong><a href="https://huangzhongde.cn/" target="_blank">黄忠德</a></li>
+<li>**原文链接：**<a href="https://huangzhongde.cn/post/Linux/Ceph_luminous_deploy/">https://huangzhongde.cn/post/Linux/Ceph_luminous_deploy/</a></li>
+<li>**版权声明：**本作品采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="https://huangzhongde.cn/post/ceph-10-install/" target="_blank">Ceph-10.2.10安装配置</a></li>
+<li><a href="https://huangzhongde.cn/post/Linux/Redis_HA_cluster_mode/" target="_blank">Redis高可用之redis-cluster集群</a></li>
+<li><a href="https://huangzhongde.cn/post/Linux/Redis_HA_sentinel_mode/" target="_blank">Redis高可用之哨兵模式</a></li>
+<li><a href="https://huangzhongde.cn/post/Linux/RabbitMQ_HA_with_haproxy_and_pacemaker/" target="_blank">使用HAProxy+Pacemaker部署RabbitMQ高可用集群</a></li>
+<li><a href="https://huangzhongde.cn/post/Linux/MariaDB_HA_Galera_with_haproxy_and_pacemaker/" target="_blank">MariaDB HA之Galera集群</a></li>
+</ul>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一主机规划">一、主机规划</a></li>
+    <li><a href="#二环境准备">二、环境准备</a>
+      <ul>
+        <li><a href="#1时间同步">1、时间同步</a></li>
+        <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
+        <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+      </ul>
+    </li>
+    <li><a href="#三ceph部署">三、Ceph部署</a>
+      <ul>
+        <li><a href="#31-使用国内源">3.1 使用国内源</a></li>
+        <li><a href="#32-安装ceph-deploy">3.2 安装<code>ceph-deploy</code></a></li>
+        <li><a href="#33-创建工作目录">3.3 创建工作目录</a></li>
+        <li><a href="#34-创建ceph集群部署新的monitor节点">3.4 创建<code>ceph</code>集群，部署新的<code>monitor</code>节点</a></li>
+        <li><a href="#35-修改配置文件">3.5 修改配置文件</a></li>
+        <li><a href="#36-安装ceph到各个节点">3.6 安装Ceph到各个节点</a></li>
+        <li><a href="#37-查看ceph版本">3.7 查看ceph版本</a></li>
+        <li><a href="#38-获取密钥key会在my-cluster目录下生成几个key">3.8 获取密钥key，会在my-cluster目录下生成几个key</a></li>
+        <li><a href="#39-分发key">3.9 分发key</a></li>
+        <li><a href="#310-初始化磁盘">3.10 初始化磁盘</a></li>
+        <li><a href="#311-查看osd设备列表">3.11 查看osd设备列表</a></li>
+        <li><a href="#312-给admin-key赋权限">3.12 给admin key赋权限</a></li>
+        <li><a href="#313-创建ceph-管理进程服务">3.13 创建ceph 管理进程服务</a></li>
+        <li><a href="#314-检查健康状况">3.14 检查健康状况</a></li>
+      </ul>
+    </li>
+    <li><a href="#四ceph块存储">四、Ceph块存储</a>
+      <ul>
+        <li><a href="#41-创建存储池">4.1 创建存储池</a></li>
+        <li><a href="#42-创建块设备">4.2 创建块设备</a></li>
+        <li><a href="#43-查看创建的rbd">4.3 查看创建的rbd</a></li>
+        <li><a href="#44-映射到磁盘">4.4 映射到磁盘</a></li>
+        <li><a href="#45-删除块设备">4.5 删除块设备</a></li>
+        <li><a href="#46-删除存储池">4.6 删除存储池</a></li>
+      </ul>
+    </li>
+    <li><a href="#五ceph对象存储">五、Ceph对象存储</a>
+      <ul>
+        <li><a href="#51-创建对象存储网关">5.1 创建对象存储网关</a></li>
+        <li><a href="#52-创建s3用户">5.2 创建s3用户</a></li>
+        <li><a href="#53-删除用户">5.3 删除用户</a></li>
+        <li><a href="#54-使用s3cmd客户端访问">5.4 使用s3cmd客户端访问</a></li>
+      </ul>
+    </li>
+    <li><a href="#六ceph-dashboard">六、Ceph-Dashboard</a>
+      <ul>
+        <li><a href="#61-配置dashboard">6.1 配置Dashboard</a></li>
+        <li><a href="#62-修改默认配置">6.2 修改默认配置</a></li>
+        <li><a href="#63-开启object-gateway管理功能">6.3 开启Object Gateway管理功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#see-also">See Also</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一主机规划">一、主机规划</a></li>
+    <li><a href="#二环境准备">二、环境准备</a>
+      <ul>
+        <li><a href="#1时间同步">1、时间同步</a></li>
+        <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
+        <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+      </ul>
+    </li>
+    <li><a href="#三ceph部署">三、Ceph部署</a>
+      <ul>
+        <li><a href="#31-使用国内源">3.1 使用国内源</a></li>
+        <li><a href="#32-安装ceph-deploy">3.2 安装<code>ceph-deploy</code></a></li>
+        <li><a href="#33-创建工作目录">3.3 创建工作目录</a></li>
+        <li><a href="#34-创建ceph集群部署新的monitor节点">3.4 创建<code>ceph</code>集群，部署新的<code>monitor</code>节点</a></li>
+        <li><a href="#35-修改配置文件">3.5 修改配置文件</a></li>
+        <li><a href="#36-安装ceph到各个节点">3.6 安装Ceph到各个节点</a></li>
+        <li><a href="#37-查看ceph版本">3.7 查看ceph版本</a></li>
+        <li><a href="#38-获取密钥key会在my-cluster目录下生成几个key">3.8 获取密钥key，会在my-cluster目录下生成几个key</a></li>
+        <li><a href="#39-分发key">3.9 分发key</a></li>
+        <li><a href="#310-初始化磁盘">3.10 初始化磁盘</a></li>
+        <li><a href="#311-查看osd设备列表">3.11 查看osd设备列表</a></li>
+        <li><a href="#312-给admin-key赋权限">3.12 给admin key赋权限</a></li>
+        <li><a href="#313-创建ceph-管理进程服务">3.13 创建ceph 管理进程服务</a></li>
+        <li><a href="#314-检查健康状况">3.14 检查健康状况</a></li>
+      </ul>
+    </li>
+    <li><a href="#四ceph块存储">四、Ceph块存储</a>
+      <ul>
+        <li><a href="#41-创建存储池">4.1 创建存储池</a></li>
+        <li><a href="#42-创建块设备">4.2 创建块设备</a></li>
+        <li><a href="#43-查看创建的rbd">4.3 查看创建的rbd</a></li>
+        <li><a href="#44-映射到磁盘">4.4 映射到磁盘</a></li>
+        <li><a href="#45-删除块设备">4.5 删除块设备</a></li>
+        <li><a href="#46-删除存储池">4.6 删除存储池</a></li>
+      </ul>
+    </li>
+    <li><a href="#五ceph对象存储">五、Ceph对象存储</a>
+      <ul>
+        <li><a href="#51-创建对象存储网关">5.1 创建对象存储网关</a></li>
+        <li><a href="#52-创建s3用户">5.2 创建s3用户</a></li>
+        <li><a href="#53-删除用户">5.3 删除用户</a></li>
+        <li><a href="#54-使用s3cmd客户端访问">5.4 使用s3cmd客户端访问</a></li>
+      </ul>
+    </li>
+    <li><a href="#六ceph-dashboard">六、Ceph-Dashboard</a>
+      <ul>
+        <li><a href="#61-配置dashboard">6.1 配置Dashboard</a></li>
+        <li><a href="#62-修改默认配置">6.2 修改默认配置</a></li>
+        <li><a href="#63-开启object-gateway管理功能">6.3 开启Object Gateway管理功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#see-also">See Also</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/blog">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+            
+            <span id="busuanzi_container_site_pv">
+                | 本站访问量: <span id="busuanzi_value_site_pv"></span>次
+            </span>
+
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
