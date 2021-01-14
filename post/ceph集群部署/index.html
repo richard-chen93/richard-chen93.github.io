@@ -111,10 +111,10 @@
         <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Ceph集群部署</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1594 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2310 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 4分钟 | 本文总阅读量
+            阅读大约需要 5分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -128,6 +128,8 @@
 <p>环境准备好，避免踩坑！</p>
 <p>4台机器，s10为ceph-deploy。</p>
 <p>s7 s8 s9为3个node，拥有空闲磁盘sdb，10G</p>
+<p>ceph-deploy &ndash;version  1.5.39</p>
+<p>ceph version 10.2.11</p>
 <h2 id="1时间同步">1、时间同步</h2>
 <p>s7作为ntp服务器，s8-10作为客户端</p>
 <pre><code class="language-bash">sudo yum -y install ntp ntpdate
@@ -252,9 +254,6 @@ ceph-deploy forgetkeys
 <p>1、创建集群。</p>
 <pre><code>ceph-deploy new s7
 </code></pre>
-<p>例如：</p>
-<pre><code>ceph-deploy new node1
-</code></pre>
 <p>在当前目录下用 <code>ls</code> 和 <code>cat</code> 检查 <code>ceph-deploy</code> 的输出，应该有一个 Ceph 配置文件、一个 monitor 密钥环和一个日志文件。详情见 <a href="http://docs.ceph.org.cn/rados/deployment/ceph-deploy-new" target="_blank">ceph-deploy new -h</a> 。</p>
 <p>2、把 Ceph 配置文件里的默认副本数从 <code>3</code> 改成 <code>2</code> ，这样只有两个 OSD 也可以达到 <code>active + clean</code> 状态。把下面这行加入 <code>[global]</code> 段：</p>
 <pre><code> sed -i '$a\osd pool default size = 2' ceph.conf
@@ -263,7 +262,7 @@ ceph-deploy forgetkeys
 <pre><code>public network = {ip-address}/{netmask}
 </code></pre>
 <p>4、安装 Ceph 。</p>
-<pre><code>ceph-deploy install s3 s4 s5 s6
+<pre><code>ceph-deploy install s7 s8 s9 s10
 </code></pre>
 <p><code>ceph-deploy</code> 将在各节点安装 Ceph 。 **注：**如果你执行过 <code>ceph-deploy purge</code> ，你必须重新执行这一步来安装 Ceph 。</p>
 <p>5、配置初始 monitor(s)、并收集所有密钥：</p>
@@ -279,12 +278,14 @@ ceph-deploy forgetkeys
 <h1 id="3增加删除osd">3、增加/删除osd</h1>
 <h2 id="创建-osd">创建 OSD</h2>
 <p>你可以用 <code>create</code> 命令一次完成准备 OSD 、部署到 OSD 节点、并激活它。 <code>create</code> 命令是依次执行 <code>prepare</code> 和 <code>activate</code> 命令的捷径。</p>
+<p>如果创建osd失败，怎么弄都是失败，那就将各node sdb都分区为sdb1,xfs格式，并且创建osd时使用s7:/dev/sdb1， 而不是/dev/sdb。  因为没有时间和精力为了一个别人的BUG而执着于此，切记！</p>
 <pre><code>ceph-deploy osd create s7:/dev/sdb s8:/dev/sdb  #在两个节点创建osd
 ceph-deploy osd create osdserver1:sdb:/dev/ssd1 #数据放sdb，日志放ssd盘
 </code></pre>
 <h2 id="把配置文件和-admin-密钥拷贝到管理节点和-ceph-节点">把配置文件和 admin 密钥拷贝到管理节点和 Ceph 节点</h2>
-<pre><code> ceph-deploy s7 s8 s9 s10
+<pre><code> ceph-deploy admin s7 s8 s9 s10
 </code></pre>
+<p>ceph mds stat 查看MDS</p>
 <h2 id="确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</h2>
 <pre><code>sudo chmod +r /etc/ceph/ceph.client.admin.keyring
 </code></pre>
@@ -306,11 +307,8 @@ cluster 3756d8ae-6f85-40f0-abd3-2a2863ec37dc
   client io 50376 B/s rd, 0 B/s wr, 49 op/s rd, 32 op/s wr
 
 </code></pre>
-<h2 id="安装-radosgw-1">安装 radosgw</h2>
-<pre><code class="language-bash"> ceph-deploy rgw create node1
-</code></pre>
 <p>查看是否安装成功</p>
-<pre><code class="language-bash"> curl http://node1:7480
+<pre><code class="language-bash"> curl http://s7:7480
 
 &lt;ListAllMyBucketsResult xmlns=&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;&gt;
 &lt;Owner&gt;
@@ -319,6 +317,52 @@ cluster 3756d8ae-6f85-40f0-abd3-2a2863ec37dc
 &lt;/Owner&gt;
 &lt;Buckets/&gt;
 &lt;/ListAllMyBucketsResult&gt;
+</code></pre>
+<h1 id="4ceph文件系统">4、ceph文件系统</h1>
+<p>Ceph 文件系统要求 Ceph 存储集群内至少有一个 <a href="http://docs.ceph.org.cn/glossary/#term-63" target="_blank"><em>Ceph 元数据服务器</em></a>。</p>
+<h2 id="1增加一元数据服务器">1、增加一元数据服务器</h2>
+<p>部署完监视器和 OSD 后，还可以部署元数据服务器。</p>
+<pre><code>ceph-deploy mds create s7:{daemon-name}] [{host-name}[:{daemon-name}] ...]
+</code></pre>
+<p>如果你想在同一主机上运行多个守护进程，可以为每个进程指定名字（可选）。</p>
+<h2 id="2拆除一元数据服务器">2、拆除一元数据服务器</h2>
+<p>尚未实现……？</p>
+<h2 id="3创建文件系统">3、创建文件系统</h2>
+<p>一个 Ceph 文件系统需要至少两个 RADOS 存储池，一个用于数据、一个用于元数据。配置这些存储池时需考虑：</p>
+<ul>
+<li>为元数据存储池设置较高的副本水平，因为此存储池丢失任何数据都会导致整个文件系统失效。</li>
+<li>为元数据存储池分配低延时存储器（像 SSD ），因为它会直接影响到客户端的操作延时。</li>
+</ul>
+<p>关于存储池的管理请参考 <a href="http://docs.ceph.org.cn/rados/operations/pools/" target="_blank"><em>存储池</em></a> 。例如，要用默认设置为文件系统创建两个存储池，你可以用下列命令：</p>
+<pre><code>$ ceph osd pool create cephfs_data &lt;pg_num&gt;
+$ ceph osd pool create cephfs_metadata &lt;pg_num&gt;
+</code></pre>
+<p>创建好存储池后，你就可以用 <code>fs new</code> 命令创建文件系统了：</p>
+<pre><code>$ ceph fs new &lt;fs_name&gt; &lt;metadata&gt; &lt;data&gt;
+</code></pre>
+<p>例如：</p>
+<pre><code>$ ceph fs new cephfs cephfs_metadata cephfs_data
+$ ceph fs ls
+name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]
+</code></pre>
+<p>文件系统创建完毕后， MDS 服务器就能达到 <em>active</em> 状态了，比如在一个单 MDS 系统中：</p>
+<pre><code>$ ceph mds stat
+e5: 1/1/1 up {0=a=up:active}
+</code></pre>
+<p>建好文件系统且 MDS 活跃后，你就可以挂载此文件系统了：</p>
+<p>要挂载 Ceph 文件系统，如果你知道监视器 IP 地址可以用 <code>mount</code> 命令、或者用 <code>mount.ceph</code> 工具来自动解析监视器 IP 地址。例如：</p>
+<pre><code>sudo mkdir /mnt/mycephfs
+sudo mount -t ceph 192.168.0.1:6789:/ /mnt/mycephfs
+</code></pre>
+<p>要挂载启用了 <code>cephx</code> 认证的 Ceph 文件系统，你必须指定用户名、密钥。</p>
+<pre><code>sudo mount -t ceph 192.168.0.1:6789:/ /mnt/mycephfs -o name=admin,secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==
+</code></pre>
+<p>前述用法会把密码遗留在 Bash 历史里，更安全的方法是从文件读密码。例如：</p>
+<pre><code>sudo mount -t ceph 192.168.0.1:6789:/ /mnt/mycephfs -o name=admin,secretfile=/etc/ceph/admin.secret
+</code></pre>
+<p>关于 cephx 参见<a href="http://docs.ceph.org.cn/rados/operations/authentication/" target="_blank">认证</a>。</p>
+<p>要卸载 Ceph 文件系统，可以用 <code>unmount</code> 命令，例如：</p>
+<pre><code>sudo umount /mnt/mycephfs
 </code></pre>
 <h1 id="其他">其他：</h1>
 <p>我的thinkpad，克隆虚拟机后的操作：</p>
@@ -459,7 +503,12 @@ cd
     <li><a href="#确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</a></li>
     <li><a href="#安装-radosgw">安装 radosgw</a></li>
     <li><a href="#检查集群的健康状况和osd节点状况">检查集群的健康状况和OSD节点状况</a></li>
-    <li><a href="#安装-radosgw-1">安装 radosgw</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1增加一元数据服务器">1、增加一元数据服务器</a></li>
+    <li><a href="#2拆除一元数据服务器">2、拆除一元数据服务器</a></li>
+    <li><a href="#3创建文件系统">3、创建文件系统</a></li>
   </ul>
 </nav>
     </div>
@@ -569,7 +618,12 @@ cd
     <li><a href="#确保cephclientadminkeyring的权限正确">确保ceph.client.admin.keyring的权限正确</a></li>
     <li><a href="#安装-radosgw">安装 radosgw</a></li>
     <li><a href="#检查集群的健康状况和osd节点状况">检查集群的健康状况和OSD节点状况</a></li>
-    <li><a href="#安装-radosgw-1">安装 radosgw</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1增加一元数据服务器">1、增加一元数据服务器</a></li>
+    <li><a href="#2拆除一元数据服务器">2、拆除一元数据服务器</a></li>
+    <li><a href="#3创建文件系统">3、创建文件系统</a></li>
   </ul>
 </nav>
     </div>
