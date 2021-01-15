@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/categories/technology/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-15T15:15:26+08:00" />
+<meta property="og:updated_time" content="2021-01-15T17:44:19+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/">Mysql故障记录</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;832 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        OS和mysql版本 mysql5.7、centos7 报错记录 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&ndash;user=root参数 $bindir/mysqld_safe &ndash;user=root &ndash;datadir=&quot;$datadir&quot; &ndash;pid-file=&quot;$mysqld_pid_file_path&quot; $other_args &gt;/dev/null &amp; 确保/etc/
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         目录 一、此实验中puppet的运行环境 1. 硬件清单 2. 软件清单 3. 准备yum源 4. 配置域名解析 5. Ntp时间同步 二、puppet安装配置过程 1. Puppet master安装配置 2. Puppet node安装配置 3. 分配证书，开启PUPPE
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%90%84%E7%A7%8D%E9%98%BF%E9%87%8C%E4%BA%91%E5%8A%A0%E9%80%9F%E5%99%A8/">各种阿里云加速器</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-30</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;409 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        yum 若最小化安装，可安装一些常用工具： yum -y install wget curl vim net-tools python-pip 常用的初始配置，加快dns，关闭selinux和防火墙 sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/ssh/sshd_config setenforce 0 systemctl diable firewalld systemctl stop firewalld centos7: wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo yum makecache yum -y install epel-release pip: pip config set global.index-url
     </div>
 </div>
 
