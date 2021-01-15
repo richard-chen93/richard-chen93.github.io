@@ -6,7 +6,16 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 14 Jan 2021 12:01:44 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jan 2021 15:15:26 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MAC_iterm2_常用快捷键大全</title>
+      <link>https://richard-chen93.github.io/post/mac_iterm2_%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</link>
+      <pubDate>Fri, 15 Jan 2021 15:15:26 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/mac_iterm2_%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</guid>
+      <description>标签 新建标签：command + t 关闭标签：command + w 切换标签：command + 数字 / command + 左右方向键 切换全屏：command + enter 查找：command + f -&amp;mdash;&amp;mdash;- 分屏 垂直分屏：command + d 水平分屏</description>
+    </item>
+    
     <item>
       <title>Ceph_12_luminous安装</title>
       <link>https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/</link>
