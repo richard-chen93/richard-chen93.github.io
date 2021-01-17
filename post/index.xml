@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Jan 2021 17:44:19 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jan 2021 21:38:42 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS7扩容根分区</title>
+      <link>https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/</link>
+      <pubDate>Sun, 17 Jan 2021 21:38:42 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/</guid>
+      <description>CentOS7扩容根分区(LVM+非LVM) 神冰凰关注 0.6612018.06.14 14:11:25字数 312阅读 18,450 CentOS7，LVM根分区扩容步骤： 1.查看现有分区大小 df -TH LVM分区，磁盘总大小为20G,根分区总容量为17</description>
+    </item>
+    
     <item>
       <title>Centos7初始安装配置</title>
       <link>https://richard-chen93.github.io/post/centos7%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>

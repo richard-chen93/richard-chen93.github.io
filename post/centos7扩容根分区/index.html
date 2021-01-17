@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>CentOS7扩容根分区 - Richard&#39;s blog</title>
+
+
+<meta name="author" content="Richard.chen" />
+
+
+<meta name="description" content="this is discr" />
+
+
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="CentOS7扩容根分区" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/" />
+<meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
+<meta property="article:published_time" content="2021-01-17T21:38:42+08:00" />
+<meta property="article:modified_time" content="2021-01-17T21:38:42+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
+
+<meta name="twitter:title" content="CentOS7扩容根分区"/>
+<meta name="twitter:description" content="this is discr"/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://richard-chen93.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://richard-chen93.github.io">Richard&#39;s blog</a>
+            
+            <span class="title-sub">A fullstack devops engineer.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/">CentOS7扩容根分区</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-17</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;575 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 2分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="centos7扩容根分区lvm非lvm">CentOS7扩容根分区(LVM+非LVM)</h1>
+<p><a href="https://www.jianshu.com/u/cc8aeffd7d42" target="_blank"><img class="img-zoomable" src="https://upload.jianshu.io/users/upload_avatars/3259553/ee147e16c19d?imageMogr2/auto-orient/strip%7cimageView2/1/w/96/h/96/format/webp" alt="img" />
+</a></p>
+<p><a href="https://www.jianshu.com/u/cc8aeffd7d42" target="_blank">神冰凰</a>关注</p>
+<p>0.6612018.06.14 14:11:25字数 312阅读 18,450</p>
+<h1 id="centos7lvm根分区扩容步骤">CentOS7，LVM根分区扩容步骤：</h1>
+<p>1.查看现有分区大小</p>
+<blockquote>
+<p>df -TH</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-89b0157044970265.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/531/format/webp" alt="img" />
+</p>
+<p>LVM分区，磁盘总大小为20G,根分区总容量为17G</p>
+<p>2.关机增加大小为30G(测试环境使用的Vmware Workstation)</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-2797e3050686449b.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>扩展分区到30G</p>
+<p>3.查看扩容后磁盘大小</p>
+<blockquote>
+<p>df -TH</p>
+<p>lsblk</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-a0366bb674b44f12.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>磁盘总大小为30G,根分区为17G</p>
+<p>4.创建分区</p>
+<blockquote>
+<p>fdisk /dev/sda</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-1cbe7facdadff9bd.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>将sda剩余空间全部给sda3</p>
+<p>5.刷新分区并创建物理卷</p>
+<blockquote>
+<p>partprobe /dev/sda</p>
+<p>pvcreate /dev/sda3</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-e1ba05156f11b547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/444/format/webp" alt="img" />
+</p>
+<p>6.查看卷组名称，以及卷组使用情况</p>
+<blockquote>
+<p>vgdisplay</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-700e6cb7fb268306.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/476/format/webp" alt="img" />
+</p>
+<p>VG Name为centos</p>
+<p>7.将物理卷扩展到卷组</p>
+<blockquote>
+<p>vgextend centos /dev/sda3</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-cf6f3d4e807acaa5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/366/format/webp" alt="img" />
+</p>
+<p>使用sda3扩展VG  centos</p>
+<p>8.查看当前逻辑卷的空间状态</p>
+<blockquote>
+<p>lvdisplay</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-67cac8c1c780248d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>需要扩展LV  /dev/centos/root</p>
+<p>9.将卷组中的空闲空间扩展到根分区逻辑卷</p>
+<blockquote>
+<p>lvextend -l +100%FREE /dev/centos/root</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-585215fcd2940e25.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>10.刷新根分区</p>
+<blockquote>
+<p>xfs_growfs /dev/centos/root</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-96b258ed69c7b8fe.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>11.查看磁盘使用情况，扩展之前和之后是不一样的</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-4e8cbb4522f57cb4.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>根分区已经变成27G</p>
+<h1 id="centos7非lvm根分区扩容步骤">CentOS7，非LVM根分区扩容步骤：</h1>
+<p>1.查看现有的分区大小</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-9faab28c65c03ffb.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/453/format/webp" alt="img" />
+</p>
+<p>非LVM分区，目前磁盘大小为20G，根分区总容量为17G</p>
+<p>2.关机增加磁盘大小为30G</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-20ca17c409690a17.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>3.查看磁盘扩容后状态</p>
+<blockquote>
+<p>lsblk</p>
+<p>dh -TH</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-a5c1e6baf7a3a080.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/427/format/webp" alt="img" />
+</p>
+<p>现在磁盘总大小为30G,根分区为17G</p>
+<p>4.进行分区扩展磁盘，<strong>记住根分区起始位置和结束位置</strong></p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-1d6519285921f2bb.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>5.删除根分区，切记不要保存</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-7ebfd645ff37877f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>6.创建分区，箭头位置为分区起始位置</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-3f4f974ae31f41dc.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>7.保存退出并刷新分区</p>
+<blockquote>
+<p>partpeobe /dev/sda</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-4f504e0fd59f7380.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>8.查看分区状态</p>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-199fb2bc6db5ab71.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/513/format/webp" alt="img" />
+</p>
+<p>这里不知道为啥变成19G了。。</p>
+<p>9.刷新根分区并查看状态</p>
+<blockquote>
+<p>xfs_growfs /dev/sda3</p>
+</blockquote>
+<p><img class="img-zoomable" src="https://upload-images.jianshu.io/upload_images/3259553-b67666e234494064.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/554/format/webp" alt="img" />
+</p>
+<p>根分区大小已变为27G</p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
+</div>
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/richard-chen93" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/%7busername%7d" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/%7buserid%7d" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/technology/">technology</a>
+            </span>
+            
+            <span>
+                <a href="/tags/test/">test</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://richard-chen93.github.io">Richard.chen</a>
+                 | <a href="https://github.com/richard-chen93/blog">Source code</a> 
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+            
+            <span id="busuanzi_container_site_pv">
+                | 本站访问量: <span id="busuanzi_value_site_pv"></span>次
+            </span>
+
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
