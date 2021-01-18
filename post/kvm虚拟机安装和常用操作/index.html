@@ -25,27 +25,30 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Tags - Richard&#39;s blog</title>
+<title>KVM虚拟机安装和常用操作 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
 
 
-<meta name="description" content="A minimal Hugo theme with nice theme color." />
+<meta name="description" content="this is discr" />
 
 
-<meta property="og:title" content="Tags" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/tags/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="KVM虚拟机安装和常用操作" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-18T22:23:17+08:00" />
+<meta property="article:published_time" content="2021-01-18T22:23:17+08:00" />
+<meta property="article:modified_time" content="2021-01-18T22:23:17+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Tags"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="KVM虚拟机安装和常用操作"/>
+<meta name="twitter:description" content="this is discr"/>
 
 
 
@@ -102,132 +105,123 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/placeholder-text/">Placeholder Text</a>
+        <a href="https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">KVM虚拟机安装和常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;269 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-18</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;361 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 1分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="1centos7安装kvm">1、centos7安装kvm</h1>
+<h2 id="1前提条件">1、前提条件</h2>
+<p><strong>2.</strong> 首先验证<strong>CPU</strong>是否支持虚拟化，输入有<strong>vmx</strong>或<strong>svm</strong>就支持，支持虚拟化则就支持<strong>KVM</strong></p>
+<pre><code>[root@openstack ~]# cat /proc/cpuinfo | egrep 'vmx|svm'
+</code></pre>
+<p><strong>3.</strong> 查看是否加载<strong>KVM</strong></p>
+<pre><code>[root@openstack ~]# lsmod | grep kvm
+
+kvm_intel       170086 0 
+
+kvm          566340 1 kvm_intel
+
+irqbypass       13503 1 kvm
+</code></pre>
+<p>这表明已经加载，如果没有加载则执行以下命令加载KVM</p>
+<pre><code>[root@openstack ~]# modprobe kvm
+</code></pre>
+<h2 id="2-安装kvm相关软件包">2、 安装<strong>KVM</strong>相关软件包</h2>
+<pre><code>sudo yum install qemu-kvm qemu-img \
+
+ virt-manager libvirt libvirt-python virt-manager \
+
+ libvirt-client virt-install virt-viewer -y
+</code></pre>
+<p>qemu-kvm: KVM模块</p>
+<p>libvirt: 虚拟管理模块</p>
+<p>virt-manager: 图形界面管理虚拟机</p>
+<p>virt-install: 虚拟机命令行安装工具</p>
+<p>启动<strong>libvirt</strong>并设置开机自启动</p>
+<pre><code>[root@openstack ~]# systemctl start libvirtd
+
+[root@openstack ~]# systemctl enable libvirtd
+</code></pre>
+<h1 id="2常用操作">2、常用操作</h1>
+<h2 id="1创建虚拟机命令行">1、创建虚拟机（命令行）</h2>
+<pre><code>virt-install --name=vm1 --vcpus=1 --memory=512 --location=/tmp/CentOS-7-x86_64-Minimal-2009.iso --disk path=/home/images.qcow2,size=10,format=qcow2 --network bridge=virbr0 --graphics none --extra-args='console=ttyS0' --force
+</code></pre>
+<h2 id="2扩容磁盘">2、扩容磁盘</h2>
+<ul>
+<li>
+<p>查看磁盘虚拟机详细配置信息，找到虚拟机使用的磁盘镜像位置。</p>
+<p>virsh edit {vm name}</p>
+</li>
+<li>
+<p>扩容磁盘镜像</p>
+<pre><code>qemu-img	resize /kvm_images/app5.raw	+200G
+</code></pre>
+</li>
+<li>
+<p>虚拟机里查看扩容后的磁盘大小</p>
+<p>fdisk -l</p>
+<p>若没有变大，宿主机执行 virsh destroy {vm_name}，强关虚拟机，再开起来virsh start {vm_name}</p>
+</li>
+<li>
+<p>虚拟机扩容文件系统</p>
+<pre><code>xfs_grows /dev/vdb
+</code></pre>
+</li>
+</ul>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/emoji-support/">Emoji Support</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-05</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;138 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a href="https://gohugo.io/functions/emojify/" target="_blank"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank">Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site’s <a href="https://gohugo.io/getting-started/configuration/" target="_blank">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><code>:s ee_no_evil:[Remove the space]</code> 🙈 <code>:h ear_no_evil:[Remove the space]</code> 🙉 <code>:s peak_no_evil:[Remove the space]</code> 🙊</p>
-    </div>
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/cjk-unicode-test/">CJK Unicode Test</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2018-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1549 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>The following is part of the CJK text, this page is for test use only.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/wtf-article/">纯简体中文测试文章</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2017-04-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;11542 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。</p>
-<p>可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。</p>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/tags/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/tags/page/3/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/page/3/">3</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/tags/page/4/">4</a>
-    </div>
-    
-    
-    
-    
-</div>
-
 
 
             </div>
@@ -295,6 +289,21 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前提条件">1、前提条件</a></li>
+    <li><a href="#2-安装kvm相关软件包">2、 安装<strong>KVM</strong>相关软件包</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1创建虚拟机命令行">1、创建虚拟机（命令行）</a></li>
+    <li><a href="#2扩容磁盘">2、扩容磁盘</a></li>
+  </ul>
+</nav>
+    </div>
     
     
 </aside>
@@ -372,6 +381,23 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前提条件">1、前提条件</a></li>
+    <li><a href="#2-安装kvm相关软件包">2、 安装<strong>KVM</strong>相关软件包</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1创建虚拟机命令行">1、创建虚拟机（命令行）</a></li>
+    <li><a href="#2扩容磁盘">2、扩容磁盘</a></li>
+  </ul>
+</nav>
     </div>
     
     

@@ -6,7 +6,16 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 17 Jan 2021 21:38:42 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Jan 2021 22:23:17 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM虚拟机安装和常用操作</title>
+      <link>https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Mon, 18 Jan 2021 22:23:17 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
+      <description>1、centos7安装kvm 1、前提条件 2. 首先验证CPU是否支持虚拟化，输入有vmx或svm就支持，支持虚拟化则就支持KVM [root@openstack ~]# cat /proc/cpuinfo | egrep &#39;vmx|svm&#39; 3. 查看是否加载KVM [root@openstack ~]# lsmod | grep kvm kvm_intel 170086 0 kvm 566340 1 kvm_intel irqbypass 13503 1 kvm 这表明已</description>
+    </item>
+    
     <item>
       <title>CentOS7扩容根分区</title>
       <link>https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/</link>
