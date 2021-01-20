@@ -6,7 +6,16 @@
     <description>Recent content on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Jan 2021 11:16:14 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Jan 2021 23:15:49 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Charles手机抓包</title>
+      <link>https://richard-chen93.github.io/post/charles%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85/</link>
+      <pubDate>Wed, 20 Jan 2021 23:15:49 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/charles%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85/</guid>
+      <description>charles抓包工具的使用：手机抓包设置和安装证书 dufufd 2019-01-16 16:17:48 4645 收藏 4 分类专栏： Web http://www.cnblogs.com/cnhkzyy/p/9535030.html 一. 设置手机抓包 第一步：在charles里设置允许手机联网的权限，并设置接入接口 在Charles的菜单栏上选择&amp;quot</description>
+    </item>
+    
     <item>
       <title>Cassandra的安装、集群部署、监控</title>
       <link>https://richard-chen93.github.io/post/cassandra%E7%9A%84%E5%AE%89%E8%A3%85%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E7%9B%91%E6%8E%A7/</link>
