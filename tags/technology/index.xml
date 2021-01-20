@@ -6,7 +6,16 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 18 Jan 2021 22:23:17 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Jan 2021 11:16:14 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cassandra的安装、集群部署、监控</title>
+      <link>https://richard-chen93.github.io/post/cassandra%E7%9A%84%E5%AE%89%E8%A3%85%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E7%9B%91%E6%8E%A7/</link>
+      <pubDate>Wed, 20 Jan 2021 11:16:14 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/cassandra%E7%9A%84%E5%AE%89%E8%A3%85%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E7%9B%91%E6%8E%A7/</guid>
+      <description>「已注销」 2017-11-22 15:18:45 2697 收藏 2 分类专栏： 随笔 文章标签： cassandra 集群 1、集群部署 一：前提 安装jdk1.8以上，python2.7 二：安装Cassandra Cassandra的下载地址：http://cassandra</description>
+    </item>
+    
     <item>
       <title>KVM虚拟机安装和常用操作</title>
       <link>https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>

@@ -25,27 +25,30 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Posts - Richard&#39;s blog</title>
+<title>Cassandra的安装、集群部署、监控 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
 
 
-<meta name="description" content="A minimal Hugo theme with nice theme color." />
+<meta name="description" content="this is discr" />
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Cassandra的安装、集群部署、监控" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/cassandra%E7%9A%84%E5%AE%89%E8%A3%85%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E7%9B%91%E6%8E%A7/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-20T11:16:14+08:00" />
+<meta property="article:published_time" content="2021-01-20T11:16:14+08:00" />
+<meta property="article:modified_time" content="2021-01-20T11:16:14+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Cassandra的安装、集群部署、监控"/>
+<meta name="twitter:description" content="this is discr"/>
 
 
 
@@ -102,159 +105,138 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/math-typesetting/">Math Typesetting</a>
+        <a href="https://richard-chen93.github.io/post/cassandra%E7%9A%84%E5%AE%89%E8%A3%85%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E7%9B%91%E6%8E%A7/">Cassandra的安装、集群部署、监控</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-03-08</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;122 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-20</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1041 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 3分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.</p>
-<p>In this example we will be using <a href="https://katex.org/" target="_blank">KaTeX</a></p>
-<ul>
-<li>Create a partial under <code>/layouts/partials/math.html</code></li>
-<li>Within this partial reference the <a href="https://katex.org/docs/autorender.html" target="_blank">Auto-render Extension</a> or host these scripts locally.</li>
-<li>Include the partial in your templates like so:</li>
-</ul>
-<pre><code>{{ if or .Params.math .Site.Params.math }}
-{{ partial &quot;math.html&quot; . }}
-{{ end }}
+    
+    
+    
+    <div class="post-content markdown-body">
+        <p><a href="https://blog.csdn.net/ytulnj" target="_blank">「已注销」</a> 2017-11-22 15:18:45 <img class="img-zoomable" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes.png" alt="img" />
+ 2697 <img class="img-zoomable" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect.png" alt="img" />
+ 收藏 2</p>
+<p>分类专栏： <a href="https://blog.csdn.net/ytulnj/category_6983294.html" target="_blank">随笔</a> 文章标签： <a href="https://www.csdn.net/tags/MtTaEg0sNDAxMjMtYmxvZwO0O0OO0O0O.html" target="_blank">cassandra</a> <a href="https://www.csdn.net/tags/MtTaEg0sMDE5MzUtYmxvZwO0O0OO0O0O.html" target="_blank">集群</a></p>
+<h1 id="1集群部署">1、集群部署</h1>
+<p>一：前提
+安装jdk1.8以上，python2.7
+二：安装Cassandra
+Cassandra的下载地址：http://cassandra.apache.org/download/
+下载后将文件解压到某目录下，
+然后配置环境变量
+<code>CASSANDRA_HOME</code>为你解压的目录，
+path为<code>%CASSANDRA_HOME%\bin</code>
+然后用管理员身份运行cmd（不然可能提示权限不够）
+进入Cassandra目录下的bin，
+执行<code>cassandra</code>
+<img class="img-zoomable" src="https://img-blog.csdn.net/20171122151305607?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXR1bG5q/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+
+然后如果成功会出一大堆东西，并且不能再输入命令；
+三：查询状态
+再打开一个cmd窗口，原来的不要关闭
+进入bin文件夹
+执行<code>nodetool status</code>
+<img class="img-zoomable" src="https://img-blog.csdn.net/20171122151507193?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXR1bG5q/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+
+这是成功状态，
+然后输入<code>cqlsh</code>进入编写sql
+<img class="img-zoomable" src="https://img-blog.csdn.net/20171122151640075?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXR1bG5q/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" />
+</p>
+<p><em>如果执行cqlsh时出现<code>Can't detect python version</code>需要到pylib目录下执行<code>python setup.py install</code></em></p>
+<p>出现cqlsh&gt;开头就表示你现在正在编写sql；
+四：查询命令
+查看表空间 <code>describe keyspaces</code>；
+查看已有表：<code>describe tables</code>;
+查看表结构：<code>describe table table_name</code>;</p>
+<p><strong>以上是单个几点的安装，下面是多个节点的集群部署：</strong>
+修改配置文件：<code>cassandra.yaml</code>
+<code>cluster_name</code>：集群名称。
+如果启动过数据库再修改集群名称需要先执行命令:
+进入cqlsh执行
+<code>UPDATE system.local SET cluster_name = '你修改后的名称' where key='local';</code>
+退出cqlsh状态，执行<code>nodetool flush system</code>
+<code>seeds</code>节点，将每个节点的ip加进去，<code>&quot;x.x.x.x,xx.xx.xx.xx&quot;</code>不用加尖括号！
+<code>listen_address</code>改为自己的ip地址
+<code>rpc_address</code>改为自己的ip地址
+重启数据库。
+再次执行cqlsh命令，后面需要加自己的ip</p>
+<h1 id="2监控">2、监控</h1>
+<p>通过MX4J HTTP 适配器 健康 cassandra</p>
+<p>配置步骤如下：</p>
+<ol>
+<li>
+<p>下载最新的MX4J binary(e.g. mx4j-3.0.2.tar.gz):[ 下载](<a href="https://sourceforge.net/projects/mx4j/files/MX4J">https://sourceforge.net/projects/mx4j/files/MX4J</a> Binary/3.0.2/?SetFreedomCookie)</p>
+</li>
+<li>
+<p>解压缩，吧mx4j-tools.jar 文件(在压缩包的 /lib/mx4j-tools.jar)复制到Cassandra的lib文件夹里(e.g. /usr/share/cassandra/lib)</p>
+</li>
+<li>
+<p>在Cassandra的配置文件cassandra-env.sh文件中，在最下方添加下列内容：</p>
+</li>
+</ol>
+<pre><code class="language-ini">MX4J_ADDRESS=&quot;-Dmx4jaddress=&lt;Cassandra Node IP&gt;&quot;   # e.g. localhost or 127.0.0.1
+MX4J_PORT=&quot;-Dmx4jport=&lt;MX4J port&gt;&quot;                 # default port: 8081
+JVM_OPTS=&quot;$JVM_OPTS $MX4J_ADDRESS&quot;
+JVM_OPTS=&quot;$JVM_OPTS $MX4J_PORT&quot;
 </code></pre>
-<ul>
-<li>To enable KaTex globally set the parameter <code>math</code> to <code>true</code> in a project&rsquo;s configuration</li>
-<li>To enable KaTex on a per page basis include the parameter <code>math: true</code> in content files.</li>
-</ul>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/placeholder-text/">Placeholder Text</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;269 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
+<ol start="4">
+<li>重启cassandra服务： sudo service cassandra restart， 随后，可以在cassandra的system log( /var/log/cassandra/system.log )里找到如下信息：</li>
+</ol>
+<pre><code class="language-css">INFO  [main] 2016-06-20 10:18:11,493 Mx4jTool.java:63 - mx4j successfully loaded
+</code></pre>
+<ol start="5">
+<li>打开浏览器，输入地址：localhost:8081</li>
+</ol>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-    </div>
-</div>
+</article>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/emoji-support/">Emoji Support</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-05</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;138 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a href="https://gohugo.io/functions/emojify/" target="_blank"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank">Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site’s <a href="https://gohugo.io/getting-started/configuration/" target="_blank">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><code>:s ee_no_evil:[Remove the space]</code> 🙈 <code>:h ear_no_evil:[Remove the space]</code> 🙉 <code>:s peak_no_evil:[Remove the space]</code> 🙊</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/cjk-unicode-test/">CJK Unicode Test</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2018-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1549 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>The following is part of the CJK text, this page is for test use only.</p>
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/wtf-article/">纯简体中文测试文章</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2017-04-01</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;11542 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。</p>
-<p>可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。</p>
-    </div>
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/post/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/post/page/3/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/page/3/">3</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/post/page/4/">4</a>
-    </div>
-    
-    
-    
-    
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
 
 
             </div>
@@ -322,6 +304,11 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
     
     
 </aside>
@@ -405,7 +392,7 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        
+        <nav id="TableOfContents"></nav>
     </div>
     
     
