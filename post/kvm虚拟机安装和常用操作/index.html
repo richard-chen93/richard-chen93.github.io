@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 
@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">KVM虚拟机安装和常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-18</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;361 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-18</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;367 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -159,7 +159,9 @@ irqbypass       13503 1 kvm
 </code></pre>
 <h1 id="2常用操作">2、常用操作</h1>
 <h2 id="1创建虚拟机命令行">1、创建虚拟机（命令行）</h2>
-<pre><code>virt-install --name=vm1 --vcpus=1 --memory=512 --location=/tmp/CentOS-7-x86_64-Minimal-2009.iso --disk path=/home/images.qcow2,size=10,format=qcow2 --network bridge=virbr0 --graphics none --extra-args='console=ttyS0' --force
+<pre><code>qemu-img create -f qcow2 /kvm_images/vm1.qcow2 10G
+</code></pre>
+<pre><code>virt-install --name=vm1 --vcpus=1 --memory=512 --location=/tmp/CentOS-7-x86_64-Minimal-2009.iso --disk path=/kvm_images/vm1.qcow2,size=10,format=qcow2 --network bridge=virbr0 --graphics none --extra-args='console=ttyS0' --force
 </code></pre>
 <h2 id="2扩容磁盘">2、扩容磁盘</h2>
 <ul>

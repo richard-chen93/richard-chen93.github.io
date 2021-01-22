@@ -53,15 +53,6 @@
     </item>
     
     <item>
-      <title>MAC_iterm2_常用快捷键大全</title>
-      <link>https://richard-chen93.github.io/post/mac_iterm2_%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</link>
-      <pubDate>Fri, 15 Jan 2021 15:15:26 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/mac_iterm2_%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/</guid>
-      <description>标签 新建标签：command + t 关闭标签：command + w 切换标签：command + 数字 / command + 左右方向键 切换全屏：command + enter 查找：command + f -&amp;mdash;&amp;mdash;- 分屏 垂直分屏：command + d 水平分屏</description>
-    </item>
-    
-    <item>
       <title>Ceph_12_luminous安装</title>
       <link>https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/</link>
       <pubDate>Thu, 14 Jan 2021 12:01:44 +0800</pubDate>
@@ -104,24 +95,6 @@
       
       <guid>https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</guid>
       <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.</description>
-    </item>
-    
-    <item>
-      <title>Typora快捷键</title>
-      <link>https://richard-chen93.github.io/post/typora%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
-      <pubDate>Thu, 31 Dec 2020 12:02:49 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/typora%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
-      <description>Mac中的快捷键： 最大标题：command + 1 或者：# 大标题：command + 2 或者：## 标准标题：command + 3 或者：### 中标题：command + 4 或者：#### 小标题：command + 5 或者</description>
-    </item>
-    
-    <item>
-      <title>常见问题处置</title>
-      <link>https://richard-chen93.github.io/post/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%BD%AE/</link>
-      <pubDate>Fri, 25 Dec 2020 16:11:54 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%BD%AE/</guid>
-      <description>Chrome浏览器：Your Connection is not private 您的连接不是私密连接 在图片图片所示的任何地方输入: thisisunsafe 没错就是这么6，然后就可以访问了。输错了请刷新再来（微笑）</description>
     </item>
     
     <item>
@@ -325,34 +298,12 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;<
     </item>
     
     <item>
-      <title>Emoji Support</title>
-      <link>https://richard-chen93.github.io/post/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
-&lt;p&gt;The &lt;a href=&#34;https://gohugo.io/functions/emojify/&#34; target=&#34;_blank&#34;&gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34; target=&#34;_blank&#34;&gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To enable emoji globally, set &lt;code&gt;enableEmoji&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in your site’s &lt;a href=&#34;https://gohugo.io/getting-started/configuration/&#34; target=&#34;_blank&#34;&gt;configuration&lt;/a&gt; and then you can type emoji shorthand codes directly in content files; e.g.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;:s ee_no_evil:[Remove the space]&lt;/code&gt; 🙈 &lt;code&gt;:h ear_no_evil:[Remove the space]&lt;/code&gt; 🙉 &lt;code&gt;:s peak_no_evil:[Remove the space]&lt;/code&gt; 🙊&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>CJK Unicode Test</title>
       <link>https://richard-chen93.github.io/post/cjk-unicode-test/</link>
       <pubDate>Fri, 09 Mar 2018 00:00:00 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/cjk-unicode-test/</guid>
       <description>&lt;p&gt;The following is part of the CJK text, this page is for test use only.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>纯简体中文测试文章</title>
-      <link>https://richard-chen93.github.io/post/wtf-article/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/wtf-article/</guid>
-      <description>&lt;p&gt;本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。&lt;/p&gt;
-&lt;p&gt;可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。&lt;/p&gt;</description>
     </item>
     
   </channel>

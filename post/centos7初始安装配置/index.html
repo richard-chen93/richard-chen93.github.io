@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 
@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/centos7%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">Centos7初始安装配置</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-15</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;657 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-15</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;677 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 2分钟 | 本文总阅读量
@@ -149,13 +149,20 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos
 
 sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+
 yum makecache
 
 
 
 ######install common soft
 
-yum -y install epel-release git ntp ntpdate curl vim net-tools python36 python-pip
+yum -y install epel-release git ntp ntpdate curl vim net-tools python36 python-pip lrzsz
+yum -y groupinstall &quot;Fonts&quot;
+
+###### add chinese language
+echo 'export LC_ALL=&quot;zh_CN.UTF-8&quot;' &gt;&gt; /etc/profile
+source /etc/profile
 
 
 

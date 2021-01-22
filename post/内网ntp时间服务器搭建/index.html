@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 
@@ -133,7 +133,7 @@
 <p>node1节点作为ntp服务器</p>
 <pre><code class="language-bash">sudo vim /etc/ntp.conf	#删除所有默认的restrict 和 server配置，添加以下内容：
 </code></pre>
-<pre><code class="language-js">restrict 10.0.3.3 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
+<pre><code class="language-js">restrict 10.3.3.4 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
 
 server  127.127.1.0     # local clock
 fudge   127.127.1.0 stratum 10
@@ -145,8 +145,8 @@ systemctl status ntpd
 <h4 id="2其他节点配置">2.其他节点配置</h4>
 <pre><code class="language-bash">sudo vim /etc/ntp.conf
 </code></pre>
-<pre><code class="language-js">restrict 10.0.3.4 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
-server  10.0.3.4     # #IP为node1的ip地址
+<pre><code class="language-js">restrict 10.3.3.4 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
+server  10.3.3.4     # #IP为node1的ip地址
 </code></pre>
 <pre><code class="language-bash">sudo systemctl enable ntpd
 sudo systemctl restart ntpd
