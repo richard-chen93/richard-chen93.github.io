@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/categories/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-20T23:15:49+08:00" />
+<meta property="og:updated_time" content="2021-01-24T16:43:05+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -107,6 +107,19 @@
 
 <div class="post">
     <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/">Linux初始安装配置与系统调优</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1353 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        前言 centos7系统，最小化安装系统后：关闭防火墙和selinux、安装常用工具、设置yum源、创建普通用户admin、cephuser，设置ntp、系统和进程级别的文件句柄 1、一键搞定脚本 #!/bin/bash ##########optimize system cat
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
         <a href="https://richard-chen93.github.io/post/charles%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85/">Charles手机抓包</a>
     </h2>
     <div class="post-item post-meta">
@@ -159,27 +172,14 @@
 
 <div class="post">
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/centos7%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">Centos7初始安装配置</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-15</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;677 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        前言 最小化安装系统后：关闭防火墙和selinux、安装常用工具、设置yum源、创建普通用户admin、cephuser，设置ntp 1、一键搞定脚本 #!/bin/bash ####disable and stop selinux &amp; firewalld sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/ssh/sshd_config setenforce 0 systemctl diable
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
         <a href="https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/">Ceph_12_luminous安装</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-14</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2482 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-14</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2643 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        一、主机规划 主机名称 系统 IP 配置 s7 CentOS7.6.1810 10.10.10.47 1C1G50G+5G s8 CentOS7.6.1810 10.10.10.48 1C1G50G+5G s9 CentOS7.6.1810 10.10.10.49 1C1G50G+5G 磁盘规划 50G系统盘，5G磁盘为OSD 二、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲
+        0、利索的脚本： 前提： 3台机器上都配置好ceph源，并yum makecache。在ceph-deploy上安装ceph-deploy并执行下列脚本： #!/bin/bash cd cd mkdir my-cluster cd my-cluster ceph-deploy new s4 s5 s6 export CEPH_DEPLOY_REPO_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc cat &gt;&gt; ./ceph.conf &lt;&lt; EOF public_network = 10.3.3.0/24 cluster_network =
     </div>
 </div>
 

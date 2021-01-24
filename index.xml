@@ -6,7 +6,16 @@
     <description>Recent content on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Jan 2021 23:15:49 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Jan 2021 16:43:05 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux初始安装配置与系统调优</title>
+      <link>https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/</link>
+      <pubDate>Sun, 24 Jan 2021 16:43:05 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/</guid>
+      <description>前言 centos7系统，最小化安装系统后：关闭防火墙和selinux、安装常用工具、设置yum源、创建普通用户admin、cephuser，设置ntp、系统和进程级别的文件句柄 1、一键搞定脚本 #!/bin/bash ##########optimize system cat</description>
+    </item>
+    
     <item>
       <title>Charles手机抓包</title>
       <link>https://richard-chen93.github.io/post/charles%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85/</link>
@@ -44,21 +53,12 @@
     </item>
     
     <item>
-      <title>Centos7初始安装配置</title>
-      <link>https://richard-chen93.github.io/post/centos7%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Fri, 15 Jan 2021 17:44:19 +0800</pubDate>
-      
-      <guid>https://richard-chen93.github.io/post/centos7%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
-      <description>前言 最小化安装系统后：关闭防火墙和selinux、安装常用工具、设置yum源、创建普通用户admin、cephuser，设置ntp 1、一键搞定脚本 #!/bin/bash ####disable and stop selinux &amp;amp; firewalld sed -i &#39;s/#UseDNS yes/UseDNS no/g&#39; /etc/ssh/sshd_config sed -i &#39;s/GSSAPIAuthentication yes/GSSAPIAuthentication no/g&#39; /etc/ssh/sshd_config sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/ssh/sshd_config setenforce 0 systemctl diable</description>
-    </item>
-    
-    <item>
       <title>Ceph_12_luminous安装</title>
       <link>https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/</link>
       <pubDate>Thu, 14 Jan 2021 12:01:44 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/</guid>
-      <description>一、主机规划 主机名称 系统 IP 配置 s7 CentOS7.6.1810 10.10.10.47 1C1G50G+5G s8 CentOS7.6.1810 10.10.10.48 1C1G50G+5G s9 CentOS7.6.1810 10.10.10.49 1C1G50G+5G 磁盘规划 50G系统盘，5G磁盘为OSD 二、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲</description>
+      <description>0、利索的脚本： 前提： 3台机器上都配置好ceph源，并yum makecache。在ceph-deploy上安装ceph-deploy并执行下列脚本： #!/bin/bash cd cd mkdir my-cluster cd my-cluster ceph-deploy new s4 s5 s6 export CEPH_DEPLOY_REPO_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc cat &amp;gt;&amp;gt; ./ceph.conf &amp;lt;&amp;lt; EOF public_network = 10.3.3.0/24 cluster_network =</description>
     </item>
     
     <item>
@@ -157,7 +157,7 @@
       <pubDate>Fri, 20 Nov 2020 13:24:36 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus/</guid>
-      <description>1sssssss 环境准备 3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2 prometheus版本为prometheus-2.5.0.linux-amd</description>
+      <description>环境准备 3台机器centos7，1台prometheus服务器，主机名S0，1台grafana服务器S1，1台客户端S2 prometheus版本为prometheus-2.5.0.linux-amd6</description>
     </item>
     
     <item>

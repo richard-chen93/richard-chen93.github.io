@@ -111,10 +111,10 @@
         <a href="https://richard-chen93.github.io/post/ceph_12_luminous%E5%AE%89%E8%A3%85/">Ceph_12_luminous安装</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-14</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2482 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-14</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2643 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 5分钟 | 本文总阅读量
+            阅读大约需要 6分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -124,7 +124,40 @@
     
     
     <div class="post-content markdown-body">
-        <h2 id="一主机规划">一、主机规划</h2>
+        <h2 id="0利索的脚本">0、利索的脚本：</h2>
+<p>前提：</p>
+<p>3台机器上都配置好ceph源，并yum makecache。在ceph-deploy上安装ceph-deploy并执行下列脚本：</p>
+<pre><code>#!/bin/bash
+cd
+cd
+mkdir my-cluster
+cd my-cluster
+
+ceph-deploy new s4 s5 s6
+
+export CEPH_DEPLOY_REPO_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7
+export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc
+
+cat &gt;&gt; ./ceph.conf &lt;&lt; EOF
+public_network = 10.3.3.0/24
+cluster_network = 10.3.3.0/24
+EOF
+
+ceph-deploy install --release luminous s4 s5 s6
+ceph-deploy mon create-initial
+
+ceph-deploy admin s4 s5 s6
+
+ceph-deploy osd create s4 --data /dev/sdb
+ceph-deploy osd create s5 --data /dev/sdb
+ceph-deploy osd create s6 --data /dev/sdb
+
+sudo chmod +r /etc/ceph/ceph.client.admin.keyring
+
+ceph-deploy mgr create s4 s5 s6
+ceph health
+</code></pre>
+<h2 id="一主机规划">一、主机规划</h2>
 <table>
 <thead>
 <tr>
@@ -168,7 +201,6 @@ timedatectl set-timezone Asia/Shanghai
 </code></pre>
 <h4 id="1s7-节点配置">1.s7 节点配置</h4>
 <pre><code class="language-bash">sudo vim /etc/ntp.conf
-
 
 restrict 10.3.3.7 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
 
@@ -214,12 +246,10 @@ sudo chmod 0440 /etc/sudoers.d/cephuser
 <ul>
 <li>在S10上使用cephuser用户执行ssh免密登录配置脚本sshops-init.sh &ldquo;s7,s8,s9,s10&rdquo;</li>
 </ul>
-<h3 id="3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</h3>
+<h3 id="3使用root用户在4台机器上配置ceph-的yum源安装依赖包">3、使用root用户在4台机器上配置ceph 的yum源，安装依赖包</h3>
 <ul>
 <li>
 <p>yum源</p>
-<pre><code class="language-bash">sudo vi /etc/yum.repos.d/ceph.repo
-</code></pre>
 <p>把如下内容粘帖进去，保存到 /etc/yum.repos.d/ceph.repo 文件中。</p>
 <pre><code class="language-js">cat &gt; /etc/yum.repos.d/ceph.repo &lt;&lt;EOF
 [ceph-luminous-noarch]
@@ -235,7 +265,10 @@ enabled = 1
 gpgcheck = 0
 gkgkey = http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc
 EOF
-sudo yum makecache
+  
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+  
+yum makecache
 </code></pre>
 </li>
 <li>
@@ -246,12 +279,14 @@ sudo yum makecache
 sudo yum -y install unzip
 unzip distribute-0.7.3.zip
 cd distribute-0.7.3
-sudo python setup.py install
+python setup.py install
+cd
+
 </code></pre>
 <ul>
 <li>安装rpm包：</li>
 </ul>
-<pre><code>sudo yum -y install deltarpm
+<pre><code>yum -y install deltarpm
 </code></pre>
 <h2 id="三ceph部署">三、Ceph部署</h2>
 <p>使用<code>ceph-deploy</code>工具部署</p>
@@ -261,32 +296,32 @@ export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release
 </code></pre>
 <h3 id="32-安装ceph-deploy">3.2 安装<code>ceph-deploy</code></h3>
 <p>ceph安装过程中依赖部分epel软件源</p>
-<pre><code class="language-shell">yum -y install epel-release
+<pre><code class="language-shell">sudo yum -y install epel-release
 # 使用国内epel源
-sed -e 's!^metalink=!#metalink=!g' \
+sudo sed -e 's!^metalink=!#metalink=!g' \
     -e 's!^#baseurl=!baseurl=!g' \
     -e 's!//download\.fedoraproject\.org/pub!//mirrors.tuna.tsinghua.edu.cn!g' \
     -e 's!http://mirrors\.tuna!https://mirrors.tuna!g' \
     -i /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel-testing.repo
-yum -y install ceph-deploy
+sudo yum -y install ceph-deploy
 </code></pre>
 <h3 id="33-创建工作目录">3.3 创建工作目录</h3>
 <pre><code class="language-bash">mkdir my-cluster
 cd my-cluster
 </code></pre>
 <h3 id="34-创建ceph集群部署新的monitor节点">3.4 创建<code>ceph</code>集群，部署新的<code>monitor</code>节点</h3>
-<pre><code class="language-bash">ceph-deploy new s7 s8 s9
+<pre><code class="language-bash">ceph-deploy new s4 s5 s6
 </code></pre>
 <h3 id="35-修改配置文件">3.5 修改配置文件</h3>
 <p>增加<code>public_network</code>和<code>cluster_network</code>配置</p>
-<pre><code class="language-bash">vim ceph.conf
-...
-public_network = 10.10.10.0/24
-cluster_network = 10.10.10.0/24
+<pre><code class="language-bash">cat &gt;&gt; ./ceph.conf &lt;&lt; EOF
+public_network = 10.3.3.0/24
+cluster_network = 10.3.3.0/24
+EOF
 </code></pre>
 <h3 id="36-安装ceph到各个节点">3.6 安装Ceph到各个节点</h3>
 <p>需要指定版本，不指定默认安装最新的版本</p>
-<pre><code class="language-bash">ceph-deploy install --release luminous s7 s8 s9
+<pre><code class="language-bash">ceph-deploy install --release luminous s4 s5 s6
 </code></pre>
 <h3 id="37-查看ceph版本">3.7 查看ceph版本</h3>
 <pre><code class="language-bash">ceph --version
@@ -296,12 +331,12 @@ ceph version 12.2.13 (584a20eb0237c657dc0567da126be145106aa47e) luminous (stable
 <pre><code class="language-bash">ceph-deploy mon create-initial
 </code></pre>
 <h3 id="39-分发key">3.9 分发key</h3>
-<pre><code class="language-bash">ceph-deploy admin s7 s8 s9
+<pre><code class="language-bash">ceph-deploy admin s4 s5 s6
 </code></pre>
 <h3 id="310-初始化磁盘">3.10 初始化磁盘</h3>
-<pre><code class="language-bash">ceph-deploy osd create s7 --data /dev/vdb
-ceph-deploy osd create s8 --data /dev/vdb
-ceph-deploy osd create s9 --data /dev/vdb
+<pre><code class="language-bash">ceph-deploy osd create s4 --data /dev/sdb
+ceph-deploy osd create s5 --data /dev/sdb
+ceph-deploy osd create s6 --data /dev/sdb
 </code></pre>
 <h3 id="311-查看osd设备列表">3.11 查看osd设备列表</h3>
 <pre><code class="language-bash">ceph osd tree
@@ -315,10 +350,10 @@ ID CLASS WEIGHT  TYPE NAME           STATUS REWEIGHT PRI-AFF
  2   hdd 0.19530         osd.2           up  1.00000 1.00000
 </code></pre>
 <h3 id="312-给admin-key赋权限">3.12 给admin key赋权限</h3>
-<pre><code class="language-bash">chmod +r /etc/ceph/ceph.client.admin.keyring
+<pre><code class="language-bash">sudo chmod +r /etc/ceph/ceph.client.admin.keyring
 </code></pre>
 <h3 id="313-创建ceph-管理进程服务">3.13 创建ceph 管理进程服务</h3>
-<pre><code class="language-bash">ceph-deploy mgr create s7 s8 s9
+<pre><code class="language-bash">ceph-deploy mgr create s4 s5 s6
 </code></pre>
 <h3 id="314-检查健康状况">3.14 检查健康状况</h3>
 <pre><code class="language-bash">ceph health
@@ -330,7 +365,7 @@ HEALTH_OK
 successfully created pool rbd
 </code></pre>
 <h3 id="42-创建块设备">4.2 创建块设备</h3>
-<pre><code class="language-bash">rbd create rbd1 --size 1024
+<pre><code class="language-bash">rbd create rbd1 --size 4096
 </code></pre>
 <h3 id="43-查看创建的rbd">4.3 查看创建的rbd</h3>
 <pre><code class="language-bash">rbd list
@@ -379,7 +414,7 @@ successfully deleted pool rbd
 </code></pre>
 <h2 id="五ceph对象存储">五、Ceph对象存储</h2>
 <h3 id="51-创建对象存储网关">5.1 创建对象存储网关</h3>
-<pre><code class="language-bash">1ceph-deploy rgw create s7 s8 s9
+<pre><code class="language-bash">  1ceph-deploy rgw create s7 s8 s9
 </code></pre>
 <p>创建完成之后默认监听7480端口。然后可以使用负载均衡的方式转发到后端服务。</p>
 <h3 id="52-创建s3用户">5.2 创建s3用户</h3>
@@ -662,12 +697,13 @@ ceph dashboard set-rgw-api-host 192.168.0.251
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
+    <li><a href="#0利索的脚本">0、利索的脚本：</a></li>
     <li><a href="#一主机规划">一、主机规划</a></li>
     <li><a href="#二环境准备">二、环境准备</a>
       <ul>
         <li><a href="#1时间同步">1、时间同步</a></li>
         <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
-        <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+        <li><a href="#3使用root用户在4台机器上配置ceph-的yum源安装依赖包">3、使用root用户在4台机器上配置ceph 的yum源，安装依赖包</a></li>
       </ul>
     </li>
     <li><a href="#三ceph部署">三、Ceph部署</a>
@@ -802,12 +838,13 @@ ceph dashboard set-rgw-api-host 192.168.0.251
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
+    <li><a href="#0利索的脚本">0、利索的脚本：</a></li>
     <li><a href="#一主机规划">一、主机规划</a></li>
     <li><a href="#二环境准备">二、环境准备</a>
       <ul>
         <li><a href="#1时间同步">1、时间同步</a></li>
         <li><a href="#2ssh免密登录和sudo无需密码权限">2、ssh免密登录和sudo无需密码权限</a></li>
-        <li><a href="#3在4台机器上配置ceph-的yum源安装依赖包">3、在4台机器上配置ceph 的yum源，安装依赖包</a></li>
+        <li><a href="#3使用root用户在4台机器上配置ceph-的yum源安装依赖包">3、使用root用户在4台机器上配置ceph 的yum源，安装依赖包</a></li>
       </ul>
     </li>
     <li><a href="#三ceph部署">三、Ceph部署</a>
