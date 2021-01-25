@@ -25,27 +25,30 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Posts - Richard&#39;s blog</title>
+<title>Elasticsearch集群搭建 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
 
 
-<meta name="description" content="A minimal Hugo theme with nice theme color." />
+<meta name="description" content="this is discr" />
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Elasticsearch集群搭建" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/elasticsearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-24T17:23:09+08:00" />
+<meta property="article:published_time" content="2021-01-24T17:23:09+08:00" />
+<meta property="article:modified_time" content="2021-01-24T17:23:09+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Elasticsearch集群搭建"/>
+<meta name="twitter:description" content="this is discr"/>
 
 
 
@@ -102,102 +105,107 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/placeholder-text/">Placeholder Text</a>
+        <a href="https://richard-chen93.github.io/post/elasticsearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Elasticsearch集群搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;269 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;391 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 1分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="1环境">1、环境</h1>
+<p>es版本：	7.8.1</p>
+<p>centos7：  s4,s5,s6</p>
+<p>配置：4c 3G</p>
+<p>3台机器必须调整最大进程数，root执行：</p>
+<pre><code>echo &quot;fs.file-max = 2000000&quot; &gt;&gt; /etc/sysctl.conf
+echo &quot;vm.max_map_count = 655360&quot; &gt;&gt; /etc/sysctl.conf
+sysctl -p
+
+echo &quot;ulimit -u 10000&quot; &gt;&gt; /etc/profile
+</code></pre>
+<h1 id="2配置">2、配置</h1>
+<p>elasticsearch.yml配置文件。3台机器的node.name分别修改为：node-1,node-2,node-3。其余不变。</p>
+<pre><code>#集群名称
+cluster.name: test-app
+
+#节点名称，集群中保持唯一
+node.name: node-1
+node.master: true
+#绑定远程地址，为了安全通常是指定具体的地址，这里仅仅是测试，放开允许所有远程来源访问
+network.host: 0.0.0.0
+
+#开放http接口，默认就是9200
+http.port: 9200
+
+#集群节点之间（集群协商、指令传输等）通信的端口
+transport.tcp.port: 9300
+
+#允许前端跨域访问
+http.cors.enabled: true
+
+#设置允许的跨域的来源，*表示允许所有跨域来源
+http.cors.allow-origin: &quot;*&quot;
+
+#设置发现集群节点主机列表
+discovery.seed_hosts: [&quot;s4:9300&quot;,&quot;s5:9300&quot;,&quot;s6:9300&quot;]
+
+#初始化集群的master节点的候选列表，列表中的节点都可能竞选成为master节点
+cluster.initial_master_nodes: [&quot;s4:9300&quot;,&quot;s5:9300&quot;,&quot;s6:9300&quot;]
+</code></pre>
+<h1 id="3启动并验证">3、启动并验证</h1>
+<p>./bin/elasticsearch</p>
+<p>查看集群信息：http://s4:9200/_cat/health?v</p>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        <p>Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/cjk-unicode-test/">CJK Unicode Test</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2018-03-09</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1549 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/test">test</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        <p>The following is part of the CJK text, this page is for test use only.</p>
-    </div>
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
-
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/post/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/post/page/3/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/post/page/3/">3</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/post/page/4/">4</a>
-    </div>
-    
-    
-    
-    
-</div>
-
 
 
             </div>
@@ -265,6 +273,11 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
     
     
 </aside>
@@ -348,7 +361,7 @@ lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        
+        <nav id="TableOfContents"></nav>
     </div>
     
     

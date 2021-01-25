@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/">Linux初始安装配置与系统调优</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1353 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1357 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 3分钟 | 本文总阅读量
@@ -137,6 +137,7 @@ cat &gt;&gt; /etc/security/limits.conf &lt;&lt; EOF
 * hard nofile  1000000
 EOF
 echo &quot;fs.file-max = 2000000&quot; &gt;&gt; /etc/sysctl.conf
+echo &quot;vm.max_map_count=655360&quot; &gt;&gt; /etc/sysctl.conf
 sysctl -p
 echo &quot;ulimit -u 60000&quot; &gt;&gt; /etc/profile
 source /etc/profile
@@ -347,19 +348,17 @@ sudo systemctl restart docker
 <pre><code>cat /proc/sys/fs/file-max
 </code></pre>
 <hr>
-<p><strong>修改最大文件句柄数：永久生效</strong></p>
+<p><strong>修改最大文件句柄数和用户最大进程数：永久生效</strong></p>
 <p><strong>1、修改配置文件加入内核参数/etc/sysctl.conf</strong></p>
 <pre><code>echo &quot;fs.file-max = 2000000&quot; &gt;&gt; /etc/sysctl.conf
+echo &quot;vm.max_map_count = 655360&quot; &gt;&gt; /etc/sysctl.conf
+sysctl -p
 </code></pre>
 <p>50W并发可设置 = 999999</p>
 <p>注：修改范围为系统所有进程可打开的最大文件句柄</p>
-<p><strong>2、使修改配置立即生效：</strong></p>
-<pre><code>sysctl -p
-</code></pre>
 <h2 id="用户最大进程数">用户最大进程数</h2>
-<p>设置各linux 用户的最大进程数，下面把某linux用户的最大进程数设为10000个：</p>
-<pre><code>echo &quot;ulimit -u 60000&quot; &gt;&gt; /etc/profile
-source /etc/profile
+<p>设置各linux 用户的最大进程数，下面把某linux用户的最大进程数设为60000个：</p>
+<pre><code>echo &quot;ulimit -u 10000&quot; &gt;&gt; /etc/profile
 </code></pre>
 
     </div>

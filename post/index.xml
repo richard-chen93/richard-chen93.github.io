@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 24 Jan 2021 16:43:05 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Jan 2021 17:23:09 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elasticsearch集群搭建</title>
+      <link>https://richard-chen93.github.io/post/elasticsearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Sun, 24 Jan 2021 17:23:09 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/elasticsearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
+      <description>1、环境 es版本： 7.8.1 centos7： s4,s5,s6 配置：4c 3G 3台机器必须调整最大进程数，root执行： echo &amp;quot;fs.file-max = 2000000&amp;quot; &amp;gt;&amp;gt; /etc/sysctl.conf echo &amp;quot;vm.max_map_count = 655360&amp;quot; &amp;gt;&amp;gt; /etc/sysctl.conf sysctl -p echo &amp;quot;ulimit -u 10000&amp;quot; &amp;gt;&amp;gt; /etc/profile 2、配置 elasticsearch.yml配置文件。3台机器的nod</description>
+    </item>
+    
     <item>
       <title>Linux初始安装配置与系统调优</title>
       <link>https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/</link>

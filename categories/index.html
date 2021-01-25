@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/categories/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-24T16:43:05+08:00" />
+<meta property="og:updated_time" content="2021-01-24T17:23:09+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -107,10 +107,23 @@
 
 <div class="post">
     <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/elasticsearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Elasticsearch集群搭建</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;391 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、环境 es版本： 7.8.1 centos7： s4,s5,s6 配置：4c 3G 3台机器必须调整最大进程数，root执行： echo &quot;fs.file-max = 2000000&quot; &gt;&gt; /etc/sysctl.conf echo &quot;vm.max_map_count = 655360&quot; &gt;&gt; /etc/sysctl.conf sysctl -p echo &quot;ulimit -u 10000&quot; &gt;&gt; /etc/profile 2、配置 elasticsearch.yml配置文件。3台机器的nod
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
         <a href="https://richard-chen93.github.io/post/linux%E5%88%9D%E5%A7%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98/">Linux初始安装配置与系统调优</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1353 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1357 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         1、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲磁盘sdb，10G ceph-deploy &ndash;version 1.5.39 ceph version 10.2.11 1、时间同步 s7作为ntp服务器，s8-10作为客户端 sudo yum -y install
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;336 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.
     </div>
 </div>
 
