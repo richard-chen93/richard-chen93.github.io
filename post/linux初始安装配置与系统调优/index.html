@@ -139,7 +139,7 @@ EOF
 echo &quot;fs.file-max = 2000000&quot; &gt;&gt; /etc/sysctl.conf
 echo &quot;vm.max_map_count=655360&quot; &gt;&gt; /etc/sysctl.conf
 sysctl -p
-echo &quot;ulimit -u 60000&quot; &gt;&gt; /etc/profile
+echo &quot;ulimit -u 10000&quot; &gt;&gt; /etc/profile
 source /etc/profile
 cd
 
@@ -241,9 +241,9 @@ cd
 <h2 id="常用的初始配置加快dns关闭selinux和防火墙">常用的初始配置，加快dns，关闭selinux和防火墙</h2>
 <pre><code>sed  -i 's/#UseDNS yes/UseDNS no/g'  /etc/ssh/sshd_config
 sed  -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g'  /etc/ssh/sshd_config
-sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g'  /etc/ssh/sshd_config
+sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g'  /etc/selinux/config
 setenforce 0
-systemctl diable firewalld
+systemctl disable firewalld
 systemctl stop firewalld
 </code></pre>
 <p>centos7:</p>

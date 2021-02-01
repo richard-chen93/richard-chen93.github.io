@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-24T17:23:09+08:00" />
+<meta property="og:updated_time" content="2021-01-25T17:21:15+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Ceph集群部署</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2310 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲磁盘sdb，10G ceph-deploy &ndash;version 1.5.39 ceph version 10.2.11 1、时间同步 s7作为ntp服务器，s8-10作为客户端 sudo yum -y install
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -188,11 +201,11 @@
         <a href="https://richard-chen93.github.io/post/vim%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E5%92%8C%E9%85%8D%E7%BD%AE/">Vim常见用法和配置</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;18 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;22 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        vim tab改为4个空格 vim /etc/vim/vimrc set ts=4 set expandtab set autoindent
+        vim tab改为4个空格 cat &gt;&gt; /etc/vim/vimrc &lt;&lt; EOF set ts=4 set expandtab set autoindent EOF
     </div>
 </div>
 
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/harbor%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">Harbor搭建与使用</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;787 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        安装 harbor支持k8s的helm安装和本地安装，这里使用本地安装。 1. 前置条件 1.1安装docker并运行 yum install docker systemcal start docker systemctl enable docker 2. 安装docker-compost 2.1安装依赖包 2.1 yum install -y py-pip python-dev libffi-dev openssl-dev gcc libc-dev make 2.2
     </div>
 </div>
 

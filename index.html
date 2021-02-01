@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-01-24T17:23:09+08:00" />
+<meta property="og:updated_time" content="2021-01-25T17:21:15+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/linux%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91yum%E6%BA%90/">Linux搭建内网yum源</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-25</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;95 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、安装yum工具 yum -y install createrepo 2、指定yum仓库路径 mkdir /repo 3、创建本地repo仓库 createrepo -pdo /repo /repo 4、清空或者备份出 /etc/yum.repos.d 下所有的源。 mv /etc/yum.repos.d/*.repo /tmp yum clean all 5、配置本地yum源 cat &gt;&gt; /etc/yum.repos.d/Centos-Base.repo &lt;&lt; EOF [centos7] name=CentOS7-local baseurl=file:///repo gpgcheck=0 enabled=1 EOF 6、测试 yum makecache yum -y install unzip
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         安装完初始化： mysql_secure_installation 创建用户 CREATE USER 'panda'@'localhost' IDENTIFIED BY 'panda'; 允许其他IP访问数据库 %代表任意IP GRANT ALL PRIVILEGES ON *.* TO 'panda'@'%' IDENTIFIED BY 'panda' WITH GRANT OPTION; flush privileges; 创建数据库表 CREATE TABLE IF NOT EXISTS `runoob_tbl`( `runoob_id` INT UNSIGNED AUTO_INCREMENT, `runoob_title` VARCHAR(100) NOT NULL, `runoob_author` VARCHAR(40) NOT NULL, `submission_date` DATE, PRIMARY KEY ( `runoob_id` ) )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/ceph%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Ceph集群部署</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2310 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        1、环境准备 环境准备好，避免踩坑！ 4台机器，s10为ceph-deploy。 s7 s8 s9为3个node，拥有空闲磁盘sdb，10G ceph-deploy &ndash;version 1.5.39 ceph version 10.2.11 1、时间同步 s7作为ntp服务器，s8-10作为客户端 sudo yum -y install
     </div>
 </div>
 
