@@ -166,7 +166,7 @@
       <pubDate>Sat, 21 Nov 2020 22:18:50 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/vim%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E5%92%8C%E9%85%8D%E7%BD%AE/</guid>
-      <description>vim tab改为4个空格 cat &amp;gt;&amp;gt; /etc/vim/vimrc &amp;lt;&amp;lt; EOF set ts=4 set expandtab set autoindent EOF</description>
+      <description>vim tab改为4个空格 cat &amp;gt;&amp;gt; /etc/vimrc &amp;lt;&amp;lt; EOF set ts=4 set expandtab set autoindent EOF</description>
     </item>
     
     <item>
