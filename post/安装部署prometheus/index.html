@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2prometheus/">安装部署prometheus</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-20</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1543 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-20</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1523 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 4分钟 | 本文总阅读量
@@ -142,7 +142,7 @@ cd /usr/local/prometheus
 ./prometheus --config.file=&quot;/usr/local/prometheus/prometheus.yml&quot; &amp;
 ss -tunpl | grep 9090
 </code></pre>
-<p>若9090端口被Prometheus程序占用，说明启动成功，浏览器打开http://10.3.3.30:9090
+<p>若9090端口被Prometheus程序占用，说明启动成功，浏览器打开
 http://10.3.3.30:9090/metrics可看到所有监控到的数据</p>
 <h2 id="在被监控主机s2上安装node-exporter组件并运行">在被监控主机S2上安装node-exporter组件并运行</h2>
 <pre><code>tar xf node_exporter-0.16.0.linux-amd64.tar.gz
@@ -155,15 +155,15 @@ ss -tunpl | grep 9090
 浏览器打开http://10.3.3.30:9100
 http://10.3.3.32:9100/metrics可看到所有收集到的数据</p>
 <h2 id="让prometheus服务器拉取node节点信息">让Prometheus服务器拉取node节点信息</h2>
-<pre><code>vim /usr/local/prometheus/prometheus.yml
+<pre><code>vim /home/admin/promethus/prometheus.yml
   - job_name: 'node01'
     static_configs:
-    - targets: ['10.3.3.32:9100']
+    - targets: ['10.3.3.5:9100']
 </code></pre>
 <p>在文件末尾添加节点信息</p>
 <h2 id="重启prometheus服务并查看节点信息">重启Prometheus服务并查看节点信息</h2>
 <pre><code>pkill prometheus
-./prometheus --config.file=&quot;/usr/local/prometheus/prometheus.yml&quot; &amp;
+./prometheus --config.file=&quot;/home/admin/prometheus-2.5.0/prometheus.yml&quot; &amp;
 </code></pre>
 <h2 id="添加mysql监控">添加mysql监控</h2>
 <p>在s2上安装启动mariadb，为监控系统添加账户mysql_monitor,密码123,授予权限。
@@ -178,16 +178,16 @@ exit;
 [client]
 user=mysql_monitor
 password=123
-nohup ./mysqld_exporter --config.my-cnf=/usr/local/mysqld_exporter/.my.cnf &amp;
-lsof -i:9104
+nohup ./mysqld_exporter --config.my-cnf=/home/admin/mysqld_exporter-0.12/my.cnf &amp;
+  lsof -i:9104
 </code></pre>
 <p>修改Prometheus服务器配置文件，添加mysql监控项。在主配置文件最后再添加下面三行：</p>
 <pre><code>  - job_name: 'nodeS2_mariadb'
     static_configs:
-    - targets: ['10.3.3.32:9104']
+    - targets: ['10.3.3.6:9104']
 </code></pre>
 <h2 id="安装grafana服务器软件">安装grafana服务器软件</h2>
-<p>在s1上安装：</p>
+<p>在s4上安装：</p>
 <pre><code>wget https://dl.grafana.com/oss/release/grafana-5.3.4-1.x86_64.rpm
 sudo rpm -i --nodeps grafana-5.3.4-1.x86_64.rpm
 systemctl enable grafana-server
@@ -199,8 +199,8 @@ ss -tunpl | grep 3000
 <h2 id="添加grafana图形监控模板">添加grafana图形监控模板：</h2>
 <h3 id="下载图形监控模板">下载图形监控模板</h3>
 <p><a href="https://github.com/percona/grafana-dashboards">https://github.com/percona/grafana-dashboards</a>
-下载后压缩包里面dashboards文件夹里面的所有jason文件就是图形监控模板文件。
-在grafana中导入特点的jason文件。</p>
+下载后压缩包里面dashboards文件夹里面的所有json文件就是图形监控模板文件。
+在grafana中导入特定的json文件。</p>
 <h3 id="设置数据库源">设置数据库源</h3>
 <p>grafana监控界面里，configuration-data source，之前添加的数据源名称必须改为：Prometheus。然后mysql的监控就可以正常展示</p>
 <h2 id="配置alertmanager">配置alertmanager</h2>
@@ -216,7 +216,7 @@ ss -tunpl | grep 3000
 alerting:
   alertmanagers:
   - static_configs:
-    - targets: ['10.3.3.31:9093']
+    - targets: ['s4:9093']
 
 rule_files:
   # 告警规则配置文件位置
@@ -224,9 +224,11 @@ rule_files:
 
   - job_name: 'alertmanager'
     static_configs:
-      - targets: ['172.20.32.218:9093']
+      - targets: ['s4:9093']
 
 ./promtool check config prometheus.yml
+
+nohup ./alertmanager &amp;
 </code></pre>
 
     </div>
