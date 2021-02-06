@@ -6,7 +6,16 @@
     <description>Recent content on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 25 Jan 2021 17:21:15 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Feb 2021 21:51:41 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Prometheus监控ES集群</title>
+      <link>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8prometheus%E7%9B%91%E6%8E%A7es%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Sat, 06 Feb 2021 21:51:41 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8prometheus%E7%9B%91%E6%8E%A7es%E9%9B%86%E7%BE%A4/</guid>
+      <description>1、准备环境 监控系统下载运行prometheus和alertmanager，被监控的ES集群下载运行node_exporter和elasticsearch_exporter 2、修改配置 1、promet</description>
+    </item>
+    
     <item>
       <title>Linux搭建内网yum源</title>
       <link>https://richard-chen93.github.io/post/linux%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91yum%E6%BA%90/</link>
