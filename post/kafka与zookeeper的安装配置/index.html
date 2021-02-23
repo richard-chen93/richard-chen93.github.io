@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">Kafka与zookeeper的安装配置</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-26</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1189 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-26</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1323 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 3分钟 | 本文总阅读量
@@ -182,39 +182,68 @@ source /etc/profile
 <h2 id="5启动kafka服务并测试">5、启动kafka服务并测试</h2>
 <pre><code>  110  cd kafka/bin/
   106  sh bin/kafka-server-start.sh config/server.properties
-  113  ./kafka-topics.sh --create --zookeeper s102:2181 --partitions 2 --replication-factor 2 --topic topic01
-  117  ./kafka-topics.sh --list --zookeeper s102:2181
-  118  ./kafka-topics.sh --list --zookeeper s103:2181
-  119  ./kafka-topics.sh --list --zookeeper s104:2181
+  113  ./kafka-topics.sh --create --zookeeper s4:2181 --partitions 2 --replication-factor 2 --topic topic01
+  117  ./kafka-topics.sh --list --zookeeper s4:2181
+  118  ./kafka-topics.sh --list --zookeeper s5:2181
+  119  ./kafka-topics.sh --list --zookeeper s6:2181
+  
+#描述topic信息
+  ./kafka-topics.sh --describe --zookeeper s5:2181 --topic topic01
 # 启动 kafka，指定配置文件
 # 创建topic，指定zk服务器，分区数、副本数、topic名字
 </code></pre>
 <h2 id="6-生成消费数据">6、 生成、消费数据</h2>
-<h3 id="s102生产数据">s102生产数据：</h3>
-<pre><code>bin/kafka-console-producer.sh --broker-list s102:9092 --topic topic01
+<h3 id="s4生产数据">s4生产数据：</h3>
+<pre><code>kafka-console-producer.sh --broker-list s4:9092 --topic topic01
 </code></pre>
 <blockquote>
 <p>hi there
 i am richard</p>
 </blockquote>
-<h3 id="s103或者s102-消费数据">s103或者s102 消费数据：</h3>
-<pre><code>bin/kafka-console-consumer.sh --zookeeper s102:2181 --topic topic01 #消费最新数据
+<h3 id="s6或者s5-消费数据">s6或者s5 消费数据：</h3>
+<pre><code>kafka-console-consumer.sh --zookeeper s5:2181 --topic topic01 #消费最新数据
+
+
 </code></pre>
-<pre><code>bin/kafka-console-consumer.sh --zookeeper s102:2181 --topic topic01 --from beginning  #消费所有数据，从头开始
+<h3 id="消费者消费消息指定消费组名">消费者消费消息,指定消费组名</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server s4:9092,s5:9092,s6:9092 --new-consumer --consumer-property group.id=consumer_group01 --topic topic01
+
+#这里可看到所有消费的消息
+kjh
+iouioy
+khkhjkl
+lllllllllllllllllll
 </code></pre>
-<pre><code>bin/kafka-console-consumer.sh --bootstrap-server s102:9092 --topic topic01 --from-beginning
+<h3 id="查看正在运行的消费组">查看正在运行的消费组</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server s4:9092 --list --new-consumer
+Note: This will only show information about consumers that use the Java consumer API (non-ZooKeeper-based consumers).
+
+consumer_group01
+</code></pre>
+<h3 id="消费堆积情况查看">消费堆积情况查看</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server s4:9092 --describe --group consumer_group01
+Note: This will only show information about consumers that use the Java consumer API (non-ZooKeeper-based consumers).
+
+TOPIC                          PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG        CONSUMER-ID                                       HOST                           CLIENT-ID
+topic01                        0          1               1               0          consumer-1-dd3fc747-7a23-4057-a5e3-e6268f2ee802   /10.3.3.5                      consumer-1
+topic01                        1          1               1               0          consumer-1-dd3fc747-7a23-4057-a5e3-e6268f2ee802   /10.3.3.5                      consumer-1
+</code></pre>
+<h3 id="消费所有数据从头开始">消费所有数据，从头开始</h3>
+<pre><code>bin/kafka-console-consumer.sh --zookeeper s5:2181 --topic topic01 --from beginning  
+</code></pre>
+<pre><code>bin/kafka-console-consumer.sh --bootstrap-server s5:9092 --topic topic01 --from-beginning
 #offset数据不经过zk，而是通过kafka集群bootstrap-server
 #offset数据保存在kafka集群的topic里
 </code></pre>
 <h3 id="查看topic信息">查看topic信息</h3>
-<pre><code>bin/kafka-topics.sh --zookeeper s102:2181 --describe topic topic01
+<pre><code>bin/kafka-topics.sh --zookeeper s5:2181 --describe topic topic01
 </code></pre>
 <pre><code>Topic:topic01   PartitionCount:2        ReplicationFactor:2     Configs:
         Topic: topic01  Partition: 0    Leader: 1       Replicas: 1,0   Isr: 1
         Topic: topic01  Partition: 1    Leader: 1       Replicas: 2,1   Isr: 1
 </code></pre>
 <h3 id="删除topic">删除topic</h3>
-<pre><code>bin/kafka-topics.sh --zookeeper s102:2181 --delete --topic topic01
+<pre><code>bin/kafka-topics.sh --zookeeper s5:2181 --delete --topic topic01
 </code></pre>
 
     </div>
@@ -338,8 +367,12 @@ i am richard</p>
     <li><a href="#5启动kafka服务并测试">5、启动kafka服务并测试</a></li>
     <li><a href="#6-生成消费数据">6、 生成、消费数据</a>
       <ul>
-        <li><a href="#s102生产数据">s102生产数据：</a></li>
-        <li><a href="#s103或者s102-消费数据">s103或者s102 消费数据：</a></li>
+        <li><a href="#s4生产数据">s4生产数据：</a></li>
+        <li><a href="#s6或者s5-消费数据">s6或者s5 消费数据：</a></li>
+        <li><a href="#消费者消费消息指定消费组名">消费者消费消息,指定消费组名</a></li>
+        <li><a href="#查看正在运行的消费组">查看正在运行的消费组</a></li>
+        <li><a href="#消费堆积情况查看">消费堆积情况查看</a></li>
+        <li><a href="#消费所有数据从头开始">消费所有数据，从头开始</a></li>
         <li><a href="#查看topic信息">查看topic信息</a></li>
         <li><a href="#删除topic">删除topic</a></li>
       </ul>
@@ -443,8 +476,12 @@ i am richard</p>
     <li><a href="#5启动kafka服务并测试">5、启动kafka服务并测试</a></li>
     <li><a href="#6-生成消费数据">6、 生成、消费数据</a>
       <ul>
-        <li><a href="#s102生产数据">s102生产数据：</a></li>
-        <li><a href="#s103或者s102-消费数据">s103或者s102 消费数据：</a></li>
+        <li><a href="#s4生产数据">s4生产数据：</a></li>
+        <li><a href="#s6或者s5-消费数据">s6或者s5 消费数据：</a></li>
+        <li><a href="#消费者消费消息指定消费组名">消费者消费消息,指定消费组名</a></li>
+        <li><a href="#查看正在运行的消费组">查看正在运行的消费组</a></li>
+        <li><a href="#消费堆积情况查看">消费堆积情况查看</a></li>
+        <li><a href="#消费所有数据从头开始">消费所有数据，从头开始</a></li>
         <li><a href="#查看topic信息">查看topic信息</a></li>
         <li><a href="#删除topic">删除topic</a></li>
       </ul>
