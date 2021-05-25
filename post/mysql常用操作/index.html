@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Mysql常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;209 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;233 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -162,6 +162,12 @@ flush privileges;
 quit
 </code></pre>
 <pre><code># my.cnf配置文件去掉skip-grant-tables 这一行，重启mysql
+</code></pre>
+<h2 id="不能创建用户">不能创建用户</h2>
+<p>mysql&gt; CREATE USER &lsquo;bond&rsquo;@'%' IDENTIFIED BY &lsquo;bond_123456&rsquo;;
+ERROR 1819 (HY000): Unknown error 1819</p>
+<pre><code>set global validate_password_policy=0;
+select @@validate_password_length;
 </code></pre>
 
     </div>
@@ -280,6 +286,7 @@ quit
     <li><a href="#创建数据库表">创建数据库表</a></li>
     <li><a href="#修改root密码">修改root密码</a></li>
     <li><a href="#忘记root密码">忘记root密码</a></li>
+    <li><a href="#不能创建用户">不能创建用户</a></li>
   </ul>
 </nav>
     </div>
@@ -374,6 +381,7 @@ quit
     <li><a href="#创建数据库表">创建数据库表</a></li>
     <li><a href="#修改root密码">修改root密码</a></li>
     <li><a href="#忘记root密码">忘记root密码</a></li>
+    <li><a href="#不能创建用户">不能创建用户</a></li>
   </ul>
 </nav>
     </div>

@@ -37,7 +37,7 @@
 <meta name="keywords" content="technology" />
 
 <meta property="og:title" content="Docker常用操作" />
-<meta property="og:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模" />
+<meta property="og:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 docker ps -a &ndash;no-trunc 查" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -48,7 +48,7 @@
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
 <meta name="twitter:title" content="Docker常用操作"/>
-<meta name="twitter:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 it ：互动模"/>
+<meta name="twitter:description" content="docker以host模式启动容器，并指定名称和共享盘 docker container run -it &ndash;name mhost &ndash;privileged=true &ndash;net=host -p 8000:80 -v /mhost_volume:/data/ {docker image id} 进入容器 [root@localhost ~]# docker exec -it bash 进入后发现没有ifconfig，直接yum安装 ifconfig报错 yum install -y net-tools 常用参数含义 docker ps -a &ndash;no-trunc 查"/>
 
 
 
@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Docker常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;427 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-13</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;447 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -132,6 +132,8 @@
 ifconfig报错
 yum install -y net-tools</p>
 <h2 id="常用参数含义">常用参数含义</h2>
+<p>docker ps -a &ndash;no-trunc 查看容器的启动命令。</p>
+<p>-td 后台运行。</p>
 <ul>
 <li>it ：互动模式登录容器，并分配一个终端</li>
 <li>name ：指定容器名称</li>

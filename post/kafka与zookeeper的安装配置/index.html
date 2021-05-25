@@ -183,7 +183,7 @@ source /etc/profile
 <pre><code>  110  cd kafka/bin/
   106  sh bin/kafka-server-start.sh config/server.properties
   113  ./kafka-topics.sh --create --zookeeper s4:2181 --partitions 2 --replication-factor 2 --topic topic01
-  117  ./kafka-topics.sh --list --zookeeper s4:2181
+    117  ./kafka-topics.sh --list --zookeeper s4:2181
   118  ./kafka-topics.sh --list --zookeeper s5:2181
   119  ./kafka-topics.sh --list --zookeeper s6:2181
   
