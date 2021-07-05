@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/">Mysql故障记录</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;832 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;915 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 2分钟 | 本文总阅读量
@@ -127,10 +127,23 @@
         <h2 id="os和mysql版本">OS和mysql版本</h2>
 <p>mysql5.7、centos7</p>
 <h2 id="报错记录">报错记录</h2>
+<h3 id="1启动失败">1、启动失败</h3>
 <p>mysql启动失败，报错  The server quit without updating PID file！
 修改启动脚本 /etc/init.d/mysqld 约278行，增加&ndash;user=root参数
 $bindir/mysqld_safe &ndash;user=root &ndash;datadir=&quot;$datadir&quot; &ndash;pid-file=&quot;$mysqld_pid_file_path&quot;     $other_args &gt;/dev/null &amp;</p>
 <p>确保/etc/下有my.cnf.d</p>
+<h3 id="2无法安装初始化">2、无法安装、初始化</h3>
+<p>报错内容：</p>
+<pre><code>&quot;mysqld: Can't read dir of '/etc/my.cnf.' (Errcode: 2 - No such file or directory)
+</code></pre>
+<p>解决：</p>
+<p>确保有 ！includedir 且下面有空行</p>
+<pre><code># include all files from the config directory
+#
+!includedir /etc/my.cnf.d
+
+#
+</code></pre>
 <h2 id="修改root密码">修改root密码</h2>
 <p>使用自动生成的密码登录mysql以后</p>
 <p>修改密码mysql&gt;  alter user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; identified by &lsquo;you_new_password&rsquo;;</p>
@@ -193,6 +206,8 @@ service mysqld restart; # 重启mysql
 <p>Slave<em>IO</em>Running: YES 表示slave的日志读取线程开启</p>
 <p>Slave<em>SQL</em>Running: YES 表示SQL执行线程开启</p>
 <p>两者都为YES表示主从模式成功。</p>
+<h2 id="mysql主从不同步">mysql主从不同步</h2>
+<p>待解决</p>
 
     </div>
 </article>
@@ -305,7 +320,12 @@ service mysqld restart; # 重启mysql
         <nav id="TableOfContents">
   <ul>
     <li><a href="#os和mysql版本">OS和mysql版本</a></li>
-    <li><a href="#报错记录">报错记录</a></li>
+    <li><a href="#报错记录">报错记录</a>
+      <ul>
+        <li><a href="#1启动失败">1、启动失败</a></li>
+        <li><a href="#2无法安装初始化">2、无法安装、初始化</a></li>
+      </ul>
+    </li>
     <li><a href="#修改root密码">修改root密码</a></li>
     <li><a href="#mysql主从同步集群搭建">mysql主从同步集群搭建</a>
       <ul>
@@ -315,6 +335,7 @@ service mysqld restart; # 重启mysql
         <li><a href="#4-验证查看状态">4、 验证，查看状态</a></li>
       </ul>
     </li>
+    <li><a href="#mysql主从不同步">mysql主从不同步</a></li>
   </ul>
 </nav>
     </div>
@@ -404,7 +425,12 @@ service mysqld restart; # 重启mysql
         <nav id="TableOfContents">
   <ul>
     <li><a href="#os和mysql版本">OS和mysql版本</a></li>
-    <li><a href="#报错记录">报错记录</a></li>
+    <li><a href="#报错记录">报错记录</a>
+      <ul>
+        <li><a href="#1启动失败">1、启动失败</a></li>
+        <li><a href="#2无法安装初始化">2、无法安装、初始化</a></li>
+      </ul>
+    </li>
     <li><a href="#修改root密码">修改root密码</a></li>
     <li><a href="#mysql主从同步集群搭建">mysql主从同步集群搭建</a>
       <ul>
@@ -414,6 +440,7 @@ service mysqld restart; # 重启mysql
         <li><a href="#4-验证查看状态">4、 验证，查看状态</a></li>
       </ul>
     </li>
+    <li><a href="#mysql主从不同步">mysql主从不同步</a></li>
   </ul>
 </nav>
     </div>

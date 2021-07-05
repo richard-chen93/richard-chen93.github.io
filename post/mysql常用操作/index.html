@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Mysql常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;233 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;251 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -156,8 +156,14 @@ skip-grant-tables  #添加这一行
 </code></pre>
 <pre><code>mysql -h 127.0.0.1 -uroot
 use mysql;
+
+SHOW VARIABLES LIKE 'validate_password%'; 
+set global validate_password_policy=LOW;
+set global validate_password_length=6;
+
 flush privileges;
-alter user 'root'@'localhost' identified by '123456';
+alter user 'root'@'localhost' identified by 'TD@123';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'TD@123';
 flush privileges;
 quit
 </code></pre>

@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Feb 2021 21:51:41 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 May 2021 10:36:14 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用ansible实现自动部署</title>
+      <link>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8ansible%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 25 May 2021 10:36:14 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8ansible%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</guid>
+      <description>1、角色roles 一条命令将多个角色的目录创建好： mkdir -p roles/{nginx,mysql,kafka,es,as,zk,tomcat,kibana,prometheus}/{files,handlers,tasks,templates,vars} touch roles/{nginx,mysql,kafka,es,as,zk,tomcat,kibana,prometheus}/{files,handlers,tasks,templates,vars}/main.yml</description>
+    </item>
+    
     <item>
       <title>使用Prometheus监控ES集群</title>
       <link>https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8prometheus%E7%9B%91%E6%8E%A7es%E9%9B%86%E7%BE%A4/</link>
@@ -139,7 +148,7 @@
       <pubDate>Mon, 07 Dec 2020 11:12:10 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/</guid>
-      <description>OS和mysql版本 mysql5.7、centos7 报错记录 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&amp;ndash;user=root参数 $bindir/mysqld_safe &amp;ndash;user=root &amp;ndash;datadir=&amp;quot;$datadir&amp;quot; &amp;ndash;pid-file=&amp;quot;$mysqld_pid_file_path&amp;quot; $other_args &amp;gt;/dev/null &amp;amp; 确保/etc/</description>
+      <description>OS和mysql版本 mysql5.7、centos7 报错记录 1、启动失败 mysql启动失败，报错 The server quit without updating PID file！ 修改启动脚本 /etc/init.d/mysqld 约278行，增加&amp;ndash;user=root参数 $bindir/mysqld_safe &amp;ndash;user=root &amp;ndash;datadir=&amp;quot;$datadir&amp;quot; &amp;ndash;pid-file=&amp;quot;$mysqld_pid_file_path&amp;quot; $other_args &amp;gt;/dev/null &amp;amp; 确</description>
     </item>
     
     <item>

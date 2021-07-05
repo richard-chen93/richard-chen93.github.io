@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/categories/technology/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-02-06T21:51:41+08:00" />
+<meta property="og:updated_time" content="2021-05-25T10:36:14+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/%E4%BD%BF%E7%94%A8ansible%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">使用ansible实现自动部署</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-05-25</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;30 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、角色roles 一条命令将多个角色的目录创建好： mkdir -p roles/{nginx,mysql,kafka,es,as,zk,tomcat,kibana,prometheus}/{files,handlers,tasks,templates,vars} touch roles/{nginx,mysql,kafka,es,as,zk,tomcat,kibana,prometheus}/{files,handlers,tasks,templates,vars}/main.yml
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         0、利索的脚本： 前提： 3台机器上都配置好ceph源，并yum makecache。在ceph-deploy上安装ceph-deploy并执行下列脚本： #!/bin/bash cd cd mkdir my-cluster cd my-cluster ceph-deploy new s4 s5 s6 export CEPH_DEPLOY_REPO_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-luminous/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.tuna.tsinghua.edu.cn/ceph/keys/release.asc cat &gt;&gt; ./ceph.conf &lt;&lt; EOF public_network = 10.3.3.0/24 cluster_network =
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%AE%89%E8%A3%85%E5%B9%B6%E7%9B%91%E6%8E%A7memcached/">安装并监控memcached</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;264 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        1、安装httpd memcached php php-memcache sudo yum -y install httpd memcached php php-memcache 2、配置php-memcache扩展 Note： 是memcache，而不是memcached vim /etc/php.ini #末尾添加如下配置 extension_dir = “/usr/lib64/php/module
     </div>
 </div>
 
