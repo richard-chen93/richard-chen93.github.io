@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Mysql常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;257 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;342 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -170,6 +170,19 @@ flush privileges;
 quit
 </code></pre>
 <pre><code># my.cnf配置文件去掉skip-grant-tables 这一行，重启mysql
+</code></pre>
+<p>智邦部署，安装cdh时，mysql需要配置validate_password=off;</p>
+<pre><code>1、登录mysql
+
+set global validate_password_policy=0;
+
+set global validate_password_length=4;
+
+2、/etc/my.cnf增加配置
+
+validate_password=off;
+
+3、重启mysql
 </code></pre>
 <h2 id="不能创建用户">不能创建用户</h2>
 <p>mysql&gt; CREATE USER &lsquo;bond&rsquo;@'%' IDENTIFIED BY &lsquo;bond_123456&rsquo;;
