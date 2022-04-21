@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-07-05T17:49:07+08:00" />
+<meta property="og:updated_time" content="2022-04-21T11:47:28+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Nginx使用教程</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;245 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、准备nginx环境 使用docker准备4台nginx容器，nginx做反向代理，nginx1-3做静态web服务器 docker run -itd --net host --name nginx -p 80:80 \ -v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \ -v /home/admin/nginx/logs:/var/log/nginx:rw \ -v /home/admin/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw \ -v /home/admin/nginx/html:/etc/nginx/html:rw \ nginx docker run -itd --net host --name nginx-1 -p 8001:8001 \ -v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \ -v /home/admin/nginx-1/logs:/var/log/nginx:rw \ -v /home/admin/nginx-1/conf/nginx.conf:/etc/nginx/nginx.conf:rw
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         1、centos7安装kvm 1、前提条件 2. 首先验证CPU是否支持虚拟化，输入有vmx或svm就支持，支持虚拟化则就支持KVM [root@openstack ~]# cat /proc/cpuinfo | egrep 'vmx|svm' 3. 查看是否加载KVM [root@openstack ~]# lsmod | grep kvm kvm_intel 170086 0 kvm 566340 1 kvm_intel irqbypass 13503 1 kvm 这表明已
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/">CentOS7扩容根分区</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-17</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;575 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        CentOS7扩容根分区(LVM+非LVM) 神冰凰关注 0.6612018.06.14 14:11:25字数 312阅读 18,450 CentOS7，LVM根分区扩容步骤： 1.查看现有分区大小 df -TH LVM分区，磁盘总大小为20G,根分区总容量为17
     </div>
 </div>
 

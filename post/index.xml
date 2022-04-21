@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Jul 2021 17:49:07 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Apr 2022 11:47:28 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx使用教程</title>
+      <link>https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Thu, 21 Apr 2022 11:47:28 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+      <description>1、准备nginx环境 使用docker准备4台nginx容器，nginx做反向代理，nginx1-3做静态web服务器 docker run -itd --net host --name nginx -p 80:80 \ -v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \ -v /home/admin/nginx/logs:/var/log/nginx:rw \ -v /home/admin/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw \ -v /home/admin/nginx/html:/etc/nginx/html:rw \ nginx docker run -itd --net host --name nginx-1 -p 8001:8001 \ -v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \ -v /home/admin/nginx-1/logs:/var/log/nginx:rw \ -v /home/admin/nginx-1/conf/nginx.conf:/etc/nginx/nginx.conf:rw</description>
+    </item>
+    
     <item>
       <title>Linux基于luks对磁盘进行加密</title>
       <link>https://richard-chen93.github.io/post/linux%E5%9F%BA%E4%BA%8Eluks%E5%AF%B9%E7%A3%81%E7%9B%98%E8%BF%9B%E8%A1%8C%E5%8A%A0%E5%AF%86/</link>

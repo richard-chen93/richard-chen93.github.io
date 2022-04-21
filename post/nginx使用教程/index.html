@@ -25,27 +25,30 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>technology - Richard&#39;s blog</title>
+<title>Nginx使用教程 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
 
 
-<meta name="description" content="A minimal Hugo theme with nice theme color." />
+<meta name="description" content="this is discr" />
 
 
-<meta property="og:title" content="technology" />
-<meta property="og:description" content="A minimal Hugo theme with nice theme color." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://richard-chen93.github.io/tags/technology/" />
+<meta name="keywords" content="technology" />
+
+<meta property="og:title" content="Nginx使用教程" />
+<meta property="og:description" content="this is discr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2022-04-21T11:47:28+08:00" />
+<meta property="article:published_time" content="2022-04-21T11:47:28+08:00" />
+<meta property="article:modified_time" content="2022-04-21T11:47:28+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="technology"/>
-<meta name="twitter:description" content="A minimal Hugo theme with nice theme color."/>
+<meta name="twitter:title" content="Nginx使用教程"/>
+<meta name="twitter:description" content="this is discr"/>
 
 
 
@@ -102,115 +105,142 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-<div class="page-info">
-    <span>Posts with the tag technology: </span>
-</div>
-
-
-
-<div class="post">
+<article>
+    
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/hugo%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Hugo基本用法</a>
+        <a href="https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Nginx使用教程</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-28</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1581 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;245 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+        <span id="wc" style="font-size: 1rem;text-align: center;">
+            阅读大约需要 1分钟 | 本文总阅读量
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </span>
+    </div>
+    
+    
+    
+    <div class="post-content markdown-body">
+        <h1 id="1准备nginx环境">1、准备nginx环境</h1>
+<p>使用docker准备4台nginx容器，nginx做反向代理，nginx1-3做静态web服务器</p>
+<pre><code>docker run -itd --net host --name nginx  -p 80:80 \
+-v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \
+-v /home/admin/nginx/logs:/var/log/nginx:rw \
+-v /home/admin/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw \
+-v /home/admin/nginx/html:/etc/nginx/html:rw \
+nginx
+
+
+docker run -itd --net host --name nginx-1  -p 8001:8001 \
+-v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \
+-v /home/admin/nginx-1/logs:/var/log/nginx:rw \
+-v /home/admin/nginx-1/conf/nginx.conf:/etc/nginx/nginx.conf:rw \
+-v /home/admin/nginx-1/html:/etc/nginx/html:rw \
+nginx
+
+docker run -itd --net host --name nginx-2  -p 8002:8002 \
+-v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \
+-v /home/admin/nginx-2/logs:/var/log/nginx:rw \
+-v /home/admin/nginx-2/conf/nginx.conf:/etc/nginx/nginx.conf:rw \
+-v /home/admin/nginx-2/html:/etc/nginx/html:rw \
+nginx
+
+
+docker run -itd --net host --name nginx-3  -p 8003:8003 \
+-v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \
+-v /home/admin/nginx-3/logs:/var/log/nginx:rw \
+-v /home/admin/nginx-3/conf/nginx.conf:/etc/nginx/nginx.conf:rw \
+-v /home/admin/nginx-3/html:/etc/nginx/html:rw \
+nginx
+
+
+</code></pre>
+<h1 id="2搭建反向代理实现负载均衡使用轮询方法">2、搭建反向代理实现负载均衡，使用轮询方法</h1>
+<pre><code>
+
+upstream mycluster {
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+    server 127.0.0.1:8003;
+}
+
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+upstream mycluster {
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+    server 127.0.0.1:8003;
+}
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            proxy_set_header  Host  $host;
+            proxy_set_header  X-Real-IP  $remote_addr;
+            proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+
+            proxy_pass http://mycluster;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+}
+</code></pre>
 
     </div>
-    <div class="post-item post-summary markdown-body">
-        hugo本地创建、更新、删除文章后同步到gitpage的基本流程： 前提环境： public目录位于blog目录下，属于blog的子仓库submodule 使用命令 git submodule status可看到 注意 写文章后直接sh
-    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/deploy-hugo-site_on-github-pages/">Deploy Hugo Site_on Github Pages</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;724 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
-    </div>
-    <div class="post-item post-summary markdown-body">
-        将hugo静态博客网页部署到github上 1、选择gitpage的类型 2种github page：个人、项目。这里选个人。 2、建立gitpage和hugo代码仓库 在github上以自己的用户名+gith
-    </div>
+<div class="post-comment" data-comment="utterances">
+    <span class="post-comment-notloaded">
+        <i class="iconfont icon-chatbox-ellipses-sharp"></i>&nbsp;Load comments
+    </span>
+    <script>
+        function loadComment() {
+            var commentArea = document.querySelector('.post-comment');
+            var utterancesTheme = document.body.getAttribute('data-theme');
+            if (utterancesTheme === 'auto') {
+                utterancesTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'photon-dark' :
+                    'github-light';
+            } else {
+                utterancesTheme = utterancesTheme === 'dark' ? 'photon-dark' : 'github-light';
+            }
+            var s = document.createElement('script');
+            s.src = 'https://utteranc.es/client.js';
+            s.setAttribute('repo', 'richard-chen93\/blog');
+            s.setAttribute('issue-term', 'pathname');
+            s.setAttribute('theme', utterancesTheme);
+            s.setAttribute('crossorigin', 'anonymous');
+            s.setAttribute('async', '');
+            document.querySelector('.post-comment').appendChild(s);
+            document.querySelector('span.post-comment-notloaded').setAttribute('style', 'display: none;');
+        }
+    </script>
 </div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/git%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E6%B1%87%E6%80%BB/">Git常见错误汇总</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-10-27</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;660 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        1 无法push A git directory for &lsquo;public&rsquo; is found locally with remote(s): origin https://github.com/richard-chen93/.........git If you want to reuse this local git directory instead of cloning again from https://github.com/richard-chen93/......git use the &lsquo;&ndash;force&rsquo; option. If the local git directory is not the correct repo or you are unsure what this means choose another name with the &lsquo;&ndash;name&rsquo; option. 删除.git\modules 的 public 2 git push时总让输入密码 git push的时候每
-    </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="pagination">
-    
-    <div class="pag-first">
-        <a href="/tags/technology/"><i class="iconfont icon-caret-back-circle-sharp"></a>
-    </div>
-    
-    
-    <div class="pag-previous">
-        <a href="/tags/technology/page/3/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/technology/">1</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/technology/page/2/">2</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item">
-        <a href="/tags/technology/page/3/">3</a>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    <div class="pag-item pag-current">
-        <a href="/tags/technology/page/4/">4</a>
-    </div>
-    
-    
-    
-    
-</div>
-
 
 
             </div>
@@ -278,6 +308,11 @@
     </div>
     
     
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
+    </div>
     
     
 </aside>
@@ -355,6 +390,13 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents"></nav>
     </div>
     
     

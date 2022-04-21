@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2021-07-05T17:49:07+08:00" />
+<meta property="og:updated_time" content="2022-04-21T11:47:28+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/centos7%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/">CentOS7扩容根分区</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-17</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;575 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        CentOS7扩容根分区(LVM+非LVM) 神冰凰关注 0.6612018.06.14 14:11:25字数 312阅读 18,450 CentOS7，LVM根分区扩容步骤： 1.查看现有分区大小 df -TH LVM分区，磁盘总大小为20G,根分区总容量为17
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         1、kafka架构图及下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 此外，java安装并配置好环境变量。 2、修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kaf
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/about_elasticsearch/">About_ElasticSearch</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-24</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;118 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        下载、校验 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.2.tar.gz sha1sum elasticsearch-5.0.2.tar.gz tar -xzf elasticsearch-5.0.2.tar.gz cd elasticsearch-5.0.2/ ./bin/elasticsearch 验证 curl localhost:9200 { &ldquo;name&rdquo; : &ldquo;Cp8oag6&rdquo;, &ldquo;cluster_name&rdquo; : &ldquo;elasticsearch&rdquo;, &ldquo;cluster_uuid&rdquo; : &ldquo;AT69_T_DTp-1qgIJlatQqA&rdquo;, &ldquo;version&rdquo; : { &ldquo;number&rdquo; : &ldquo;5.0.2&rdquo;, &ldquo;build_hash&rdquo; : &ldquo;f27399d&rdquo;, &ldquo;build_date&rdquo; : &ldquo;2016-03-30T09:51:41.449Z&rdquo;, &ldquo;build_snapshot&rdquo; : false, &ldquo;lucene_version&rdquo; : &ldquo;6.2.1&rdquo; }, &ldquo;tagline&rdquo; : &ldquo;You Know, for Search&rdquo; } Running as a daemon ./bin/elasticsearch -d -p pid shutdown ES kill cat pid kibana 相关 kinaba允许远程访问，配置文件中这里localhost
     </div>
 </div>
 
