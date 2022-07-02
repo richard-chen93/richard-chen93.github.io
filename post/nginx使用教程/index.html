@@ -124,7 +124,7 @@
     
     
     <div class="post-content markdown-body">
-        <h1 id="1准备nginx环境">1、准备nginx环境</h1>
+        <h2 id="1准备nginx环境">1、准备nginx环境</h2>
 <p>使用docker准备4台nginx容器，nginx做反向代理，nginx1-3做静态web服务器</p>
 <pre><code>docker run -itd --net host --name nginx  -p 80:80 \
 -v /data/docker/nginx/conf/vhost:/etc/nginx/conf.d:rw \
@@ -158,7 +158,7 @@ nginx
 
 
 </code></pre>
-<h1 id="2搭建反向代理实现负载均衡">2、搭建反向代理实现负载均衡</h1>
+<h2 id="2搭建反向代理实现负载均衡">2、搭建反向代理实现负载均衡</h2>
 <pre><code>
 #轮询
 upstream mycluster {
@@ -217,7 +217,7 @@ upstream mycluster {
     }
 }
 </code></pre>
-<h1 id="3域名访问白名单web服务与反向代理">3、域名访问白名单(web服务与反向代理)</h1>
+<h2 id="3域名访问白名单web服务与反向代理">3、域名访问白名单(web服务与反向代理)</h2>
 <p>目的：仅允许白名单中的ip访问。</p>
 <p>在nginx conf目录创建以下两个配置。</p>
 <h3 id="1先看web服务">1、先看web服务</h3>
@@ -374,7 +374,9 @@ deny    all;
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1准备nginx环境">1、准备nginx环境</a></li>
+    <li><a href="#2搭建反向代理实现负载均衡">2、搭建反向代理实现负载均衡</a></li>
+    <li><a href="#3域名访问白名单web服务与反向代理">3、域名访问白名单(web服务与反向代理)</a>
       <ul>
         <li><a href="#1先看web服务">1、先看web服务</a></li>
         <li><a href="#2反向代理">2、反向代理</a></li>
@@ -468,7 +470,9 @@ deny    all;
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1准备nginx环境">1、准备nginx环境</a></li>
+    <li><a href="#2搭建反向代理实现负载均衡">2、搭建反向代理实现负载均衡</a></li>
+    <li><a href="#3域名访问白名单web服务与反向代理">3、域名访问白名单(web服务与反向代理)</a>
       <ul>
         <li><a href="#1先看web服务">1、先看web服务</a></li>
         <li><a href="#2反向代理">2、反向代理</a></li>
