@@ -111,10 +111,10 @@
         <a href="https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Nginx使用教程</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;271 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;677 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 1分钟 | 本文总阅读量
+            阅读大约需要 2分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -217,6 +217,52 @@ upstream mycluster {
     }
 }
 </code></pre>
+<h1 id="3域名访问白名单web服务与反向代理">3、域名访问白名单(web服务与反向代理)</h1>
+<p>目的：仅允许白名单中的ip访问。</p>
+<p>在nginx conf目录创建以下两个配置。</p>
+<h3 id="1先看web服务">1、先看web服务</h3>
+<pre><code>backend.conf
+server {
+    listen 9999;
+    server_name 10.202.12.54;
+
+    location / {
+        root /tmp/test/backend;
+        index /index.html;
+    }
+}
+</code></pre>
+<p>用户访问54的9999的/，将看到backend目录的页面；</p>
+<h3 id="2反向代理">2、反向代理</h3>
+<pre><code>test_com.conf
+upstream back {
+    server 10.202.12.54:9999 max_fails=1 fail_timeout=10 weight=1;
+}
+
+server {
+    listen 9966;
+    server_name 10.202.12.54;		#test.com
+    include         firewall.conf;	#白名单配置文件
+
+    location / {
+        root /tmp/test/frontend;
+        index /index.html;
+    }
+
+    location /back/ {		#back后面必须加/，否则404
+        proxy_pass      http://back;
+    }
+}
+</code></pre>
+<p>用户访问http://test.com:9966 将看到frontend目录的页面；访问http://test.com:9966/back 将看到后端页面。</p>
+<p>访问控制通过 include   firewall.conf文件加载。nginx的conf同级目录下创建firewall.conf，添加白名单。</p>
+<pre><code>cat firewall.conf
+allow   10.15.30.95;
+allow  10.86.0.0/16;
+deny    all;
+</code></pre>
+<p>将允许95这个ip，及86网段所有ip访问，其他全部拒绝。</p>
+<p>firewall.conf的生效反问，看你配置在哪，配置在location下，就仅此location生效。</p>
 
     </div>
 </article>
@@ -326,7 +372,16 @@ upstream mycluster {
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1先看web服务">1、先看web服务</a></li>
+        <li><a href="#2反向代理">2、反向代理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
     
@@ -411,7 +466,16 @@ upstream mycluster {
     
     <div class="sidebar-item sidebar-toc">
         <h3>TOC</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1先看web服务">1、先看web服务</a></li>
+        <li><a href="#2反向代理">2、反向代理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
     
