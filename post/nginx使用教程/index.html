@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Nginx使用教程</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;245 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-04-21</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;271 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -158,10 +158,25 @@ nginx
 
 
 </code></pre>
-<h1 id="2搭建反向代理实现负载均衡使用轮询方法">2、搭建反向代理实现负载均衡，使用轮询方法</h1>
+<h1 id="2搭建反向代理实现负载均衡">2、搭建反向代理实现负载均衡</h1>
 <pre><code>
-
+#轮询
 upstream mycluster {
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+    server 127.0.0.1:8003;
+}
+
+#权重
+upstream mycluster {
+    server 127.0.0.1:8001 weight=1;
+    server 127.0.0.1:8002 weight=1;
+    server 127.0.0.1:8003 weight=10;
+}
+
+#ip 哈希
+upstream mycluster {
+    ip_hash;
     server 127.0.0.1:8001;
     server 127.0.0.1:8002;
     server 127.0.0.1:8003;
