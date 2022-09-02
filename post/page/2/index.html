@@ -39,7 +39,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://richard-chen93.github.io/post/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="og:updated_time" content="2022-04-21T11:47:28+08:00" />
+<meta property="og:updated_time" content="2022-09-02T17:36:24+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
@@ -104,6 +104,19 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://richard-chen93.github.io/post/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">KVM虚拟机安装和常用操作</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-18</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;367 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        1、centos7安装kvm 1、前提条件 2. 首先验证CPU是否支持虚拟化，输入有vmx或svm就支持，支持虚拟化则就支持KVM [root@openstack ~]# cat /proc/cpuinfo | egrep 'vmx|svm' 3. 查看是否加载KVM [root@openstack ~]# lsmod | grep kvm kvm_intel 170086 0 kvm 566340 1 kvm_intel irqbypass 13503 1 kvm 这表明已
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -175,11 +188,11 @@
         <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;336 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1086 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.
+        安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑d！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.
     </div>
 </div>
 
@@ -219,19 +232,6 @@
     </div>
     <div class="post-item post-summary markdown-body">
         一、实验背景 1. 内网环境下，无法连接互联网，需要搭建ceph，为分布式集群提供ceph文件系统 2. 要实现脚本的自动化安装，shell脚本或者ansible playbook，不使用ceph-deploy工具
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/kafka%E4%B8%8Ezookeeper%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">Kafka与zookeeper的安装配置</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-26</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1323 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        1、kafka架构图及下载 https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz 此外，java安装并配置好环境变量。 2、修改kafka配置文件 vim ./config/server.properties broker.id=0 #每个broker的唯一标识，不可重复 delete.topic.enable=true #允许删除topic log.dirs=/root/kafka/logs #出于安全考虑，修改默认log位置。kaf
     </div>
 </div>
 

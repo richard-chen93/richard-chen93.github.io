@@ -25,7 +25,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>内网ntp时间服务器搭建 - Richard&#39;s blog</title>
+<title>在CentOS7中配置NFS服务器和客户端 - Richard&#39;s blog</title>
 
 
 <meta name="author" content="Richard.chen" />
@@ -36,18 +36,18 @@
 
 <meta name="keywords" content="technology" />
 
-<meta property="og:title" content="内网ntp时间服务器搭建" />
+<meta property="og:title" content="在CentOS7中配置NFS服务器和客户端" />
 <meta property="og:description" content="this is discr" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" />
+<meta property="og:url" content="https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/" />
 <meta property="og:image" content="https://richard-chen93.github.io/img/og.png"/>
-<meta property="article:published_time" content="2021-01-03T20:57:51+08:00" />
-<meta property="article:modified_time" content="2021-01-03T20:57:51+08:00" />
+<meta property="article:published_time" content="2022-09-02T17:36:24+08:00" />
+<meta property="article:modified_time" content="2022-09-02T17:36:24+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://richard-chen93.github.io/img/og.png"/>
 
-<meta name="twitter:title" content="内网ntp时间服务器搭建"/>
+<meta name="twitter:title" content="在CentOS7中配置NFS服务器和客户端"/>
 <meta name="twitter:description" content="this is discr"/>
 
 
@@ -108,13 +108,13 @@
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
+        <a href="https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/">在CentOS7中配置NFS服务器和客户端</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1086 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-09-02</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;879 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 3分钟 | 本文总阅读量
+            阅读大约需要 2分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -124,49 +124,144 @@
     
     
     <div class="post-content markdown-body">
-        <h3 id="安装npt所有节点">安装NPT（所有节点）</h3>
-<p>配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑d！disable 和stop chronyd !</p>
-<p>我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。</p>
-<pre><code class="language-bash">sudo yum install ntp ntpdate
-</code></pre>
-<h4 id="1node1节点配置">1.node1节点配置</h4>
-<p>node1节点作为ntp服务器</p>
-<pre><code class="language-bash">sudo vim /etc/ntp.conf    #删除所有默认的restrict 和 server配置，添加以下内容：
-</code></pre>
-<pre><code class="language-js">restrict 10.3.3.4 mask 255.255.255.0 nomodify notrap  #配置集群的IP段
-
-server  127.127.1.0     # local clock
-fudge   127.127.1.0 stratum 10
-</code></pre>
-<pre><code class="language-bash">sudo systemctl enable ntpd
-sudo systemctl restart ntpd
-systemctl status ntpd
-</code></pre>
-<h4 id="2其他节点配置">2.其他节点配置</h4>
-<pre><code class="language-bash">sudo vim /etc/ntp.conf
-</code></pre>
-<pre><code class="language-js">restrict 10.3.3.4 mask 255.255.255.0 nomodify notrap #IP为node1的ip地址
-server  10.3.3.4     # #IP为node1的ip地址
-</code></pre>
-<pre><code class="language-bash">sudo systemctl enable ntpd
-sudo systemctl restart ntpd
-systemctl status ntpd
-</code></pre>
-<h4 id="3查看时间同步状态">3.查看时间同步状态</h4>
-<pre><code class="language-bash">$ ntpstat  #这里显示的是与local本地同步的，代表还没有和外网服务器进行时间同步
-#synchronised to local net (127.127.1.0) at stratum 11
-#   time correct to within 11 ms
-#   polling server every 64 s
-#输出上述内容代表同步成功
-</code></pre>
-<h4 id="ntpd与ntpdate修改时间的区别">ntpd与ntpdate修改时间的区别</h4>
-<p>ntpd 不仅仅是时间同步服务器，他还可以做客户端与标准时间服务器进行同步时间，而且是平滑同步，并非ntpdate立即同步，在生产环境中<strong>慎用ntpdate</strong>，也正如此两者不可同时运行。</p>
-<p>时钟的跃变，对于某些程序会导致<strong>很严重</strong>的问题。许多应用程序依赖连续的时钟——毕竟，这是一项常见的假定，即，取得的时间是线性的，一些操作，例如数据库事务，通常会地依赖这样的事实：时间不会往回跳跃。不幸的是，ntpdate调整时间的方式就是我们所说的”跃变“：在获得一个时间之后，ntpdate使用settimeofday设置系统时间，这有几个非常明显的问题：</p>
-<p>第一，这样做<strong>不安全</strong>。ntpdate的设置依赖于ntp服务器的安全性，攻击者可以利用一些软件设计上的缺陷，拿下ntp服务器并令与其同步的服务器执行某些消耗性的任务。由于ntpdate采用的方式是跳变，跟随它的服务器无法知道是否发生了异常（时间不一样的时候，唯一的办法是以服务器为准）。</p>
-<p>第二，这样做<strong>不精确</strong>。一旦ntp服务器宕机，跟随它的服务器也就会无法同步时间。与此不同，ntpd不仅能够校准计算机的时间，而且能够校准计算机的时钟。</p>
-<p>第三，这样做<strong>不够优雅</strong>。由于是跳变，而不是使时间变快或变慢，依赖时序的程序会出错（例如，如果ntpdate发现你的时间快了，则可能会经历两个相同的时刻，对某些应用而言，这是致命的）。</p>
-<p>因而，唯一一个可以令时间发生跳变的点，是计算机刚刚启动，但还没有启动很多服务的那个时候。其余的时候，理想的做法是使用ntpd来校准时钟，而不是调整计算机时钟上的时间。</p>
-<p>NTPD 在和时间服务器的同步过程中，会把 BIOS 计时器的振荡频率偏差——或者说 Local Clock 的自然漂移(drift)——记录下来。这样即使网络有问题，本机仍然能维持一个相当精确的走时</p>
+        <p>原文地址：</p>
+<p><a href="https://www.onitroad.com/jc/linux/centos/service/nfs/how-to-configure-nfs-server-and-client-in-centos-rhel-7.html" target="_blank">在 CentOS/RHEL 7 中配置 NFS 服务器和客户端-之路教程</a></p>
+<p>在 CentOS/RHEL 7 中配置 NFS 服务器和客户端</p>
+<p>在本文中，我们将在 CentOS/RHEL 7 中配置 NFS Server 和 Client 以共享目录。</p>
+<p>NFS（网络文件系统）是一种分布式文件系统，用于在网络客户端之间共享文件。<br>
+NFS 由 Sun Microsystem 于 1984 年开发。<br>
+NFS 是 Linux 各种发行版中共享文件的事实上的标准。<br>
+它有许多功能可以在特定客户端之间安全地共享文件。<br>
+它还支持基于 Kerberos 的身份验证。</p>
+<h2 id="配置环境">配置环境</h2>
+<h3 id="nfs-服务器">NFS 服务器</h3>
+<p>主机名：nfsserver.onitroad.com<br>
+IP：192.168.1.100<br>
+操作系统：CentOS</p>
+<h3 id="nfs-客户端">NFS 客户端</h3>
+<p>主机名：nfsclient.onitroad.com<br>
+IP：192.168.1.101<br>
+操作系统：CentOS</p>
+<h2 id="在-centosrhel-7-上配置-nfs-服务器">在 CentOS/RHEL 7 上配置 NFS 服务器</h2>
+<p>登录到NFS 服务器。</p>
+<p>要配置 NFS 服务器，我们必须安装 nfs-utils 包。<br>
+通常，在安装 Red Hat Enterprise Linux (RHEL) 或者 CentOS 7 时会自动安装此软件包。<br>
+但是，我们可以随时使用 yum 命令进行安装。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th><code>[root@nfsserver ~]``# yum install -y nfs-utils</code></th>
+</tr>
+</thead>
+</table>
+<p>nfs-utils 已经安装在我们的系统上。</p>
+<p>创建一个目录以与其他客户端共享。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3</th>
+<th><code>[root@nfsserver ~]``# mkdir /nfsshare</code><br><br><code>[root@nfsserver ~]``# chgrp nfsnobody /nfsshare/</code><br><br><code>[root@nfsserver ~]``# chmod g+w /nfsshare/</code></th>
+</tr>
+</thead>
+</table>
+<p>我们创建了一个目录 /nfsshare，将其组更改为 nfsnobody 并且已将 w 权限授予组。<br>
+因此，匿名用户可以在此共享目录上创建文件。</p>
+<p>调整 /nfsshare 目录的 SELinux 类型。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3</th>
+<th><code>[root@nfsserver ~]``# semanage fcontext -a -t nfs_t &quot;/nfsshare(/.*)?&quot;</code><br><br><code>[root@nfsserver ~]``# restorecon -Rv /nfsshare/</code><br><br><code>restorecon reset</code> <code>/nfsshare</code> <code>context unconfined_u:object_r:default_t:s0-&gt;unconfined_u:object_r:nfs_t:s0</code></th>
+</tr>
+</thead>
+</table>
+<p>如果 semanage 命令在系统上不可用，则安装 policycoreutils-python 包。</p>
+<p>现在通过 NFS 将此目录导出/共享到特定客户端。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2</th>
+<th><code>[root@nfsserver ~]``# echo '/nfsshare nfsclient.onitroad.com(rw,sync)' &gt;&gt; /etc/exports</code><br><br><code>[root@nfsserver ~]``# exportfs -r</code></th>
+</tr>
+</thead>
+</table>
+<p>启用并启动 nfs-server 服务。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2</th>
+<th><code>[root@nfsserver ~]``# systemctl start nfs-server ; systemctl enable nfs-server</code><br><br><code>ln</code> <code>-s</code> <code>'/usr/lib/systemd/system/nfs-server.service'</code> <code>'/etc/systemd/system/nfs.target.wants/nfs-server.service'</code></th>
+</tr>
+</thead>
+</table>
+<p>允许 nfs 和其他补充服务通过 Linux 防火墙。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3<br><br>4</th>
+<th><code>[root@nfsserver ~]``# firewall-cmd --permanent --add-service={mountd,nfs,rpc-bind}</code><br><br><code>success</code><br><br><code>[root@nfsserver ~]``# firewall-cmd --reload</code><br><br><code>success</code></th>
+</tr>
+</thead>
+</table>
+<p>NFS 服务器已配置。</p>
+<h2 id="在-centosrhel-7-上配置-nfs-客户端">在 CentOS/RHEL 7 上配置 NFS 客户端</h2>
+<p>登录到 NFS 客户端<br>
+并安装 nfs-utils 包。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th><code>[root@nfsclient ~]``# yum install -y nfs-utils</code></th>
+</tr>
+</thead>
+</table>
+<p>创建一个目录，从 nfsserver.onitroad.com 挂载共享目录。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th><code>[root@nfsclient ~]``# mkdir /mnt/nfsshare</code></th>
+</tr>
+</thead>
+</table>
+<p>检查来自 nfsserver.onitroad.com 的共享目录。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3<br><br>4</th>
+<th><code>[root@nfsclient ~]``# showmount -e nfsserver.onitroad.com</code><br><br><code>Export list</code> <code>for</code> <code>nfsserver.onitroad.com:</code><br><br><code>/nfsshare</code> <code>nfsclient.onitroad.com</code><br><br><code>[root@nfsclient ~]``#</code></th>
+</tr>
+</thead>
+</table>
+<p>通过在 /etc/fstab 中添加以下条目来永久挂载此共享目录。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3</th>
+<th><code>[root@nfsclient ~]``# echo 'nfsserver.onitroad.com:/nfsshare /mnt/nfsshare nfs defaults,_netdev 0 0' &gt;&gt; /etc/fstab</code><br><br><code>[root@nfsclient ~]``# mount -a</code><br><br><code>[root@nfsclient ~]``#</code></th>
+</tr>
+</thead>
+</table>
+<p>检查挂载目录的状态。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2</th>
+<th><code>[root@nfsclient ~]``# mount \| grep nfs</code><br><br><code>nfsserver.onitroad.com:``/nfsshare</code> <code>on</code> <code>/mnt/nfsshare</code> <code>type</code> <code>nfs4 (rw,relatime,vers=4.0,rsize=131072,wsize=131072,namlen=255,hard,proto=tcp,port=0,timeo=600,retrans=2,sec=sys,clientaddr=192.168.1.202,local_lock=none,addr=192.168.1.200,_netdev)</code></th>
+</tr>
+</thead>
+</table>
+<p>在此共享目录中创建一个文件，以验证文件权限。</p>
+<table>
+<thead>
+<tr>
+<th>1<br><br>2<br><br>3<br><br>4<br><br>5<br><br>6<br><br>7<br><br>8</th>
+<th><code>[root@nfsclient ~]``# cd /mnt/nfsshare/</code><br><br><code>[root@nfsclient nfsshare]``# touch test1</code><br><br><code>[root@nfsclient nfsshare]``# ls -al</code><br><br><code>total 0</code><br><br><code>drwxrwxr-x. 2 root      nfsnobody 18 Jul 31 07:32 .</code><br><br><code>drwxr-xr-x. 4 root      root      31 Jul 31 07:23 ..</code><br><br><code>-rw-r--r--. 1 nfsnobody nfsnobody  0 Jul 31 07:32 test1</code><br><br><code>[root@nfsclient nfsshare]``#</code></th>
+</tr>
+</thead>
+</table>
+<p>我们已在 CentOS/RHEL 7 上成功配置 NFS 服务器和客户端，并在该客户端上持久挂载 NFS 共享。</p>
 
     </div>
 </article>
@@ -278,11 +373,14 @@ systemctl status ntpd
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#配置环境">配置环境</a>
       <ul>
-        <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
+        <li><a href="#nfs-服务器">NFS 服务器</a></li>
+        <li><a href="#nfs-客户端">NFS 客户端</a></li>
       </ul>
     </li>
+    <li><a href="#在-centosrhel-7-上配置-nfs-服务器">在 CentOS/RHEL 7 上配置 NFS 服务器</a></li>
+    <li><a href="#在-centosrhel-7-上配置-nfs-客户端">在 CentOS/RHEL 7 上配置 NFS 客户端</a></li>
   </ul>
 </nav>
     </div>
@@ -371,11 +469,14 @@ systemctl status ntpd
         <h3>TOC</h3>
         <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#配置环境">配置环境</a>
       <ul>
-        <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
+        <li><a href="#nfs-服务器">NFS 服务器</a></li>
+        <li><a href="#nfs-客户端">NFS 客户端</a></li>
       </ul>
     </li>
+    <li><a href="#在-centosrhel-7-上配置-nfs-服务器">在 CentOS/RHEL 7 上配置 NFS 服务器</a></li>
+    <li><a href="#在-centosrhel-7-上配置-nfs-客户端">在 CentOS/RHEL 7 上配置 NFS 客户端</a></li>
   </ul>
 </nav>
     </div>

@@ -6,7 +6,16 @@
     <description>Recent content in technology on Richard&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 21 Apr 2022 11:47:28 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Sep 2022 17:36:24 +0800</lastBuildDate><atom:link href="https://richard-chen93.github.io/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在CentOS7中配置NFS服务器和客户端</title>
+      <link>https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/</link>
+      <pubDate>Fri, 02 Sep 2022 17:36:24 +0800</pubDate>
+      
+      <guid>https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/</guid>
+      <description>原文地址： 在 CentOS/RHEL 7 中配置 NFS 服务器和客户端-之路教程 在 CentOS/RHEL 7 中配置 NFS 服务器和客户端 在本文中，我们将在 CentOS/RHEL 7 中配置 NFS Server 和 Client 以共享目录。 NFS（网络文件系统）是一种分布式文件系统，用于在网络客户端之间共享文件。 NFS</description>
+    </item>
+    
     <item>
       <title>Nginx使用教程</title>
       <link>https://richard-chen93.github.io/post/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link>
@@ -148,7 +157,7 @@
       <pubDate>Sun, 03 Jan 2021 20:57:51 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</guid>
-      <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑爹！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.</description>
+      <description>安装NPT（所有节点） 配置了ntp启动正常，设置开机自启，发现重启后启动不起来，且无任何报错？ 坑d！disable 和stop chronyd ! 我们建议在所有 Ceph 节点上安装 NTP 服务，以免因时钟漂移导致故障。 sudo yum install ntp ntpdate 1.</description>
     </item>
     
     <item>
