@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/%E5%86%85%E7%BD%91ntp%E6%97%B6%E9%97%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">内网ntp时间服务器搭建</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1086 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-03</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1226 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 3分钟 | 本文总阅读量
@@ -167,6 +167,42 @@ systemctl status ntpd
 <p>第三，这样做<strong>不够优雅</strong>。由于是跳变，而不是使时间变快或变慢，依赖时序的程序会出错（例如，如果ntpdate发现你的时间快了，则可能会经历两个相同的时刻，对某些应用而言，这是致命的）。</p>
 <p>因而，唯一一个可以令时间发生跳变的点，是计算机刚刚启动，但还没有启动很多服务的那个时候。其余的时候，理想的做法是使用ntpd来校准时钟，而不是调整计算机时钟上的时间。</p>
 <p>NTPD 在和时间服务器的同步过程中，会把 BIOS 计时器的振荡频率偏差——或者说 Local Clock 的自然漂移(drift)——记录下来。这样即使网络有问题，本机仍然能维持一个相当精确的走时</p>
+<h3 id="企业内网ntp服务">企业内网ntp服务</h3>
+<p>systemctl enable ntpd</p>
+<p>systemctl start ntpd</p>
+<p>ntpstat</p>
+<p>ntpq -p</p>
+<p>如果显示不同步。等5分钟再看看</p>
+<h4 id="ntpserver-">ntpserver :</h4>
+<p>sudo yum -y install ntp ntpdate</p>
+<p>sudo vim /etc/ntp.conf</p>
+<p>driftfile /var/lib/ntp/drift
+restrict default nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict ::1
+server 1.cn.pool.ntp.org iburst
+server ntp3.aliyun.com iburst
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys
+disable monitor</p>
+<h4 id="ntpclinet">ntpclinet:</h4>
+<p>driftfile /var/lib/ntp/drift</p>
+<p>默认拒绝客户端所有操作</p>
+<p>restrict default kod notrap nomodify nopeer noquery</p>
+<p>禁止本身的server</p>
+<p>server cn.ntp.org.cn prefer</p>
+<p>server edu.ntp.org.cn iburst</p>
+<p>#放行时间服务器16.128
+restrict 10.202.16.128
+restrict 127.0.0.1
+restrict ::1</p>
+<p>server 10.202.16.128</p>
+<p>server    127.127.1.0</p>
+<p>fudge     127.127.1.0 stratum 10</p>
+<p>includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys
+disable monitor</p>
+<h2 id="heading"></h2>
 
     </div>
 </article>
@@ -281,8 +317,10 @@ systemctl status ntpd
     <li>
       <ul>
         <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
+        <li><a href="#企业内网ntp服务">企业内网ntp服务</a></li>
       </ul>
     </li>
+    <li><a href="#heading"></a></li>
   </ul>
 </nav>
     </div>
@@ -374,8 +412,10 @@ systemctl status ntpd
     <li>
       <ul>
         <li><a href="#安装npt所有节点">安装NPT（所有节点）</a></li>
+        <li><a href="#企业内网ntp服务">企业内网ntp服务</a></li>
       </ul>
     </li>
+    <li><a href="#heading"></a></li>
   </ul>
 </nav>
     </div>
