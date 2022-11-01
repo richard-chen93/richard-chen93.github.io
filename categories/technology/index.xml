@@ -139,7 +139,7 @@
       <pubDate>Tue, 12 Jan 2021 10:30:40 +0800</pubDate>
       
       <guid>https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
-      <description>安装完初始化： mysql_secure_installation 创建用户 CREATE USER &#39;panda&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;panda&#39;; 允许其他IP访问数据库 %代表任意IP GRANT ALL PRIVILEGES ON *.* TO &#39;panda&#39;@&#39;%&#39; IDENTIFIED BY &#39;panda&#39; WITH GRANT OPTION; flush privileges; 创建数据库表 CREATE TABLE IF NOT EXISTS `runoob_tbl`( `runoob_id` INT UNSIGNED AUTO_INCREMENT, `runoob_title` VARCHAR(100) NOT NULL, `runoob_author` VARCHAR(40) NOT NULL, `submission_date` DATE, PRIMARY KEY ( `runoob_id` ) )ENGINE=InnoDB DEFAULT CHARSET=utf8; 修改root密码 使用自动生成的</description>
+      <description>安装完初始化： mysql_secure_installation 创建用户 CREATE USER &#39;panda&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;panda&#39;; 允许其他IP访问数据库 %代表任意IP GRANT ALL PRIVILEGES ON *.* TO &#39;panda&#39;@&#39;%&#39; IDENTIFIED BY &#39;panda&#39; WITH GRANT OPTION; flush privileges; 创建数据库表 CREATE TABLE IF NOT EXISTS `runoob_tbl`( `runoob_id` INT UNSIGNED AUTO_INCREMENT, `runoob_title` VARCHAR(100) NOT NULL, `runoob_author` VARCHAR(40) NOT NULL, `submission_date` DATE, PRIMARY KEY ( `runoob_id` ) )ENGINE=InnoDB DEFAULT CHARSET=utf8; 查看所有连接mysql的客户端</description>
     </item>
     
     <item>

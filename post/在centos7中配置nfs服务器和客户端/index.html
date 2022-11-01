@@ -111,10 +111,10 @@
         <a href="https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/">在CentOS7中配置NFS服务器和客户端</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-09-02</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;879 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-09-02</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1046 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
-            阅读大约需要 2分钟 | 本文总阅读量
+            阅读大约需要 3分钟 | 本文总阅读量
             <span id="busuanzi_container_page_pv">
                 <span id="busuanzi_value_page_pv"></span>
             </span>
@@ -182,7 +182,7 @@ IP：192.168.1.101<br>
 <thead>
 <tr>
 <th>1<br><br>2</th>
-<th><code>[root@nfsserver ~]``# echo '/nfsshare nfsclient.onitroad.com(rw,sync)' &gt;&gt; /etc/exports</code><br><br><code>[root@nfsserver ~]``# exportfs -r</code></th>
+<th><code>[root@nfsserver ~]``# echo '/data/nfsdata TLVM202016003(rw,sync)' &gt;&gt; /etc/exports</code><br><br><code>[root@nfsserver ~]``# exportfs -r</code></th>
 </tr>
 </thead>
 </table>
@@ -262,6 +262,18 @@ IP：192.168.1.101<br>
 </thead>
 </table>
 <p>我们已在 CentOS/RHEL 7 上成功配置 NFS 服务器和客户端，并在该客户端上持久挂载 NFS 共享。</p>
+<h1 id="windows客户端挂载nfs磁盘">windows客户端挂载nfs磁盘</h1>
+<h1 id="如何在-windows-server-2008-上面-挂载nfs">如何在 windows server 2008 上面 挂载NFS</h1>
+<p>发布于2020-12-30 16:37:31阅读 8590</p>
+<p>首先， 你在一台<a href="https://cloud.tencent.com/product/cvm?from=10680" target="_blank">服务器</a>上面配置好NFS 服务器：然后按照一下步骤：</p>
+<p><strong>mounting the nfs on windows server 2008 r2:</strong></p>
+<ul>
+<li>open Windows Server 的Dos window（not powershell），typing： <strong>servermanagercmd.exe -install FS-NFS-Services</strong></li>
+<li>to ensure that the disk map still exists after the system is restarted：
+<strong>net use /persistent:yes</strong></li>
+<li>mount the nfs on z:</li>
+</ul>
+<p><strong>mount IP:/Share -o nolock,rsize=1024,wsize=1024,timeo=15 z:</strong></p>
 
     </div>
 </article>

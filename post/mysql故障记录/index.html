@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/">Mysql故障记录</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;915 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-12-07</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;955 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 2分钟 | 本文总阅读量
@@ -208,6 +208,15 @@ service mysqld restart; # 重启mysql
 <p>两者都为YES表示主从模式成功。</p>
 <h2 id="mysql主从不同步">mysql主从不同步</h2>
 <p>待解决</p>
+<p>不能创建用户</p>
+<p>mysql&gt; CREATE USER &lsquo;bond&rsquo;@'%' IDENTIFIED BY &lsquo;bond_123456&rsquo;;
+ERROR 1819 (HY000): Unknown error 1819</p>
+<pre><code>set global validate_password_policy=0;
+select @@validate_password_length;
+</code></pre>
+<p>rm: cannot remove &lsquo;/var/lock/subsys/mysql&rsquo;: Permission denied</p>
+<p>rm -rf 删除它</p>
+<p>sudo chown -R apps.apps /var/lock/subsys/</p>
 
     </div>
 </article>

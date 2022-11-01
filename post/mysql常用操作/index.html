@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/mysql%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Mysql常用操作</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;342 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-01-12</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;445 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 1分钟 | 本文总阅读量
@@ -144,6 +144,8 @@ flush privileges;
    PRIMARY KEY ( `runoob_id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 </code></pre>
+<p>查看所有连接mysql的客户端ip</p>
+<p><code>SELECT substring_index(host,</code> <code>':'``,1) AS host_name,state,count(*) FROM information_schema.processlist GROUP BY state,host_name;</code></p>
 <h2 id="修改root密码">修改root密码</h2>
 <p>使用自动生成的密码登录mysql以后</p>
 <p>修改密码mysql&gt;  alter user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; identified by &lsquo;you_new_password&rsquo;;</p>
@@ -190,6 +192,17 @@ ERROR 1819 (HY000): Unknown error 1819</p>
 <pre><code>set global validate_password_policy=0;
 select @@validate_password_length;
 </code></pre>
+<p>rm: cannot remove &lsquo;/var/lock/subsys/mysql&rsquo;: Permission denied</p>
+<p>rm -rf 删除它</p>
+<p>sudo chown -R apps.apps /var/lock/subsys/</p>
+<h1 id="数据库迁移">数据库迁移</h1>
+<p>导出表结构、数据、函数、存储过程</p>
+<p>/usr/local/mysql/bin/mysqldump -ntd -R cuckoo-als  &gt; ./cuckoo_als.sql -uroot -p</p>
+<p>导入</p>
+<p>进入该库，source als.sql;</p>
+<p>导出事件</p>
+<p>/usr/local/mysql/bin/mysqldump -E -ndt zto_qykf -u root -p &gt; shijian.sql</p>
+<p>导入 source .sql;w</p>
 
     </div>
 </article>
