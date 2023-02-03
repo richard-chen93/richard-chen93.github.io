@@ -149,7 +149,6 @@ zookeeper.connect=s4:2181,s5:2181,s6:2181  #指定zookeeper集群
 <pre><code>mv zoo_sample.cfg zoo.cfg
 vim zoo.cfg
 dataDir=/tmp/zookeeper #修改默认路径，指定路径为/root/zookeeper/zkData
-
 </code></pre>
 <h4 id="42修改配置文件">4.2修改配置文件</h4>
 <p>在zkData目录下创建myid文件，myid文件内容（整型数字：1，2，3）对应三个集群节点的编号。
@@ -167,7 +166,6 @@ s4,s5,s6是主机名或IP；2888是follower与leader服务器通讯传递副本�
 $ vim /etc/rc.d/rc.local
 新增配置
 su admin -c &quot;/usr/local/zookeeper/startBase.sh&quot;  #组件脚本全路径
-
 </code></pre>
 <p>startBase.sh脚本内容：</p>
 <pre><code>#!/bin/bash
@@ -186,7 +184,7 @@ source /etc/profile
     117  ./kafka-topics.sh --list --zookeeper s4:2181
   118  ./kafka-topics.sh --list --zookeeper s5:2181
   119  ./kafka-topics.sh --list --zookeeper s6:2181
-  
+
 #描述topic信息
   ./kafka-topics.sh --describe --zookeeper s5:2181 --topic topic01
 # 启动 kafka，指定配置文件
@@ -202,8 +200,6 @@ i am richard</p>
 </blockquote>
 <h3 id="s6或者s5-消费数据">s6或者s5 消费数据：</h3>
 <pre><code>kafka-console-consumer.sh --zookeeper s5:2181 --topic topic01 #消费最新数据
-
-
 </code></pre>
 <h3 id="消费者消费消息指定消费组名">消费者消费消息,指定消费组名</h3>
 <pre><code>./kafka-console-consumer.sh --bootstrap-server s4:9092,s5:9092,s6:9092 --new-consumer --consumer-property group.id=consumer_group01 --topic topic01
@@ -499,7 +495,7 @@ topic01                        1          1               1               0     
     <div class="container-lg clearfix">
         <div class="col-12 footer">
             
-            <span>&copy; 2020-2022
+            <span>&copy; 2020-2023
                 <a href="https://richard-chen93.github.io">Richard.chen</a>
                  | <a href="https://github.com/richard-chen93/blog">Source code</a> 
                 | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"

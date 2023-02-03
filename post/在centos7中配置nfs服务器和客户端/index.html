@@ -111,7 +111,7 @@
         <a href="https://richard-chen93.github.io/post/%E5%9C%A8centos7%E4%B8%AD%E9%85%8D%E7%BD%AEnfs%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/">在CentOS7中配置NFS服务器和客户端</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-09-02</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1046 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-09-02</span><span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1062 words</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/technology">technology</a>&nbsp;</span>
 
         <span id="wc" style="font-size: 1rem;text-align: center;">
             阅读大约需要 3分钟 | 本文总阅读量
@@ -274,6 +274,8 @@ IP：192.168.1.101<br>
 <li>mount the nfs on z:</li>
 </ul>
 <p><strong>mount IP:/Share -o nolock,rsize=1024,wsize=1024,timeo=15 z:</strong></p>
+<h1 id="macos挂载">macos挂载</h1>
+<p>服务器需要加上  /data/nfsdata *(rw,sync,insecure)</p>
 
     </div>
 </article>
@@ -502,7 +504,7 @@ IP：192.168.1.101<br>
     <div class="container-lg clearfix">
         <div class="col-12 footer">
             
-            <span>&copy; 2020-2022
+            <span>&copy; 2020-2023
                 <a href="https://richard-chen93.github.io">Richard.chen</a>
                  | <a href="https://github.com/richard-chen93/blog">Source code</a> 
                 | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
